@@ -124,6 +124,46 @@ Images on light slides with clean borders and structured alignment. Data-first, 
 
 ---
 
+## Chart: Market Share
+Regional distribution of active users
+
+- North America: 40%
+- Europe: 30%
+- Asia Pacific: 20%
+- Other: 10%
+
+---
+
+## Bar Chart: Revenue by Region
+Annual revenue in millions (USD)
+
+- North America: 850
+- Europe: 620
+- Asia Pacific: 480
+- Latin America: 210
+- Middle East: 140
+
+---
+
+## Progress: Q4 Goals
+Tracking against quarterly targets
+
+- Customer Satisfaction: 92%
+- Revenue Target: 78%
+- User Growth: 85%
+
+---
+
+## Funnel: Sales Pipeline
+Conversion through the sales process
+
+1. Leads — 10,000
+2. Qualified — 4,200
+3. Proposals — 1,800
+4. Closed Won — 620
+
+---
+
 ## Thank You
 Questions, feedback, and open discussion
 

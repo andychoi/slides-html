@@ -1222,3 +1222,347 @@ Structure is similar across presets (Black adds `slide--light grid-bg-light` and
     </div>
 </section>
 ```
+
+---
+
+### 15. Donut Chart Slide (`chart-donut-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide chart-donut-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Chart Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="donut-chart reveal">
+            <div class="donut-svg">
+                <svg viewBox="0 0 200 200" role="img" aria-label="Donut chart showing market share">
+                    <title>Market Share Distribution</title>
+                    <!-- Circumference = 2 * PI * 80 = 502.65 -->
+                    <!-- stroke-dasharray: [pct/100*502.65] 502.65 -->
+                    <!-- stroke-dashoffset: cumulative negative offset -->
+                    <circle class="donut-segment" cx="100" cy="100" r="80"
+                        fill="none" stroke="var(--chart-1)" stroke-width="25"
+                        stroke-dasharray="201.06 502.65" stroke-dashoffset="0"
+                        style="--target-offset: 0">
+                        <title>North America: 40%</title>
+                    </circle>
+                    <circle class="donut-segment" cx="100" cy="100" r="80"
+                        fill="none" stroke="var(--chart-2)" stroke-width="25"
+                        stroke-dasharray="150.80 502.65" stroke-dashoffset="-201.06"
+                        style="--target-offset: -201.06">
+                        <title>Europe: 30%</title>
+                    </circle>
+                    <circle class="donut-segment" cx="100" cy="100" r="80"
+                        fill="none" stroke="var(--chart-3)" stroke-width="25"
+                        stroke-dasharray="100.53 502.65" stroke-dashoffset="-351.86"
+                        style="--target-offset: -351.86">
+                        <title>Asia Pacific: 20%</title>
+                    </circle>
+                    <circle class="donut-segment" cx="100" cy="100" r="80"
+                        fill="none" stroke="var(--chart-4)" stroke-width="25"
+                        stroke-dasharray="50.27 502.65" stroke-dashoffset="-452.39"
+                        style="--target-offset: -452.39">
+                        <title>Other: 10%</title>
+                    </circle>
+                    <text class="donut-center" x="100" y="100" text-anchor="middle" dominant-baseline="central">100%</text>
+                </svg>
+            </div>
+            <div class="donut-legend">
+                <div class="donut-legend-item">
+                    <span class="donut-swatch" style="background: var(--chart-1)"></span>
+                    <span>North America</span>
+                    <span>40%</span>
+                </div>
+                <div class="donut-legend-item">
+                    <span class="donut-swatch" style="background: var(--chart-2)"></span>
+                    <span>Europe</span>
+                    <span>30%</span>
+                </div>
+                <div class="donut-legend-item">
+                    <span class="donut-swatch" style="background: var(--chart-3)"></span>
+                    <span>Asia Pacific</span>
+                    <span>20%</span>
+                </div>
+                <div class="donut-legend-item">
+                    <span class="donut-swatch" style="background: var(--chart-4)"></span>
+                    <span>Other</span>
+                    <span>10%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 18</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide chart-donut-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Chart Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="donut-chart reveal">
+            <!-- Same SVG + legend structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 18</span>
+    </div>
+</section>
+```
+
+---
+
+### 16. Bar Chart Slide (`chart-bar-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide chart-bar-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Bar Chart Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="bar-chart reveal" role="img" aria-label="Bar chart showing revenue by region">
+            <!-- Values normalized: max=850 → 100%, others proportional -->
+            <div class="bar-row">
+                <span class="bar-label">North America</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="--bar-width: 100%"></div>
+                </div>
+                <span class="bar-value">850</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Europe</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="--bar-width: 73%"></div>
+                </div>
+                <span class="bar-value">620</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Asia Pacific</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="--bar-width: 56%"></div>
+                </div>
+                <span class="bar-value">480</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Latin America</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="--bar-width: 25%"></div>
+                </div>
+                <span class="bar-value">210</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Middle East</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="--bar-width: 16%"></div>
+                </div>
+                <span class="bar-value">140</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 18</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide chart-bar-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Bar Chart Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="bar-chart reveal" role="img" aria-label="Bar chart showing revenue by region">
+            <!-- Same bar-row structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 18</span>
+    </div>
+</section>
+```
+
+---
+
+### 17. Progress Rings Slide (`chart-progress-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide chart-progress-slide" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="red-bar-h reveal"></div>
+        <h2 class="slide-title" style="position:relative">Progress Title</h2>
+        <div class="progress-rings reveal">
+            <div class="progress-ring-item">
+                <div class="progress-ring-svg">
+                    <svg viewBox="0 0 200 200" role="img" aria-label="Customer Satisfaction: 92%">
+                        <title>Customer Satisfaction: 92%</title>
+                        <circle class="progress-track" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                        <circle class="progress-fill" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-1)" stroke-width="20"
+                            stroke-dasharray="462.44 502.65"
+                            stroke-linecap="round"
+                            style="--target-offset: 0"/>
+                        <text class="progress-value" x="100" y="100"
+                            text-anchor="middle" dominant-baseline="central">92%</text>
+                    </svg>
+                </div>
+                <div class="progress-label">Customer Satisfaction</div>
+            </div>
+            <div class="progress-ring-item">
+                <div class="progress-ring-svg">
+                    <svg viewBox="0 0 200 200" role="img" aria-label="Revenue Target: 78%">
+                        <title>Revenue Target: 78%</title>
+                        <circle class="progress-track" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                        <circle class="progress-fill" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-2)" stroke-width="20"
+                            stroke-dasharray="392.07 502.65"
+                            stroke-linecap="round"
+                            style="--target-offset: 0"/>
+                        <text class="progress-value" x="100" y="100"
+                            text-anchor="middle" dominant-baseline="central">78%</text>
+                    </svg>
+                </div>
+                <div class="progress-label">Revenue Target</div>
+            </div>
+            <div class="progress-ring-item">
+                <div class="progress-ring-svg">
+                    <svg viewBox="0 0 200 200" role="img" aria-label="User Growth: 85%">
+                        <title>User Growth: 85%</title>
+                        <circle class="progress-track" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                        <circle class="progress-fill" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-3)" stroke-width="20"
+                            stroke-dasharray="427.25 502.65"
+                            stroke-linecap="round"
+                            style="--target-offset: 0"/>
+                        <text class="progress-value" x="100" y="100"
+                            text-anchor="middle" dominant-baseline="central">85%</text>
+                    </svg>
+                </div>
+                <div class="progress-label">User Growth</div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 18</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide chart-progress-slide slide--dark grid-bg-dark" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Progress Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="progress-rings reveal">
+            <!-- Same progress-ring-item structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 18</span>
+    </div>
+</section>
+```
+
+---
+
+### 18. Funnel Slide (`funnel-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide funnel-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Funnel Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="funnel-chart reveal">
+            <svg viewBox="0 0 400 300" role="img" aria-label="Sales funnel showing conversion stages">
+                <title>Sales Pipeline Funnel</title>
+                <g class="funnel-stage">
+                    <polygon class="funnel-shape" points="20,10 380,10 350,75 50,75"
+                        fill="var(--chart-1)"/>
+                    <text class="funnel-label" x="200" y="35" text-anchor="middle">Leads</text>
+                    <text class="funnel-value" x="200" y="58" text-anchor="middle">10,000</text>
+                </g>
+                <g class="funnel-stage">
+                    <polygon class="funnel-shape" points="50,80 350,80 310,145 90,145"
+                        fill="var(--chart-2)"/>
+                    <text class="funnel-label" x="200" y="105" text-anchor="middle">Qualified</text>
+                    <text class="funnel-value" x="200" y="128" text-anchor="middle">4,200</text>
+                </g>
+                <g class="funnel-stage">
+                    <polygon class="funnel-shape" points="90,150 310,150 270,215 130,215"
+                        fill="var(--chart-3)"/>
+                    <text class="funnel-label" x="200" y="175" text-anchor="middle">Proposals</text>
+                    <text class="funnel-value" x="200" y="198" text-anchor="middle">1,800</text>
+                </g>
+                <g class="funnel-stage">
+                    <polygon class="funnel-shape" points="130,220 270,220 250,285 150,285"
+                        fill="var(--chart-4)"/>
+                    <text class="funnel-label" x="200" y="245" text-anchor="middle">Closed Won</text>
+                    <text class="funnel-value" x="200" y="268" text-anchor="middle">620</text>
+                </g>
+            </svg>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 18</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide funnel-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Funnel Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="funnel-chart reveal">
+            <!-- Same SVG funnel structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 18</span>
+    </div>
+</section>
+```

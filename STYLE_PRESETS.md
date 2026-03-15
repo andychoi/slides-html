@@ -25,6 +25,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --text-secondary: rgba(0, 0, 0, 0.5);
     --grid-color: rgba(0, 0, 0, 0.06);
     --border-color: rgba(0, 0, 0, 0.12);
+    /* Chart palette */
+    --chart-1: #ff3300;
+    --chart-2: #000000;
+    --chart-3: #666666;
+    --chart-4: #999999;
+    --chart-5: #cccccc;
+    --chart-6: #e0e0e0;
+    --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
 
@@ -70,6 +78,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --gray-light: #ececec;
     --gray-mid: #c0c0c0;
     --gray-dark: #4a4a4a;
+    /* Chart palette */
+    --chart-1: #f8f8f8;
+    --chart-2: #c0c0c0;
+    --chart-3: #888888;
+    --chart-4: #555555;
+    --chart-5: #333333;
+    --chart-6: #1a1a1a;
+    --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
 
@@ -116,6 +132,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --gray-light: #e8e6e2;
     --gray-mid: #BFBAAF;
     --gray-dark: #60605B;
+    /* Chart palette */
+    --chart-1: #003082;
+    --chart-2: #4a6fa5;
+    --chart-3: #BFBAAF;
+    --chart-4: #60605B;
+    --chart-5: #8a9bb5;
+    --chart-6: #c4d0e0;
+    --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
 
@@ -148,6 +172,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --gray-mid: #9ca3af;
     --gray-dark: #4b5563;
     --accent: #BB162B;
+    /* Chart palette */
+    --chart-1: #BB162B;
+    --chart-2: #ffffff;
+    --chart-3: #9ca3af;
+    --chart-4: #4b5563;
+    --chart-5: #374151;
+    --chart-6: #1f2937;
+    --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
 
@@ -177,6 +209,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --card-bg: #FF5722;
     --text-primary: #ffffff;
     --text-on-card: #1a1a1a;
+    /* Chart palette */
+    --chart-1: #FF5722;
+    --chart-2: #ffffff;
+    --chart-3: #888888;
+    --chart-4: #555555;
+    --chart-5: #333333;
+    --chart-6: #1a1a1a;
+    --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
 

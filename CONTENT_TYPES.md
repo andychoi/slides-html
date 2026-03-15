@@ -22,6 +22,10 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 | 12 | **Stat Highlight** | `stat-slide` | Dark | 1-3 large numbers with labels — KPIs, metrics |
 | 13 | **Process / Flow** | `process-slide` | Light | Sequential steps connected by arrows |
 | 14 | **Closing / Q&A** | `closing-slide` | Dark | Final slide — thank you, contact info, Q&A |
+| 15 | **Donut Chart** | `chart-donut-slide` | Light | Parts-of-whole data — 2-6 segments as SVG donut ring |
+| 16 | **Bar Chart** | `chart-bar-slide` | Light | Comparative quantities — 3-8 horizontal bars |
+| 17 | **Progress Rings** | `chart-progress-slide` | Dark | Independent metrics — 2-4 animated circular gauges |
+| 18 | **Funnel** | `funnel-slide` | Light | Pipeline/conversion — 3-5 narrowing SVG trapezoid stages |
 
 ---
 
@@ -243,6 +247,71 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 
 ---
 
+### 15. Donut Chart (`chart-donut-slide`)
+
+**Purpose:** Visualizing parts of a whole — percentages that sum to ~100%.
+
+**Structure:**
+- Two-column layout: SVG donut (left) + HTML legend (right)
+- SVG `viewBox="0 0 200 200"`, circles with `stroke-dasharray`
+- Legend: `.donut-legend` with `.donut-legend-item` rows (swatch + label + value)
+- Optional center label via SVG `<text>`
+
+**When to use:** Market share, budget allocation, survey results, any data showing composition.
+
+**Markdown cue:** `## Chart: Title` followed by `- Label: N%` items (must sum to ~100%).
+
+---
+
+### 16. Bar Chart (`chart-bar-slide`)
+
+**Purpose:** Comparing quantities across categories with horizontal bars.
+
+**Structure:**
+- Vertical stack of `.bar-row` elements (3-8 bars)
+- Each row: `.bar-label` (left) + `.bar-track` > `.bar-fill` (middle) + `.bar-value` (right)
+- Bar widths normalized to percentage of max value via `--bar-width` CSS variable
+- Horizontal orientation for label readability
+
+**When to use:** Revenue by region, feature usage counts, survey responses, any categorical comparison.
+
+**Markdown cue:** `## Bar Chart: Title` followed by `- Label: N` items (raw numbers, not percentages).
+
+---
+
+### 17. Progress Rings (`chart-progress-slide`)
+
+**Purpose:** Showing progress toward independent goals or targets.
+
+**Structure:**
+- Flex row of 2-4 `.progress-ring-item` elements
+- Each ring: background circle (`.progress-track`) + animated foreground (`.progress-fill`)
+- Center text: percentage value via SVG `<text>`
+- Label below each ring: `.progress-label`, uppercase muted
+- Dark background for dramatic contrast
+
+**When to use:** KPI dashboards, quarterly goal tracking, completion metrics, skill assessments.
+
+**Markdown cue:** `## Progress: Title` followed by `- Label: N%` items (independent metrics, each 0-100%).
+
+---
+
+### 18. Funnel (`funnel-slide`)
+
+**Purpose:** Visualizing a narrowing pipeline or conversion process.
+
+**Structure:**
+- Single SVG with `<polygon>` trapezoids, each narrower than above
+- Stage labels + values via SVG `<text>` centered in each trapezoid
+- Colors from chart palette (`--chart-1` through `--chart-5`)
+- Stages cascade in with staggered animation
+
+**When to use:** Sales pipelines, conversion funnels, recruitment processes, any narrowing flow.
+
+**Markdown cue:** `## Funnel: Title` followed by `1. Label — Value` numbered items.
+
+---
+
 ## Choosing the Right Layout
 
 ```
@@ -265,6 +334,12 @@ Does it compare things?
 
 Does it present large metrics?
   → Stat Highlight (1-3 numbers, dramatic)
+
+Does it show data as a chart or visualization?
+  → Parts of a whole (% summing to 100%)? → Donut Chart
+  → Quantities compared across categories? → Bar Chart
+  → Progress toward independent goals? → Progress Rings
+  → Narrowing pipeline or conversion? → Funnel
 
 Does it show code?
   → Code
@@ -344,6 +419,19 @@ A well-structured 15-slide deck typically follows this pattern:
 | Process arrow | `.process-arrow` | CSS triangle between steps |
 | Closing heading | `.closing-heading` | Large "Thank You" text |
 | Closing contact | `.closing-contact` | Flex row of contact items |
+| Donut container | `.donut-chart` | Two-column flex: SVG + legend |
+| Donut segment | `.donut-segment` | SVG `<circle>`, `stroke-dasharray` animation |
+| Donut legend | `.donut-legend` | Vertical list of legend items |
+| Donut swatch | `.donut-swatch` | Small colored square matching segment |
+| Bar container | `.bar-chart` | Vertical stack of bar rows |
+| Bar row | `.bar-row` | Flex row: label + bar + value |
+| Bar fill | `.bar-fill` | Animated width via `--bar-width` |
+| Progress rings | `.progress-rings` | Flex row of ring items |
+| Progress fill | `.progress-fill` | SVG circle, animated `stroke-dashoffset` |
+| Progress label | `.progress-label` | Uppercase muted label below ring |
+| Funnel container | `.funnel-chart` | Wraps the SVG funnel |
+| Funnel stage | `.funnel-stage` | SVG `<g>` with polygon + text |
+| Funnel shape | `.funnel-shape` | SVG `<polygon>`, colored via `--chart-N` |
 
 ### Black Preset Classes (also used by Blue, Black Midnight)
 
@@ -372,3 +460,16 @@ A well-structured 15-slide deck typically follows this pattern:
 | Process step | `.process-step` | Step box with `.process-step-num`/`-title`/`-desc` |
 | Closing title | `.closing-title` | Large "Thank You" text |
 | Closing contact | `.closing-contact` | Flex row of bordered contact items |
+| Donut container | `.donut-chart` | Two-column flex: SVG + legend |
+| Donut segment | `.donut-segment` | SVG `<circle>`, `stroke-dasharray` animation |
+| Donut legend | `.donut-legend` | Vertical list of legend items |
+| Donut swatch | `.donut-swatch` | Small colored square matching segment |
+| Bar container | `.bar-chart` | Vertical stack of bar rows |
+| Bar row | `.bar-row` | Flex row: label + bar + value |
+| Bar fill | `.bar-fill` | Animated width via `--bar-width` |
+| Progress rings | `.progress-rings` | Flex row of ring items |
+| Progress fill | `.progress-fill` | SVG circle, animated `stroke-dashoffset` |
+| Progress label | `.progress-label` | Uppercase muted label below ring |
+| Funnel container | `.funnel-chart` | Wraps the SVG funnel |
+| Funnel stage | `.funnel-stage` | SVG `<g>` with polygon + text |
+| Funnel shape | `.funnel-shape` | SVG `<polygon>`, colored via `--chart-N` |
