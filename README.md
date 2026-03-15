@@ -149,7 +149,7 @@ Every preset includes all 14 layout types:
 Clone to your Claude Code skills directory:
 
 ```bash
-git clone https://github.com/anthropics/slides-html.git ~/.claude/skills/slides
+git clone https://github.com/andychoi/slides-html.git ~/.claude/skills/slides
 ```
 
 Then use `/slides` in Claude Code.
