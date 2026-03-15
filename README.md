@@ -69,7 +69,7 @@ Understanding the competitive landscape
 
 ## Stats
 - 98% — Performance Score
-- 13 — Slide Layouts
+- 14 — Slide Layouts
 - <1s — Load Time
 
 ---
@@ -115,8 +115,10 @@ See [CONTENT_TYPES.md](CONTENT_TYPES.md) for full layout reference.
 
 | Preset | Vibe | Background |
 |---|---|---|
-| **Default** | Clean, structured, Swiss-inspired | White with red accent |
+| **Red** | Clean, structured, bold red accent | White with red accent |
 | **Black** | Dark-first, data-dense, professional | Alternating dark/light |
+| **Blue** | Corporate, premium, navy + warm silver | Navy-tinted dark/light |
+| **Black Midnight** | Deep midnight with strategic red | Midnight blue-black |
 | **Bold Signal** | Confident, high-impact, vibrant | Dark gradient with colored card |
 
 Preview all styles: open `style-samples/index.html` in your browser.
@@ -174,9 +176,11 @@ slides-html/
     viewport-base.css        # Mandatory responsive base CSS
   style-samples/
     index.html               # Style gallery
-    00-default.html          # Default preset (14 layouts)
+    00-default.html          # Red preset (14 layouts)
     01-bold-signal.html      # Bold Signal preset
     02-black.html            # Black preset (14 layouts)
+    03-blue.html             # Blue preset (14 layouts)
+    04-black-midnight.html   # Black Midnight preset (14 layouts)
   scripts/
     extract-pptx.py          # PowerPoint content extraction
 ```

@@ -345,3 +345,880 @@ Multiple presentations in one project:
 [name].html
 [name]-assets/
 ```
+
+## Layout HTML Reference
+
+Concrete HTML structure for all 14 slide layout types. Each example shows the complete `<section>` element with all required child elements, CSS classes, and reveal animations.
+
+**Preset differences:** The Default/Red preset uses decorative Swiss grid lines (`div.swiss-grid`) and geometric shapes as visual accents. The Black preset uses `slide--dark`/`slide--light` theme classes and `grid-bg-dark`/`grid-bg-light` CSS background patterns instead. Where the inner HTML structure differs between presets, both versions are shown.
+
+**Animation pattern:** All presets use `.slide.visible .reveal` for scroll-triggered animations. The `.visible` class is added by the Intersection Observer when a slide enters the viewport.
+
+---
+
+### 1. Title Slide (`title-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide title-slide" data-slide="1">
+    <!-- Optional: decorative Swiss grid lines -->
+    <div class="swiss-grid decorative">
+        <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+        <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+        <div class="swiss-grid-line v"></div>
+        <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+        <div class="swiss-grid-line h"></div>
+    </div>
+    <!-- Optional: geometric accent shapes -->
+    <div class="geo-circle decorative"></div>
+    <div class="geo-rect decorative"></div>
+    <!-- Optional: small label in corner -->
+    <div class="section-title">Title Slide</div>
+    <!-- Required: slide content -->
+    <div class="slide-content">
+        <h1 class="reveal">Presentation<br>Title</h1>
+        <div class="title-barline reveal"></div>  <!-- Required: accent divider -->
+        <p class="subtitle reveal">Subtitle or tagline</p>
+    </div>
+    <!-- Optional: bottom rule with section name and slide number -->
+    <div class="bottom-rule">
+        <span>Section Name</span>
+        <span class="slide-num">01 / 14</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide title-slide slide--dark grid-bg-dark" data-slide="1">
+    <!-- Optional: decorative hairlines -->
+    <div class="title-hline decorative"></div>
+    <div class="title-vline decorative"></div>
+    <div class="title-year">LABEL TEXT</div>
+    <!-- Required: slide content -->
+    <div class="slide-content">
+        <p class="title-overline reveal">Overline text</p>
+        <h1 class="reveal">Presentation<br>Title</h1>
+        <p class="title-sub reveal">Extended subtitle or description</p>
+        <!-- Optional: tag pills -->
+        <div class="title-tags reveal">
+            <span class="title-tag">Tag One</span>
+            <span class="title-tag">Tag Two</span>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">01 / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 2. Content Slide (`content-slide`)
+
+**Default/Red preset** (two-column: lead text left, bullet items right):
+
+```html
+<section class="slide content-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Slide Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <!-- Left column: lead paragraph -->
+        <div class="content-left">
+            <p class="lead-text reveal">Lead paragraph text.</p>
+        </div>
+        <!-- Right column: bullet items -->
+        <div class="content-right">
+            <div class="bullet-item reveal">
+                <div class="bullet-marker"></div>         <!-- square (default) -->
+                <div>
+                    <strong>Item title</strong>
+                    <span class="desc">Item description.</span>
+                </div>
+            </div>
+            <div class="bullet-item reveal">
+                <div class="bullet-marker circle"></div>  <!-- circle variant -->
+                <div>
+                    <strong>Item title</strong>
+                    <span class="desc">Item description.</span>
+                </div>
+            </div>
+            <div class="bullet-item reveal">
+                <div class="bullet-marker filled"></div>  <!-- filled variant -->
+                <div>
+                    <strong>Item title</strong>
+                    <span class="desc">Item description.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (feature table with key/value rows):
+
+```html
+<section class="slide content-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Slide Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <!-- Feature table: key/value rows -->
+        <div class="ftable reveal">
+            <div class="frow two hdr">
+                <div class="fhdr">Column A</div>
+                <div class="fhdr">Column B</div>
+            </div>
+            <div class="frow two">
+                <div class="fkey">Key</div>
+                <div class="fval">Value description</div>
+            </div>
+            <!-- More frow elements as needed -->
+        </div>
+        <!-- Optional: callout block -->
+        <div class="callout reveal">
+            <p>Emphasis text or key takeaway.</p>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 3. Feature Grid (`grid-slide`)
+
+**Default/Red preset** (numbered cells in a 2x3 or 3x2 grid):
+
+```html
+<section class="slide grid-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Grid Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="swiss-feature-grid reveal">
+            <div class="swiss-feature-cell">
+                <div class="cell-number">01</div>
+                <h3>Feature Name</h3>
+                <p>Feature description</p>
+            </div>
+            <div class="swiss-feature-cell">
+                <div class="cell-number">02</div>
+                <h3>Feature Name</h3>
+                <p>Feature description</p>
+            </div>
+            <!-- Typically 4-6 cells -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (property grid with name/description cards):
+
+```html
+<section class="slide grid-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Grid Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="prop-grid reveal">
+            <div class="prop-item">
+                <div class="prop-name">Property Name</div>
+                <div class="prop-desc">Property description</div>
+            </div>
+            <!-- More prop-item elements; use class="prop-item full" for full-width -->
+        </div>
+        <!-- Optional: callout -->
+        <div class="callout reveal">
+            <p>Key takeaway text.</p>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 4. Code Slide (`code-slide`)
+
+Structure is the same across presets (Black adds `slide--dark grid-bg-dark`):
+
+```html
+<section class="slide code-slide" data-slide="N">
+    <!-- Black preset adds: class="... slide--dark grid-bg-dark" -->
+    <div class="swiss-grid decorative"><!-- grid lines (Default only) --></div>
+    <h2 class="slide-title">Code Title</h2>         <!-- Default: direct h2 -->
+    <p class="slide-subtitle">Subtitle</p>           <!-- Default: direct p -->
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <!-- Black preset uses slide-header instead of direct h2/p -->
+        <div class="code-container reveal">
+            <!-- Optional: tab bar -->
+            <div class="code-tab-bar">
+                <div class="code-tab active">Filename.ext</div>
+                <div class="code-tab">Tab 2</div>
+            </div>
+            <!-- Required: pre block with syntax spans -->
+            <pre><span class="cm">/* comment */</span>
+<span class="kw">selector</span> {
+    <span class="fn">property</span>: <span class="str">value</span>;
+    <span class="fn">property</span>: <span class="num">123</span>;
+}</pre>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+Syntax highlight classes: `.cm` (comment), `.kw` (keyword), `.fn` (function/property), `.str` (string), `.num` (number).
+
+---
+
+### 5. Quote Slide (`quote-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide quote-slide" data-slide="N">
+    <!-- Optional: decorative circle -->
+    <div class="quote-circle decorative"></div>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="red-bar-h reveal"></div>  <!-- Horizontal accent bar -->
+        <blockquote class="reveal">
+            Quote text here.
+        </blockquote>
+        <p class="attribution reveal">-- Author Name</p>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide quote-slide slide--dark" data-slide="N">
+    <div class="quote-vline decorative"></div>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="callout callout--faint reveal">
+            <blockquote class="reveal">
+                Quote text here.
+            </blockquote>
+        </div>
+        <p class="attribution reveal">-- Author Name</p>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 6. Image Slide (`image-slide`)
+
+Structure is similar across presets (Black adds `slide--light grid-bg-light` and wraps header in `slide-header`):
+
+```html
+<section class="slide image-slide" data-slide="N">
+    <!-- Black preset adds: class="... slide--light grid-bg-light" -->
+    <div class="swiss-grid decorative"><!-- grid lines (Default only) --></div>
+    <h2 class="slide-title">Image Title</h2>          <!-- Default: direct h2 -->
+    <p class="slide-subtitle">Subtitle</p>             <!-- Default: direct p -->
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <!-- Black preset wraps h2 + p in <div class="slide-header reveal"> -->
+        <div>
+            <p class="image-desc reveal">Description of the image context.</p>
+        </div>
+        <!-- Image placeholder (replace with actual img in production) -->
+        <div class="image-placeholder reveal">
+            <div class="ph-icon">&#9633;</div>
+            <div class="ph-text">Your image here</div>
+        </div>
+        <!-- Production: use <img> instead -->
+        <!-- <img src="assets/photo.png" alt="Description" class="slide-image reveal"> -->
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 7. Section Divider (`section-divider`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide section-divider" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <!-- Required: large faded section number -->
+    <div class="section-number reveal">02</div>
+    <!-- Optional: geometric accent -->
+    <div class="geo-accent decorative"></div>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <h2 class="section-divider-title reveal">Section<br>Name</h2>
+        <p class="section-divider-subtitle reveal">Brief section description.</p>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide section-divider slide--dark grid-bg-dark" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="divider-number reveal">01</div>
+        <h2 class="divider-title reveal">Section<br>Name</h2>
+        <p class="divider-subtitle reveal">Brief section description.</p>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 8. Agenda/TOC Slide (`agenda-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide agenda-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Agenda</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="agenda-list reveal">
+            <div class="agenda-item">
+                <span class="agenda-num">01</span>
+                <div class="agenda-text">
+                    <h3>Section Title</h3>
+                    <p>Section description</p>
+                </div>
+            </div>
+            <div class="agenda-item active">  <!-- active = highlighted -->
+                <span class="agenda-num">02</span>
+                <div class="agenda-text">
+                    <h3>Current Section</h3>
+                    <p>This section is highlighted</p>
+                </div>
+            </div>
+            <!-- More agenda-item elements -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (flatter structure, no nested `agenda-text` wrapper):
+
+```html
+<section class="slide agenda-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Agenda</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="agenda-list reveal">
+            <div class="agenda-item">
+                <span class="agenda-num">01</span>
+                <span class="agenda-label">Section Title</span>
+                <span class="agenda-desc">Section description</span>
+            </div>
+            <div class="agenda-item active">
+                <span class="agenda-num">02</span>
+                <span class="agenda-label">Current Section</span>
+                <span class="agenda-desc">This section is highlighted</span>
+            </div>
+            <!-- More agenda-item elements -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 9. Timeline/Roadmap Slide (`timeline-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide timeline-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Roadmap</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="timeline-container reveal">
+            <div class="timeline-item">
+                <span class="timeline-date">Q1 2025</span>
+                <div class="timeline-marker"></div>
+                <div class="timeline-label">
+                    <h4>Milestone Name</h4>
+                    <p>Milestone description</p>
+                </div>
+            </div>
+            <div class="timeline-item active">  <!-- active = current -->
+                <span class="timeline-date">Q2 2025</span>
+                <div class="timeline-marker"></div>
+                <div class="timeline-label">
+                    <h4>Current Milestone</h4>
+                    <p>This milestone is highlighted</p>
+                </div>
+            </div>
+            <!-- More timeline-item elements -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (uses `timeline-track` container and `timeline-dot` instead of `timeline-marker`):
+
+```html
+<section class="slide timeline-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Roadmap Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="timeline-track reveal">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">Q1 2026</div>
+                <div class="timeline-title">Milestone</div>
+                <div class="timeline-desc">Description text</div>
+            </div>
+            <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">Q2 2026</div>
+                <div class="timeline-title">Current</div>
+                <div class="timeline-desc">Description text</div>
+            </div>
+            <!-- More timeline-item elements -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 10. Comparison Slide (`comparison-slide`)
+
+**Default/Red preset** (uses bullet-item markup inside columns):
+
+```html
+<section class="slide comparison-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Comparison Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="comparison-col col-left reveal">
+            <div class="col-header">Option A</div>
+            <div class="bullet-item">
+                <div class="bullet-marker filled"></div>
+                <div>
+                    <strong>Point title</strong>
+                    <span class="desc">Point description.</span>
+                </div>
+            </div>
+            <!-- More bullet-item elements -->
+        </div>
+        <div class="comparison-col col-right reveal">
+            <div class="col-header">Option B</div>
+            <div class="bullet-item">
+                <div class="bullet-marker"></div>
+                <div>
+                    <strong>Point title</strong>
+                    <span class="desc">Point description.</span>
+                </div>
+            </div>
+            <!-- More bullet-item elements -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (uses `<ul>` lists inside a `comparison-grid`):
+
+```html
+<section class="slide comparison-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Comparison Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="comparison-grid reveal">
+            <div class="comparison-col">
+                <div class="comparison-col-header">Option A</div>
+                <ul class="comparison-list">
+                    <li>Point one</li>
+                    <li>Point two</li>
+                    <!-- More list items -->
+                </ul>
+            </div>
+            <div class="comparison-col">
+                <div class="comparison-col-header">Option B</div>
+                <ul class="comparison-list">
+                    <li>Point one</li>
+                    <li>Point two</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 11. Table/Matrix Slide (`table-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide table-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Table Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <table class="swiss-table reveal">
+            <thead>
+                <tr>
+                    <th>Column A</th>
+                    <th>Column B</th>
+                    <th>Column C</th>
+                    <th>Column D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row label</td>
+                    <td>Value</td>
+                    <td>Value</td>
+                    <td>Value</td>
+                </tr>
+                <!-- More rows -->
+            </tbody>
+        </table>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (uses `data-table` class and `slide-header` wrapper):
+
+```html
+<section class="slide table-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Table Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <table class="data-table reveal">
+            <thead>
+                <tr>
+                    <th>Column A</th>
+                    <th>Column B</th>
+                    <th>Column C</th>
+                    <th>Column D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row label</td>
+                    <td>Value</td>
+                    <td>Value</td>
+                    <td>Value</td>
+                </tr>
+                <!-- More rows -->
+            </tbody>
+        </table>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 12. Stat Highlight Slide (`stat-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide stat-slide" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="red-bar-h reveal"></div>  <!-- Horizontal accent bar -->
+        <div class="stat-row">
+            <div class="stat-item reveal">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Metric Label</span>
+            </div>
+            <div class="stat-item reveal">
+                <span class="stat-number">42</span>
+                <span class="stat-label">Metric Label</span>
+            </div>
+            <div class="stat-item reveal">
+                <span class="stat-number">&lt;1s</span>
+                <span class="stat-label">Metric Label</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (uses `<div>` instead of `<span>` for stat children, adds context line):
+
+```html
+<section class="slide stat-slide slide--dark grid-bg-dark" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="stat-row reveal">
+            <div class="stat-item">
+                <div class="stat-number">94%</div>
+                <div class="stat-label">Metric Label</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2.4M</div>
+                <div class="stat-label">Metric Label</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3.2x</div>
+                <div class="stat-label">Metric Label</div>
+            </div>
+        </div>
+        <!-- Optional: context footnote -->
+        <p class="stat-context reveal">Source or timeframe note</p>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 13. Process/Flow Slide (`process-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide process-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Process Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="process-flow reveal">
+            <div class="process-step">
+                <span class="step-number">01</span>
+                <span class="step-title">Step Name</span>
+                <span class="step-desc">Step description</span>
+            </div>
+            <div class="process-arrow"></div>  <!-- CSS arrow connector -->
+            <div class="process-step active">  <!-- active = current step -->
+                <span class="step-number">02</span>
+                <span class="step-title">Current Step</span>
+                <span class="step-desc">Step description</span>
+            </div>
+            <div class="process-arrow"></div>
+            <div class="process-step">
+                <span class="step-number">03</span>
+                <span class="step-title">Step Name</span>
+                <span class="step-desc">Step description</span>
+            </div>
+            <!-- More step/arrow pairs as needed -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (uses `process-track` container, `<div>` children, and `&rarr;` in arrows):
+
+```html
+<section class="slide process-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Process Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="process-track reveal">
+            <div class="process-step">
+                <div class="process-step-num">01</div>
+                <div class="process-step-title">Step Name</div>
+                <div class="process-step-desc">Step description</div>
+            </div>
+            <div class="process-arrow">&rarr;</div>
+            <div class="process-step active">
+                <div class="process-step-num">02</div>
+                <div class="process-step-title">Current Step</div>
+                <div class="process-step-desc">Step description</div>
+            </div>
+            <div class="process-arrow">&rarr;</div>
+            <div class="process-step">
+                <div class="process-step-num">03</div>
+                <div class="process-step-title">Step Name</div>
+                <div class="process-step-desc">Step description</div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```
+
+---
+
+### 14. Closing/Q&A Slide (`closing-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide closing-slide" data-slide="N">
+    <div class="section-title">Close</div>
+    <div class="slide-content">
+        <div class="red-bar-h reveal"></div>  <!-- Horizontal accent bar -->
+        <h2 class="closing-heading reveal">Thank You</h2>
+        <p class="closing-subtitle reveal">Questions, feedback, and next steps</p>
+        <div class="closing-contact reveal">
+            <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">hello@example.com</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">Website</span>
+                <span class="contact-value">example.com</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">Follow</span>
+                <span class="contact-value">@handle</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Close</span>
+        <span class="slide-num">N / 14</span>
+    </div>
+</section>
+```
+
+**Black preset** (different class names for contact elements):
+
+```html
+<section class="slide closing-slide slide--dark grid-bg-dark" data-slide="N">
+    <div class="section-title">Close</div>
+    <div class="slide-content">
+        <h2 class="closing-title reveal">Thank You</h2>
+        <p class="closing-subtitle reveal">Questions, feedback, and open discussion</p>
+        <div class="closing-contact reveal">
+            <div class="closing-contact-item">
+                <span class="closing-contact-label">Email</span>
+                <span class="closing-contact-value">hello@example.com</span>
+            </div>
+            <div class="closing-contact-item">
+                <span class="closing-contact-label">Web</span>
+                <span class="closing-contact-value">example.com</span>
+            </div>
+            <div class="closing-contact-item">
+                <span class="closing-contact-label">Social</span>
+                <span class="closing-contact-value">@handle</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Close</span>
+        <span class="slide-num-label">N / 14</span>
+    </div>
+</section>
+```

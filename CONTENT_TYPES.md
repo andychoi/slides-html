@@ -47,7 +47,7 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 **Purpose:** The default layout for presenting ideas with supporting detail.
 
 **Structure:**
-- **Default preset:** Slide title top-left + red bar, subtitle below, two-column grid (description left, bullet list right)
+- **Red preset:** Slide title top-left + red bar, subtitle below, two-column grid (description left, bullet list right)
 - **Black preset:** Slide header with top border, feature table (key/value rows) or bullet content
 
 **When to use:** Any slide with a heading and 2-6 supporting points. The most common slide type.
@@ -61,7 +61,7 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 **Purpose:** Showcasing 3-6 features, capabilities, or values in a structured grid.
 
 **Structure:**
-- **Default preset:** 3-column bordered grid, each cell has number + title + description
+- **Red preset:** 3-column bordered grid, each cell has number + title + description
 - **Black preset:** 2-column property cards with title + description, optional full-width item
 
 **When to use:** When listing capabilities, features, values, or pillars that are peers (no hierarchy).
@@ -321,7 +321,7 @@ A well-structured 15-slide deck typically follows this pattern:
 
 ## CSS Class Quick Reference
 
-### Default Preset Classes
+### Red Preset Classes
 
 | Element | Class | Notes |
 |---|---|---|
@@ -333,8 +333,19 @@ A well-structured 15-slide deck typically follows this pattern:
 | Grid background | `.swiss-grid` | 6-column DOM grid lines |
 | Bullet marker | `.bullet-marker` | Variants: `.circle`, `.filled` |
 | Table | `.swiss-table` | 2px outer border, grey header/lead column |
+| Section divider number | `.section-number` | Huge faded accent number |
+| Section divider title | `.section-divider-title` | Large display font |
+| Agenda item | `.agenda-item` | Row with `.agenda-num` + `.agenda-text` |
+| Timeline marker | `.timeline-marker` | Square marker, `.active` fills red |
+| Comparison column | `.comparison-col` | `.col-left` (red bar) / `.col-right` (black border) |
+| Stat number | `.stat-number` | Large accent-colored number |
+| Stat label | `.stat-label` | Uppercase muted label below number |
+| Process step | `.process-step` | Bordered box with number/title/desc |
+| Process arrow | `.process-arrow` | CSS triangle between steps |
+| Closing heading | `.closing-heading` | Large "Thank You" text |
+| Closing contact | `.closing-contact` | Flex row of contact items |
 
-### Black Preset Classes
+### Black Preset Classes (also used by Blue, Black Midnight)
 
 | Element | Class | Notes |
 |---|---|---|
@@ -348,3 +359,16 @@ A well-structured 15-slide deck typically follows this pattern:
 | Property grid | `.prop-grid` / `.prop-item` | 2-column feature cards |
 | Data table | `.data-table` | Header bg `rgba(0,0,0,0.06)`, lead col `rgba(0,0,0,0.04)` |
 | Callout | `.callout` | Left-bordered emphasis block |
+| Divider number | `.divider-number` | Large faded number on section divider |
+| Divider title | `.divider-title` | Section title text |
+| Agenda item | `.agenda-item` | Row with `.agenda-num` + `.agenda-label` + `.agenda-desc` |
+| Timeline dot | `.timeline-dot` | Circle marker, `.active` fills dark |
+| Timeline track | `.timeline-track` | Horizontal connected milestones |
+| Comparison grid | `.comparison-grid` | Two-column layout |
+| Comparison header | `.comparison-col-header` | Column header (first dark bg, second bordered) |
+| Stat number | `.stat-number` | Large number (white or accent) |
+| Stat label | `.stat-label` | Uppercase muted label |
+| Process track | `.process-track` | Horizontal steps container |
+| Process step | `.process-step` | Step box with `.process-step-num`/`-title`/`-desc` |
+| Closing title | `.closing-title` | Large "Thank You" text |
+| Closing contact | `.closing-contact` | Flex row of bordered contact items |

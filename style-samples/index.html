@@ -12,7 +12,6 @@
         :root {
             --bg: #0e0e10;
             --card-bg: #1a1a1f;
-            --card-hover: #222228;
             --text: #e4e4e7;
             --text-muted: #71717a;
             --accent: #a78bfa;
@@ -31,14 +30,12 @@
             text-align: center;
             margin-bottom: clamp(2rem, 5vw, 4rem);
         }
-
         header h1 {
             font-size: clamp(1.75rem, 4vw, 3rem);
             font-weight: 700;
             letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
         }
-
         header p {
             color: var(--text-muted);
             font-size: clamp(0.875rem, 1.5vw, 1.125rem);
@@ -46,7 +43,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
             gap: clamp(1rem, 2vw, 1.5rem);
             max-width: 1400px;
             margin: 0 auto;
@@ -65,7 +62,6 @@
             color: inherit;
             display: block;
         }
-
         .card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
@@ -73,7 +69,7 @@
         }
 
         .card-preview {
-            height: 180px;
+            height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -82,47 +78,43 @@
         }
 
         .card-info {
-            padding: 1.25rem;
+            padding: 1rem 1.25rem;
             border-top: 1px solid var(--border);
         }
-
         .card-number {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--accent);
             font-weight: 500;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.2rem;
         }
-
         .card-title {
-            font-size: 1.125rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.2rem;
         }
-
         .card-vibe {
-            font-size: 0.8125rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
         }
-
         .card-category {
             display: inline-block;
-            font-size: 0.6875rem;
-            padding: 0.2rem 0.5rem;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.45rem;
             border-radius: 4px;
             background: rgba(167, 139, 250, 0.1);
             color: var(--accent);
-            margin-top: 0.5rem;
+            margin-top: 0.4rem;
             font-weight: 500;
         }
 
         /* === PREVIEW BACKGROUNDS === */
-        .preview-default {
+        .preview-red {
             background: #ffffff;
             position: relative;
         }
-        .preview-default::before {
+        .preview-red::before {
             content: '';
             position: absolute;
             width: 40px;
@@ -132,23 +124,11 @@
             top: 25px;
             right: 35px;
         }
-        .preview-default::after {
-            content: 'Df';
+        .preview-red::after {
+            content: 'Rd';
             font-size: 3rem;
             font-weight: 800;
             color: #000;
-        }
-
-        .preview-bold-signal {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-        }
-        .preview-bold-signal::after {
-            content: '01';
-            font-family: 'DM Sans', sans-serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: #FF5722;
-            opacity: 0.9;
         }
 
         .preview-black {
@@ -163,6 +143,53 @@
             font-size: 3rem;
             font-weight: 700;
             color: #f8f8f8;
+        }
+
+        .preview-blue {
+            background: #0a0a14;
+            background-image:
+                linear-gradient(rgba(0,44,95,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,44,95,0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .preview-blue::after {
+            content: 'Bl';
+            font-size: 3rem;
+            font-weight: 700;
+            color: #BFBAAF;
+        }
+
+        .preview-midnight {
+            background: #05141F;
+            position: relative;
+        }
+        .preview-midnight::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #BB162B;
+            border-radius: 50%;
+            top: 25px;
+            right: 35px;
+        }
+        .preview-midnight::after {
+            content: 'Mn';
+            font-size: 3rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .preview-bold-signal {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        }
+        .preview-bold-signal::after {
+            content: '01';
+            font-family: 'DM Sans', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #FF5722;
+            opacity: 0.9;
         }
 
         footer {
@@ -180,16 +207,16 @@
 <body>
     <header>
         <h1>Style Presets Gallery</h1>
-        <p>3 curated visual styles — click any card to view the full sample slide</p>
+        <p>5 curated visual styles — click any card to view all 14 layouts</p>
     </header>
 
     <div class="grid">
         <a class="card" href="00-default.html">
-            <div class="card-preview preview-default"></div>
+            <div class="card-preview preview-red"></div>
             <div class="card-info">
-                <div class="card-number">Default</div>
-                <div class="card-title">Default</div>
-                <div class="card-vibe">Clean, structured, top-aligned</div>
+                <div class="card-number">Preset 00</div>
+                <div class="card-title">Red</div>
+                <div class="card-vibe">Clean, structured, bold red accent</div>
                 <span class="card-category">Light</span>
             </div>
         </a>
@@ -199,7 +226,27 @@
             <div class="card-info">
                 <div class="card-number">Preset 02</div>
                 <div class="card-title">Black</div>
-                <div class="card-vibe">Dark-first, data-dense, alternating light/dark</div>
+                <div class="card-vibe">Dark-first, data-dense, alternating</div>
+                <span class="card-category">Dark</span>
+            </div>
+        </a>
+
+        <a class="card" href="03-blue.html">
+            <div class="card-preview preview-blue"></div>
+            <div class="card-info">
+                <div class="card-number">Preset 03</div>
+                <div class="card-title">Blue</div>
+                <div class="card-vibe">Corporate, premium, navy + silver</div>
+                <span class="card-category">Dark</span>
+            </div>
+        </a>
+
+        <a class="card" href="04-black-midnight.html">
+            <div class="card-preview preview-midnight"></div>
+            <div class="card-info">
+                <div class="card-number">Preset 04</div>
+                <div class="card-title">Black Midnight</div>
+                <div class="card-vibe">Deep midnight with strategic red</div>
                 <span class="card-category">Dark</span>
             </div>
         </a>
@@ -207,17 +254,16 @@
         <a class="card" href="01-bold-signal.html">
             <div class="card-preview preview-bold-signal"></div>
             <div class="card-info">
-                <div class="card-number">Preset 03</div>
+                <div class="card-number">Preset 01</div>
                 <div class="card-title">Bold Signal</div>
-                <div class="card-vibe">Confident, bold, modern, high-impact</div>
+                <div class="card-vibe">Confident, bold, high-impact</div>
                 <span class="card-category">Dark</span>
             </div>
         </a>
-
     </div>
 
     <footer>
-        <p>Frontend Slides — Style Presets Gallery</p>
+        <p>Slides HTML — Style Presets Gallery</p>
     </footer>
 </body>
 </html>

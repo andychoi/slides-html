@@ -56,6 +56,14 @@ These invariants apply to EVERY slide in EVERY presentation:
 | Code slide | 1 heading + 8-10 lines of code |
 | Quote slide | 1 quote (max 3 lines) + attribution |
 | Image slide | 1 heading + 1 image (max 60vh height) |
+| Section divider | 1 section number + 1 title + optional subtitle |
+| Agenda slide | 1 heading + 4-6 agenda items |
+| Timeline slide | 1 heading + 3-5 milestones |
+| Comparison slide | 1 heading + 2 columns × 3-5 items each |
+| Table slide | 1 heading + table with max 5 rows × 4 columns |
+| Stat slide | 1-3 large numbers with labels |
+| Process slide | 1 heading + 3-5 sequential steps |
+| Closing slide | 1 heading + 1 subtitle + 2-3 contact items |
 
 **Content exceeds limits? Split into multiple slides. Never cram, never scroll.**
 
@@ -147,10 +155,11 @@ Based on mood, generate 3 distinct single-slide HTML previews showing typography
 
 | Mood | Suggested Presets |
 |------|-------------------|
-| Impressed/Confident | Bold Signal, Default |
-| Excited/Energized | Bold Signal, Black |
-| Calm/Focused | Default, Black |
-| Inspired/Moved | Default, Bold Signal |
+| Impressed/Confident | Bold Signal, Blue |
+| Excited/Energized | Bold Signal, Black Midnight |
+| Calm/Focused | Red, Blue |
+| Inspired/Moved | Red, Black Midnight |
+| Corporate/Professional | Blue, Black |
 
 Save previews to `.claude-design/slide-previews/` (style-a.html, style-b.html, style-c.html). Each should be self-contained, ~50-100 lines, showing one animated title slide.
 
@@ -212,7 +221,8 @@ When converting PowerPoint files:
 
 | File | Purpose | When to Read |
 |------|---------|-------------|
-| [STYLE_PRESETS.md](STYLE_PRESETS.md) | 3 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
+| [CONTENT_TYPES.md](CONTENT_TYPES.md) | 14 layout types with CSS classes, structure, and selection guide | Phase 1 (content planning) + Phase 3 (generation) |
+| [STYLE_PRESETS.md](STYLE_PRESETS.md) | 5 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
 | [reference/viewport-base.css](reference/viewport-base.css) | Mandatory responsive CSS — copy into every presentation | Phase 3 (generation) |
 | [reference/html-template.md](reference/html-template.md) | HTML structure, JS features, code quality standards | Phase 3 (generation) |
 | [reference/animation-patterns.md](reference/animation-patterns.md) | CSS/JS animation snippets and effect-to-feeling guide | Phase 3 (generation) |

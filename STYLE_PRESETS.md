@@ -1,16 +1,16 @@
 # Style Presets Reference
 
-Curated visual styles for Frontend Slides. Each preset is inspired by real design references — no generic "AI slop" aesthetics. **Abstract shapes only — no illustrations.**
+Curated visual styles for HTML slide presentations. Each preset is inspired by real design references — no generic "AI slop" aesthetics. **Abstract shapes only — no illustrations.**
 
 **Viewport CSS:** For mandatory base styles, see [reference/viewport-base.css](reference/viewport-base.css). Include in every presentation.
 
 ---
 
-## Default
+## Red
 
-**Vibe:** Clean, structured, top-aligned — based on Swiss Modern
+**Vibe:** Clean, structured, top-aligned with bold red accent
 
-**Layout:** Slide title (h2) positioned absolute top-left via `.slide-title`, section title top-right via `.section-title` in light grey. Body top-aligned (not vertically centered). Title slide has slim barline between title and subtitle rows with equal left/right margin.
+**Layout:** Slide title (h2) positioned absolute top-left via `.slide-title`, section title top-right via `.section-title` in light grey. Body top-aligned (not vertically centered). Title slide has slim barline between title and subtitle rows.
 
 **Typography:**
 - Display: `Archivo` (800)
@@ -30,33 +30,131 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 
 **Signature Elements:**
 - Top-aligned content (not vertically centered)
-- Slide title absolute top-left (`.slide-title`), section title top-right (`.section-title`) in light grey
-- Slim barline between title and subtitle with equal left/right margin
-- Visible 6-column grid background
-- Red accent dots and geometric shapes
-- Same visual language as Swiss Modern, structured layout
+- Slide title absolute top-left (`.slide-title`) with red bar `::after`
+- Section title top-right (`.section-title`) in light grey
+- Visible 6-column grid background (`.swiss-grid`)
+- Red accent geometric shapes and markers
 
 **Key CSS patterns:**
 ```css
-/* Slide title — absolute top-left on content slides */
 .slide-title {
     position: absolute;
     top: var(--slide-padding);
     left: var(--slide-padding);
-    padding-top: clamp(1rem, 2vh, 1.5rem);
 }
-
-/* Section title — top-right breadcrumb */
-.section-title {
-    position: absolute;
-    top: var(--slide-padding);
-    right: var(--slide-padding);
-    color: rgba(0, 0, 0, 0.3);
+.slide-title::after {
+    content: ''; display: block;
+    width: 100%; height: 4px;
+    background: var(--accent);
 }
-
-/* Content area gets extra top padding to clear slide-title */
 .content-slide .slide-content { padding-top: clamp(5rem, 12vh, 9rem); }
 ```
+
+---
+
+## Black
+
+**Vibe:** Dark-first, data-dense, professional — alternating light/dark slides
+
+**Layout:** Slide header with 3px top border rule. Section title top-right. Footer bar at bottom. Alternates between `slide--dark` and `slide--light` variants.
+
+**Typography:**
+- Display: `Archivo Black` (900)
+- Body: `Nunito` (300/400/600/700)
+
+**Colors:**
+```css
+:root {
+    --black: #0a0a0a;
+    --white: #f8f8f8;
+    --gray-light: #ececec;
+    --gray-mid: #c0c0c0;
+    --gray-dark: #4a4a4a;
+}
+```
+
+**Signature Elements:**
+- Alternating dark/light slides for rhythm and contrast
+- CSS grid background pattern (64px squares, 4% opacity lines)
+- Slide header with 3px top border rule (`.slide-header`)
+- Feature tables (`.ftable` / `.frow`) for key/value data
+- Property grids (`.prop-grid` / `.prop-item`) for 2-column feature cards
+- Callout blocks with left border (`.callout`)
+- Title slide has overline text + tag pills
+
+**Key CSS patterns:**
+```css
+.slide--dark { background: var(--black); color: var(--white); }
+.slide--light { background: var(--white); color: var(--black); }
+.grid-bg-dark {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+.slide-header { border-top: 3px solid currentColor; padding-top: 10px; }
+```
+
+---
+
+## Blue
+
+**Vibe:** Corporate, premium, warm silver tones with deep navy blue
+
+**Layout:** Same structure as Black preset — alternating `slide--dark`/`slide--light`, slide headers with top border, footer bar. Navy-tinted dark backgrounds.
+
+**Typography:**
+- Display: `Archivo Black` (900)
+- Body: `Nunito` (300/400/600/700)
+
+**Colors:**
+```css
+:root {
+    --black: #0a0a14;
+    --white: #f8f8f8;
+    --gray-light: #e8e6e2;
+    --gray-mid: #BFBAAF;
+    --gray-dark: #60605B;
+    --accent-blue: #002C5F;
+}
+```
+
+**Signature Elements:**
+- Navy-tinted dark backgrounds (`#0a0a14`) instead of pure black
+- Warm silver/grey tones (`#BFBAAF`, `#60605B`) for a premium feel
+- Deep corporate blue (`#002C5F`) used for active states and structural accents
+- Blue-tinted grid lines on both dark and light slides
+- No bright accent color — subtle and corporate
+
+---
+
+## Black Midnight
+
+**Vibe:** Deep midnight blue-black with strategic red accent
+
+**Layout:** Same structure as Black preset — alternating slides, slide headers, footer bar. Midnight-tinted dark backgrounds.
+
+**Typography:**
+- Display: `Archivo Black` (900)
+- Body: `Nunito` (300/400/600/700)
+
+**Colors:**
+```css
+:root {
+    --black: #05141F;
+    --white: #FFFFFF;
+    --gray-light: #f0f0f0;
+    --gray-mid: #9ca3af;
+    --gray-dark: #4b5563;
+    --accent: #BB162B;
+}
+```
+
+**Signature Elements:**
+- Midnight blue-black backgrounds (`#05141F`) with slight blue undertone
+- Red accent (`#BB162B`) used **strategically** — active states, stat numbers, progress bar
+- Red NOT used for general UI chrome (headers, borders stay white/grey)
+- Cool grey palette for a sharp, modern feel
 
 ---
 
@@ -89,65 +187,14 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 
 ---
 
-## Black
-
-**Vibe:** Dark-first, data-dense, professional — alternating light/dark slides
-
-**Layout:** Slide header with 3px top border rule. Section title top-right (`.section-title`). Footer bar at bottom with presenter label and slide number. Alternates between `slide--dark` and `slide--light` variants.
-
-**Typography:**
-- Display: `Archivo Black` (900)
-- Body: `Nunito` (300/400/600/700)
-
-**Colors:**
-```css
-:root {
-    --black: #0a0a0a;
-    --white: #f8f8f8;
-    --gray-light: #ececec;
-    --gray-mid: #c0c0c0;
-    --gray-dark: #4a4a4a;
-}
-```
-
-**Signature Elements:**
-- Alternating dark/light slides for rhythm and contrast
-- CSS grid background pattern (64px squares, 4% opacity lines)
-- Slide header with 3px top border rule (`.slide-header`)
-- Feature tables (`.ftable` / `.frow`) for key/value data
-- Property grids (`.prop-grid` / `.prop-item`) for 2-column feature cards
-- Step lists (`.step-list` / `.step-item`) with large faded numbers
-- Callout blocks with left border (`.callout`)
-- Decorative vertical/horizontal hairlines on title slide
-- Footer bar with border-top, not floating bottom-rule
-- Title slide has overline text + tag pills
-
-**Key CSS patterns:**
-```css
-/* Alternating slide backgrounds */
-.slide--dark { background: var(--black); color: var(--white); }
-.slide--light { background: var(--white); color: var(--black); }
-
-/* Grid background pattern */
-.grid-bg-dark {
-    background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-}
-
-/* Slide header with top border */
-.slide-header { border-top: 3px solid currentColor; padding-top: 10px; }
-```
-
----
-
 ## Font Pairing Quick Reference
 
 | Preset | Display Font | Body Font | Source |
 |--------|--------------|-----------|--------|
-| Default | Archivo | Nunito | Google |
+| Red | Archivo | Nunito | Google |
 | Black | Archivo Black | Nunito | Google |
+| Blue | Archivo Black | Nunito | Google |
+| Black Midnight | Archivo Black | Nunito | Google |
 | Bold Signal | Archivo Black | Space Grotesk | Google |
 
 ---
