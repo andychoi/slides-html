@@ -110,21 +110,22 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
 **Colors:**
 ```css
 :root {
-    --black: #0a0a14;
+    --navy: #003082;
+    --black: #001845;
     --white: #f8f8f8;
     --gray-light: #e8e6e2;
     --gray-mid: #BFBAAF;
     --gray-dark: #60605B;
-    --accent-blue: #002C5F;
 }
 ```
 
 **Signature Elements:**
-- Navy-tinted dark backgrounds (`#0a0a14`) instead of pure black
-- Warm silver/grey tones (`#BFBAAF`, `#60605B`) for a premium feel
-- Deep corporate blue (`#002C5F`) used for active states and structural accents
-- Blue-tinted grid lines on both dark and light slides
-- No bright accent color — subtle and corporate
+- Deep navy dark backgrounds (`#001845`) — visibly blue, not black
+- Strong Navy Blue (`#003082`) for headers, active states, progress bar
+- Warm silver/grey tones (`#BFBAAF` Tide, `#60605B` Zombie Gray) for a premium feel
+- Blue-tinted grid lines, borders, and decorative elements throughout
+- Code containers have navy-tinted backgrounds with blue borders
+- No bright accent — the navy itself is the identity color
 
 ---
 
