@@ -176,7 +176,7 @@ slides-html/
     viewport-base.css        # Mandatory responsive base CSS
   style-samples/
     index.html               # Style gallery
-    00-default.html          # Red preset (14 layouts)
+    00-red.html              # Red preset (14 layouts)
     01-bold-signal.html      # Bold Signal preset
     02-black.html            # Black preset (14 layouts)
     03-blue.html             # Blue preset (14 layouts)
