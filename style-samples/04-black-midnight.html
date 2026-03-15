@@ -114,6 +114,7 @@
             .roadmap-road, .roadmap-centerline { transition: none !important; stroke-dashoffset: 0 !important; }
             .roadmap-milestone { transition: none !important; opacity: 1 !important; transform: none !important; }
             .gantt-bar { transition: none !important; transform: scaleX(1) !important; }
+            .zone { transition: none !important; opacity: 1 !important; transform: none !important; }
         }
 
         /* ===========================================
@@ -1453,7 +1454,7 @@
         }
 
         /* ===========================================
-           22. CLOSING / Q&A — dark, centered
+           26. CLOSING / Q&A — dark, centered
            =========================================== */
         .slide.closing-slide {
             background: var(--black);
@@ -1509,6 +1510,83 @@
         }
 
         /* ===========================================
+           COMPOSITE: SHARED GRID + ZONE
+           =========================================== */
+        .composite-grid {
+            display: grid;
+            gap: clamp(0.75rem, 1.5vw, 1.5rem);
+            height: 100%;
+            align-items: stretch;
+        }
+        .split-slide .composite-grid { grid-template-columns: 1fr 1fr; }
+        .quadrant-slide .composite-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+        .third-slide .composite-grid { grid-template-columns: 1fr 2fr; }
+        .three-col-slide .composite-grid { grid-template-columns: 1fr 1fr 1fr; }
+
+        .zone {
+            padding: clamp(0.75rem, 1.5vw, 1.5rem);
+            border-left: 3px solid rgba(5, 20, 31, 0.12);
+            display: flex; flex-direction: column;
+            gap: clamp(0.5rem, 1vw, 1rem);
+            overflow: hidden;
+            opacity: 0; transform: translateY(15px);
+            transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+        }
+        .zone:first-child { border-left: none; }
+        .slide.visible .zone { opacity: 1; transform: translateY(0); }
+        .slide.visible .zone:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .zone:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .zone:nth-child(4) { transition-delay: 0.3s; }
+
+        /* Quadrant borders */
+        .quadrant-slide .zone:nth-child(1),
+        .quadrant-slide .zone:nth-child(2) { border-left: none; }
+        .quadrant-slide .zone:nth-child(3),
+        .quadrant-slide .zone:nth-child(4) { border-top: 1px solid rgba(5, 20, 31, 0.12); }
+        .quadrant-slide .zone:nth-child(2),
+        .quadrant-slide .zone:nth-child(4) { border-left: 3px solid rgba(5, 20, 31, 0.12); }
+
+        .zone-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.5vw, 1.1rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+        .zone p { font-size: var(--body-size); line-height: 1.5; }
+        .zone ul { font-size: var(--body-size); padding-left: 1.2em; }
+        .zone li { line-height: 1.4; margin-bottom: 0.2em; }
+
+        /* Mini content scaling inside zones */
+        .zone .donut-chart { gap: clamp(0.5rem, 1vw, 1rem); }
+        .zone .donut-svg { max-width: 140px; }
+        .zone .donut-center { font-size: 1.2rem; }
+        .zone .donut-legend-item { font-size: clamp(0.6rem, 1vw, 0.75rem); }
+        .zone .donut-swatch { width: 10px; height: 10px; }
+        .zone .bar-chart { gap: clamp(3px, 0.5vw, 6px); }
+        .zone .bar-track { height: clamp(14px, 2vw, 22px); }
+        .zone .bar-label { flex: 0 0 clamp(50px, 10vw, 100px); font-size: clamp(0.6rem, 1vw, 0.8rem); }
+        .zone .bar-value { font-size: clamp(0.6rem, 1vw, 0.8rem); }
+        .zone .progress-ring-svg { width: clamp(70px, 12vw, 120px); }
+        .zone .progress-value { font-size: 1.5rem; }
+        .zone .progress-label { font-size: clamp(0.55rem, 0.9vw, 0.75rem); }
+        .zone .stat-number { font-size: clamp(1.5rem, 4vw, 3rem); }
+        .zone .stat-label { font-size: clamp(0.55rem, 0.9vw, 0.75rem); }
+        .zone table { font-size: clamp(0.6rem, 1vw, 0.8rem); }
+        .zone th, .zone td { padding: clamp(2px, 0.3vw, 6px) clamp(4px, 0.5vw, 8px); }
+
+        /* Responsive collapse */
+        @media (max-width: 600px) {
+            .split-slide .composite-grid,
+            .third-slide .composite-grid,
+            .three-col-slide .composite-grid { grid-template-columns: 1fr; }
+            .quadrant-slide .composite-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .zone { border-left: none; border-top: 1px solid rgba(5, 20, 31, 0.12); }
+            .zone:first-child { border-top: none; }
+        }
+
+        /* ===========================================
            RESPONSIVE OVERRIDES
            =========================================== */
         @media (max-height: 600px) {
@@ -1546,7 +1624,7 @@
         </div>
         <div class="bottom-rule">
             <span>Black Midnight</span>
-            <span class="slide-num-label">01 / 22</span>
+            <span class="slide-num-label">01 / 26</span>
         </div>
     </section>
 
@@ -1592,7 +1670,7 @@
         </div>
         <div class="bottom-rule">
             <span>Agenda</span>
-            <span class="slide-num-label">02 / 22</span>
+            <span class="slide-num-label">02 / 26</span>
         </div>
     </section>
 
@@ -1609,7 +1687,7 @@
         </div>
         <div class="bottom-rule">
             <span>Section Divider</span>
-            <span class="slide-num-label">03 / 22</span>
+            <span class="slide-num-label">03 / 26</span>
         </div>
     </section>
 
@@ -1654,7 +1732,7 @@
         </div>
         <div class="bottom-rule">
             <span>Design Principles</span>
-            <span class="slide-num-label">04 / 22</span>
+            <span class="slide-num-label">04 / 26</span>
         </div>
     </section>
 
@@ -1699,7 +1777,7 @@
         </div>
         <div class="bottom-rule">
             <span>Capabilities</span>
-            <span class="slide-num-label">05 / 22</span>
+            <span class="slide-num-label">05 / 26</span>
         </div>
     </section>
 
@@ -1740,7 +1818,7 @@
         </div>
         <div class="bottom-rule">
             <span>Comparison</span>
-            <span class="slide-num-label">06 / 22</span>
+            <span class="slide-num-label">06 / 26</span>
         </div>
     </section>
 
@@ -1801,7 +1879,7 @@
         </div>
         <div class="bottom-rule">
             <span>Feature Matrix</span>
-            <span class="slide-num-label">07 / 22</span>
+            <span class="slide-num-label">07 / 26</span>
         </div>
     </section>
 
@@ -1846,7 +1924,7 @@
         </div>
         <div class="bottom-rule">
             <span>Roadmap</span>
-            <span class="slide-num-label">08 / 22</span>
+            <span class="slide-num-label">08 / 26</span>
         </div>
     </section>
 
@@ -1896,7 +1974,7 @@
         </div>
         <div class="bottom-rule">
             <span>Workflow</span>
-            <span class="slide-num-label">09 / 22</span>
+            <span class="slide-num-label">09 / 26</span>
         </div>
     </section>
 
@@ -1934,7 +2012,7 @@
         </div>
         <div class="bottom-rule">
             <span>Setup</span>
-            <span class="slide-num-label">10 / 22</span>
+            <span class="slide-num-label">10 / 26</span>
         </div>
     </section>
 
@@ -1958,7 +2036,7 @@
         </div>
         <div class="bottom-rule">
             <span>Media</span>
-            <span class="slide-num-label">11 / 22</span>
+            <span class="slide-num-label">11 / 26</span>
         </div>
     </section>
 
@@ -1987,7 +2065,7 @@
         </div>
         <div class="bottom-rule">
             <span>Key Metrics</span>
-            <span class="slide-num-label">12 / 22</span>
+            <span class="slide-num-label">12 / 26</span>
         </div>
     </section>
 
@@ -2007,7 +2085,7 @@
         </div>
         <div class="bottom-rule">
             <span>Inspiration</span>
-            <span class="slide-num-label">13 / 22</span>
+            <span class="slide-num-label">13 / 26</span>
         </div>
     </section>
 
@@ -2080,7 +2158,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">14 / 22</span>
+            <span class="slide-num-label">14 / 26</span>
         </div>
     </section>
 
@@ -2136,7 +2214,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">15 / 22</span>
+            <span class="slide-num-label">15 / 26</span>
         </div>
     </section>
 
@@ -2208,7 +2286,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">16 / 22</span>
+            <span class="slide-num-label">16 / 26</span>
         </div>
     </section>
 
@@ -2256,7 +2334,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">17 / 22</span>
+            <span class="slide-num-label">17 / 26</span>
         </div>
     </section>
 
@@ -2311,7 +2389,7 @@
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num-label">18 / 22</span>
+            <span class="slide-num-label">18 / 26</span>
         </div>
     </section>
 
@@ -2358,7 +2436,7 @@
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num-label">19 / 22</span>
+            <span class="slide-num-label">19 / 26</span>
         </div>
     </section>
 
@@ -2403,7 +2481,7 @@
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num-label">20 / 22</span>
+            <span class="slide-num-label">20 / 26</span>
         </div>
     </section>
 
@@ -2465,14 +2543,271 @@
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num-label">21 / 22</span>
+            <span class="slide-num-label">21 / 26</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 22: SPLIT (light)
+         Half & half — bullets left, table right
+         ============================================ -->
+    <section class="slide split-slide slide--light grid-bg-light" data-slide="22">
+        <div class="section-title">Composites</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Revenue Overview</h2>
+                <p class="slide-subtitle">Key highlights alongside regional breakdown</p>
+            </div>
+            <div class="composite-grid reveal">
+                <div class="zone zone-left" role="region" aria-label="Left column">
+                    <h3 class="zone-title">Key Highlights</h3>
+                    <div class="bullet-item">
+                        <div class="bullet-marker filled"></div>
+                        <div>
+                            <strong>Revenue</strong>
+                            <span class="desc">$2.4M (+18% YoY)</span>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-marker filled"></div>
+                        <div>
+                            <strong>Customers</strong>
+                            <span class="desc">1,200 active accounts</span>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-marker filled"></div>
+                        <div>
+                            <strong>NPS Score</strong>
+                            <span class="desc">72 (up from 64)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="zone zone-right" role="region" aria-label="Right column">
+                    <h3 class="zone-title">By Region</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Region</th><th>Revenue</th><th>Growth</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>NA</td><td>$1.2M</td><td>+22%</td></tr>
+                            <tr><td>EU</td><td>$680K</td><td>+15%</td></tr>
+                            <tr><td>APAC</td><td>$520K</td><td>+12%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Composites</span>
+            <span class="slide-num-label">22 / 26</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 23: QUADRANT (light)
+         2x2 dashboard — ring, donut, bullets, table
+         ============================================ -->
+    <section class="slide quadrant-slide slide--light grid-bg-light" data-slide="23">
+        <div class="section-title">Composites</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Q4 Dashboard</h2>
+                <p class="slide-subtitle">Performance overview across key metrics</p>
+            </div>
+            <div class="composite-grid reveal">
+                <div class="zone zone-top-left" role="region" aria-label="Top left">
+                    <h3 class="zone-title">Satisfaction</h3>
+                    <div class="progress-ring-item">
+                        <div class="progress-ring-svg">
+                            <svg viewBox="0 0 200 200" role="img" aria-label="92%">
+                                <circle class="progress-track" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                                <circle class="progress-fill" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                    stroke-dasharray="462.44 502.65" stroke-linecap="round"
+                                    style="--target-offset: 0"/>
+                                <text class="progress-value" x="100" y="100"
+                                    text-anchor="middle" dominant-baseline="central">92%</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="zone zone-top-right" role="region" aria-label="Top right">
+                    <h3 class="zone-title">Market Share</h3>
+                    <div class="donut-chart">
+                        <div class="donut-svg">
+                            <svg viewBox="0 0 200 200" role="img" aria-label="Market share">
+                                <circle class="donut-segment" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-1)" stroke-width="25"
+                                    stroke-dasharray="226.19 502.65" stroke-dashoffset="0"
+                                    style="--target-offset: 0"/>
+                                <circle class="donut-segment" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-2)" stroke-width="25"
+                                    stroke-dasharray="175.93 502.65" stroke-dashoffset="-226.19"
+                                    style="--target-offset: -226.19"/>
+                                <circle class="donut-segment" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-3)" stroke-width="25"
+                                    stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12"
+                                    style="--target-offset: -402.12"/>
+                            </svg>
+                        </div>
+                        <div class="donut-legend">
+                            <div class="donut-legend-item">
+                                <span class="donut-swatch" style="background: var(--chart-1)"></span>
+                                <span>Mobile</span><span>45%</span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <span class="donut-swatch" style="background: var(--chart-2)"></span>
+                                <span>Desktop</span><span>35%</span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <span class="donut-swatch" style="background: var(--chart-3)"></span>
+                                <span>Tablet</span><span>20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zone zone-bottom-left" role="region" aria-label="Bottom left">
+                    <h3 class="zone-title">Key Wins</h3>
+                    <ul>
+                        <li>Launched v2.0 platform</li>
+                        <li>Closed enterprise deal</li>
+                        <li>Expanded to 3 new markets</li>
+                    </ul>
+                </div>
+                <div class="zone zone-bottom-right" role="region" aria-label="Bottom right">
+                    <h3 class="zone-title">Metrics</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Metric</th><th>Target</th><th>Actual</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Revenue</td><td>$2M</td><td>$2.4M</td></tr>
+                            <tr><td>Users</td><td>1K</td><td>1.2K</td></tr>
+                            <tr><td>NPS</td><td>65</td><td>72</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Composites</span>
+            <span class="slide-num-label">23 / 26</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 24: THIRD SPLIT (light)
+         1/3 progress ring + 2/3 bar chart
+         ============================================ -->
+    <section class="slide third-slide slide--light grid-bg-light" data-slide="24">
+        <div class="section-title">Composites</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Market Analysis</h2>
+                <p class="slide-subtitle">Key metric with supporting data</p>
+            </div>
+            <div class="composite-grid reveal">
+                <div class="zone zone-narrow" role="region" aria-label="Key metric">
+                    <div class="progress-ring-item">
+                        <div class="progress-ring-svg">
+                            <svg viewBox="0 0 200 200" role="img" aria-label="Market Share: 85%">
+                                <circle class="progress-track" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                                <circle class="progress-fill" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                    stroke-dasharray="427.25 502.65" stroke-linecap="round"
+                                    style="--target-offset: 0"/>
+                                <text class="progress-value" x="100" y="100"
+                                    text-anchor="middle" dominant-baseline="central">85%</text>
+                            </svg>
+                        </div>
+                        <div class="progress-label">Market Share</div>
+                    </div>
+                </div>
+                <div class="zone zone-wide" role="region" aria-label="Revenue breakdown">
+                    <h3 class="zone-title">Revenue by Segment</h3>
+                    <div class="bar-chart" role="img" aria-label="Revenue by segment">
+                        <div class="bar-row">
+                            <span class="bar-label">Enterprise</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="--bar-width: 100%"></div>
+                            </div>
+                            <span class="bar-value">540</span>
+                        </div>
+                        <div class="bar-row">
+                            <span class="bar-label">Mid-Market</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="--bar-width: 59%"></div>
+                            </div>
+                            <span class="bar-value">320</span>
+                        </div>
+                        <div class="bar-row">
+                            <span class="bar-label">SMB</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="--bar-width: 33%"></div>
+                            </div>
+                            <span class="bar-value">180</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Composites</span>
+            <span class="slide-num-label">24 / 26</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 25: THREE COLUMN (light)
+         3 equal columns with zone-titles
+         ============================================ -->
+    <section class="slide three-col-slide slide--light grid-bg-light" data-slide="25">
+        <div class="section-title">Composites</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Team Structure</h2>
+                <p class="slide-subtitle">Organization across departments</p>
+            </div>
+            <div class="composite-grid reveal">
+                <div class="zone zone-col-1" role="region" aria-label="Column 1">
+                    <h3 class="zone-title">Engineering</h3>
+                    <ul>
+                        <li>24 engineers</li>
+                        <li>4 tech leads</li>
+                        <li>2 architects</li>
+                    </ul>
+                </div>
+                <div class="zone zone-col-2" role="region" aria-label="Column 2">
+                    <h3 class="zone-title">Design</h3>
+                    <ul>
+                        <li>8 designers</li>
+                        <li>2 UX researchers</li>
+                        <li>1 design lead</li>
+                    </ul>
+                </div>
+                <div class="zone zone-col-3" role="region" aria-label="Column 3">
+                    <h3 class="zone-title">Product</h3>
+                    <ul>
+                        <li>6 PMs</li>
+                        <li>2 analysts</li>
+                        <li>1 VP Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Composites</span>
+            <span class="slide-num-label">25 / 26</span>
         </div>
     </section>
 
     <!-- =========================================
-         SLIDE 22: CLOSING / Q&A (dark)
+         SLIDE 26: CLOSING / Q&A (dark)
          ========================================= -->
-    <section class="slide closing-slide slide--dark grid-bg-dark" data-slide="22">
+    <section class="slide closing-slide slide--dark grid-bg-dark" data-slide="26">
         <div class="section-title">Close</div>
         <div class="slide-content">
             <h2 class="closing-title reveal">Thank You</h2>
@@ -2494,7 +2829,7 @@
         </div>
         <div class="bottom-rule">
             <span>Close</span>
-            <span class="slide-num-label">22 / 22</span>
+            <span class="slide-num-label">26 / 26</span>
         </div>
     </section>
 
