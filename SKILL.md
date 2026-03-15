@@ -1,5 +1,5 @@
 ---
-name: frontend-slides
+name: slides
 description: Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.
 ---
 
@@ -147,10 +147,10 @@ Based on mood, generate 3 distinct single-slide HTML previews showing typography
 
 | Mood | Suggested Presets |
 |------|-------------------|
-| Impressed/Confident | Bold Signal, Electric Studio, Dark Botanical |
-| Excited/Energized | Creative Voltage, Neon Cyber, Split Pastel |
-| Calm/Focused | Notebook Tabs, Paper & Ink, Swiss Modern |
-| Inspired/Moved | Dark Botanical, Vintage Editorial, Pastel Geometry |
+| Impressed/Confident | Bold Signal, Default |
+| Excited/Energized | Bold Signal, Swiss Modern |
+| Calm/Focused | Default, Swiss Modern |
+| Inspired/Moved | Swiss Modern, Bold Signal |
 
 Save previews to `.claude-design/slide-previews/` (style-a.html, style-b.html, style-c.html). Each should be self-contained, ~50-100 lines, showing one animated title slide.
 
@@ -212,7 +212,7 @@ When converting PowerPoint files:
 
 | File | Purpose | When to Read |
 |------|---------|-------------|
-| [STYLE_PRESETS.md](STYLE_PRESETS.md) | 12 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
+| [STYLE_PRESETS.md](STYLE_PRESETS.md) | 3 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
 | [viewport-base.css](viewport-base.css) | Mandatory responsive CSS — copy into every presentation | Phase 3 (generation) |
 | [html-template.md](html-template.md) | HTML structure, JS features, code quality standards | Phase 3 (generation) |
 | [animation-patterns.md](animation-patterns.md) | CSS/JS animation snippets and effect-to-feeling guide | Phase 3 (generation) |

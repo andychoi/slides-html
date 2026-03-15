@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Signal - All Layouts</title>
+
+    <!-- Google Fonts: Archivo Black (display) + Space Grotesk (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           =========================================== */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        :root {
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots, .keyboard-hint, .decorative {
+                display: none;
+            }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.25rem, 7vw, 2.5rem);
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===========================================
+           BOLD SIGNAL: THEME
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            --card-bg: #FF5722;
+            --card-bg-dim: #e64a19;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-on-card: #1a1a1a;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --number-size: clamp(3rem, 10vw, 8rem);
+            --nav-size: clamp(0.6rem, 1.1vw, 0.9rem);
+            --subtitle-size: clamp(0.85rem, 1.8vw, 1.3rem);
+            --tagline-size: clamp(1rem, 2.5vw, 2rem);
+            --card-padding: clamp(1.5rem, 4vw, 3.5rem);
+            --code-size: clamp(0.65rem, 1.2vw, 0.95rem);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           SHARED ELEMENTS (all slide types)
+           =========================================== */
+
+        /* Section number watermark */
+        .section-number {
+            position: absolute;
+            top: var(--slide-padding);
+            left: var(--slide-padding);
+            font-family: var(--font-display);
+            font-size: var(--number-size);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--text-primary);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: transform 0.8s var(--ease-out-expo),
+                        opacity 0.8s var(--ease-out-expo);
+            z-index: 1;
+        }
+        .slide.visible .section-number {
+            transform: translateY(0);
+            opacity: 0.08;
+        }
+
+        /* Nav breadcrumbs */
+        .nav-breadcrumbs {
+            position: absolute;
+            top: var(--slide-padding);
+            right: var(--slide-padding);
+            display: flex;
+            align-items: center;
+            gap: clamp(0.4rem, 1vw, 0.75rem);
+            font-size: var(--nav-size);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: transform 0.7s var(--ease-out-expo) 0.15s,
+                        opacity 0.7s var(--ease-out-expo) 0.15s;
+        }
+        .slide.visible .nav-breadcrumbs {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .nav-breadcrumbs span { opacity: 0.35; }
+        .nav-breadcrumbs span.active { opacity: 1; color: var(--card-bg); }
+        .nav-breadcrumbs .sep { opacity: 0.2; font-size: 0.85em; }
+
+        /* Corner accent */
+        .corner-accent {
+            position: absolute;
+            bottom: var(--slide-padding);
+            right: var(--slide-padding);
+            width: clamp(30px, 5vw, 60px);
+            height: clamp(30px, 5vw, 60px);
+            border-right: 2px solid rgba(255, 87, 34, 0.4);
+            border-bottom: 2px solid rgba(255, 87, 34, 0.4);
+            opacity: 0;
+            transition: opacity 0.8s ease 0.6s;
+        }
+        .slide.visible .corner-accent { opacity: 1; }
+
+        /* Grid crosshair lines */
+        .grid-lines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .grid-lines::before, .grid-lines::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .grid-lines::before { top: 0; bottom: 0; left: 50%; width: 1px; }
+        .grid-lines::after { left: 0; right: 0; top: 50%; height: 1px; }
+
+        /* Reveal animation base */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+        }
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slide.visible .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+        /* Slide type label */
+        .slide-type-label {
+            position: absolute;
+            bottom: var(--slide-padding);
+            left: var(--slide-padding);
+            font-size: var(--small-size);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--card-bg);
+            opacity: 0;
+            transition: opacity 0.6s ease 0.8s;
+        }
+        .slide.visible .slide-type-label { opacity: 0.6; }
+
+        /* ===========================================
+           1. TITLE SLIDE
+           =========================================== */
+        .slide.title-slide {
+            background: var(--bg-gradient);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr 1fr;
+            padding: var(--slide-padding);
+        }
+
+        .focal-card {
+            grid-row: 2;
+            grid-column: 1 / -1;
+            align-self: center;
+            justify-self: center;
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            border-radius: clamp(8px, 1.5vw, 20px);
+            padding: var(--card-padding);
+            width: min(85%, 720px);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(50px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.9s var(--ease-out-expo) 0.25s,
+                        opacity 0.8s var(--ease-out-expo) 0.25s;
+        }
+        .slide.visible .focal-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .focal-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(0,0,0,0.08) 100%);
+            pointer-events: none;
+        }
+        .focal-card::after {
+            content: '';
+            position: absolute;
+            bottom: calc(-1 * clamp(20px, 4vw, 60px));
+            right: calc(-1 * clamp(20px, 4vw, 60px));
+            width: clamp(80px, 15vw, 180px);
+            height: clamp(80px, 15vw, 180px);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.08);
+            pointer-events: none;
+        }
+
+        .card-tagline {
+            font-family: var(--font-display);
+            font-size: var(--tagline-size);
+            line-height: 1.2;
+            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+        }
+        .card-body {
+            font-size: var(--body-size);
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 50ch;
+        }
+
+        .slide-title-block {
+            grid-row: 3;
+            grid-column: 1;
+            align-self: end;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.8s var(--ease-out-expo) 0.4s,
+                        opacity 0.8s var(--ease-out-expo) 0.4s;
+        }
+        .slide.visible .slide-title-block {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .slide-title-block h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+        .slide-title-block .subtitle {
+            font-size: var(--subtitle-size);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+
+        /* ===========================================
+           2. CONTENT SLIDE
+           =========================================== */
+        .slide.content-slide {
+            background: var(--bg-gradient);
+            padding: var(--slide-padding);
+        }
+
+        .content-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--content-gap);
+            padding-left: clamp(2rem, 8vw, 8rem);
+            padding-right: clamp(2rem, 6vw, 6rem);
+        }
+
+        .content-slide h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+            border-left: 4px solid var(--card-bg);
+            padding-left: clamp(0.75rem, 2vw, 1.5rem);
+        }
+
+        .content-slide .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.2vh, 1rem);
+            padding-left: clamp(0.75rem, 2vw, 1.5rem);
+        }
+
+        .content-slide .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.5;
+            color: var(--text-secondary);
+            padding-left: clamp(1rem, 2vw, 1.5rem);
+            position: relative;
+        }
+
+        .content-slide .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: clamp(0.4rem, 0.8vw, 0.6rem);
+            width: clamp(6px, 0.8vw, 8px);
+            height: clamp(6px, 0.8vw, 8px);
+            background: var(--card-bg);
+            border-radius: 2px;
+            transform: rotate(45deg);
+        }
+
+        .content-slide .bullet-list li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===========================================
+           3. FEATURE GRID SLIDE
+           =========================================== */
+        .slide.grid-slide {
+            background: var(--bg-gradient);
+            padding: var(--slide-padding);
+        }
+
+        .grid-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--content-gap);
+            padding-left: clamp(2rem, 6vw, 6rem);
+            padding-right: clamp(2rem, 6vw, 6rem);
+        }
+
+        .grid-slide h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.5rem, 1.5vw, 1.25rem);
+        }
+
+        .feature-card {
+            background: var(--border-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 1vw, 12px);
+            padding: clamp(0.75rem, 2vw, 1.5rem);
+            transition: border-color 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(255, 87, 34, 0.3);
+        }
+
+        .feature-card .card-icon {
+            font-size: clamp(1.25rem, 2.5vw, 2rem);
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1.3vw, 1rem);
+            text-transform: uppercase;
+            margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+
+        .feature-card p {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ===========================================
+           4. CODE SLIDE
+           =========================================== */
+        .slide.code-slide {
+            background: var(--bg-gradient);
+            padding: var(--slide-padding);
+        }
+
+        .code-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--content-gap);
+            padding-left: clamp(2rem, 6vw, 6rem);
+            padding-right: clamp(2rem, 6vw, 6rem);
+        }
+
+        .code-slide h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            text-transform: uppercase;
+            border-left: 4px solid var(--card-bg);
+            padding-left: clamp(0.75rem, 2vw, 1.5rem);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 1vw, 12px);
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.25rem);
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .code-dot {
+            width: clamp(8px, 1vw, 12px);
+            height: clamp(8px, 1vw, 12px);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .code-dot:first-child { background: #ff5f57; }
+        .code-dot:nth-child(2) { background: #ffbd2e; }
+        .code-dot:nth-child(3) { background: #28c840; }
+
+        .code-filename {
+            margin-left: auto;
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        pre {
+            padding: clamp(0.75rem, 2vw, 1.5rem);
+            overflow-x: auto;
+            font-family: 'Space Grotesk', monospace;
+            font-size: var(--code-size);
+            line-height: 1.7;
+        }
+
+        .kw { color: var(--card-bg); }
+        .str { color: #a5d6a7; }
+        .fn { color: #90caf9; }
+        .cm { color: rgba(255,255,255,0.3); font-style: italic; }
+        .num { color: #ffcc80; }
+        .op { color: rgba(255,255,255,0.5); }
+
+        /* ===========================================
+           5. QUOTE SLIDE
+           =========================================== */
+        .slide.quote-slide {
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            padding: var(--slide-padding);
+        }
+
+        .quote-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: var(--content-gap);
+            padding: clamp(2rem, 8vw, 8rem);
+        }
+
+        .quote-mark {
+            font-family: Georgia, serif;
+            font-size: clamp(3rem, 8vw, 8rem);
+            line-height: 1;
+            opacity: 0.15;
+        }
+
+        blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 3vw, 2.25rem);
+            line-height: 1.3;
+            max-width: 20ch;
+        }
+
+        .quote-attribution {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            opacity: 0.6;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .quote-slide .section-number { color: var(--text-on-card); }
+        .quote-slide .nav-breadcrumbs span { color: var(--text-on-card); }
+        .quote-slide .nav-breadcrumbs span.active { color: var(--bg-primary); }
+        .quote-slide .corner-accent {
+            border-color: rgba(26, 26, 26, 0.2);
+        }
+        .quote-slide .slide-type-label { color: var(--text-on-card); }
+
+        /* ===========================================
+           6. IMAGE SLIDE
+           =========================================== */
+        .slide.image-slide {
+            background: var(--bg-gradient);
+            padding: var(--slide-padding);
+        }
+
+        .image-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--content-gap);
+        }
+
+        .image-slide h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .image-placeholder {
+            width: min(80%, 700px);
+            max-height: min(50vh, 400px);
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, rgba(255,87,34,0.15) 0%, rgba(255,87,34,0.05) 100%);
+            border: 2px dashed rgba(255, 87, 34, 0.3);
+            border-radius: clamp(8px, 1.5vw, 16px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.3rem, 1vw, 0.75rem);
+        }
+
+        .image-placeholder .placeholder-icon {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            opacity: 0.3;
+        }
+
+        .image-placeholder .placeholder-text {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 0.8vh, 10px);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: clamp(8px, 0.8vw, 10px);
+            height: clamp(8px, 0.8vw, 10px);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            padding: 0;
+        }
+        .nav-dot.active {
+            background: var(--card-bg);
+            transform: scale(1.3);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--card-bg);
+            z-index: 100;
+            transition: width 0.3s ease;
+        }
+
+        /* ===========================================
+           RESPONSIVE OVERRIDES
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --number-size: clamp(2.5rem, 8vw, 5rem);
+                --card-padding: clamp(1rem, 3vw, 2rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --number-size: clamp(2rem, 7vw, 4rem);
+                --tagline-size: clamp(0.9rem, 2vw, 1.4rem);
+            }
+            .corner-accent, .grid-lines { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --number-size: clamp(1.5rem, 6vw, 3rem);
+                --card-padding: clamp(0.75rem, 2vw, 1.5rem);
+            }
+        }
+        @media (max-width: 600px) {
+            .slide.title-slide {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto;
+            }
+            .focal-card { width: 100%; }
+            .content-slide .slide-content,
+            .grid-slide .slide-content,
+            .code-slide .slide-content {
+                padding-left: var(--slide-padding);
+                padding-right: var(--slide-padding);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Nav dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- ============================================
+         SLIDE 1: TITLE SLIDE
+         ============================================ -->
+    <section class="slide title-slide" data-slide="1">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">01</div>
+        <nav class="nav-breadcrumbs">
+            <span class="active">Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span>Impact</span>
+        </nav>
+        <div class="focal-card card">
+            <div class="card-tagline">Make every pixel<br>count.</div>
+            <p class="card-body">High-impact presentations that command attention. No filler, no fluff — just bold ideas delivered with confidence.</p>
+        </div>
+        <div class="slide-title-block">
+            <h1>Bold Signal</h1>
+            <p class="subtitle">Confident. Bold. Modern.</p>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Title Slide</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 2: CONTENT SLIDE
+         ============================================ -->
+    <section class="slide content-slide" data-slide="2">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">02</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span class="active">Design</span>
+            <span class="sep">/</span>
+            <span>Impact</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal">Design Principles</h2>
+            <ul class="bullet-list">
+                <li class="reveal"><strong>Hierarchy first</strong> — Every slide needs one clear focal point that draws the eye instantly</li>
+                <li class="reveal"><strong>Breathing room</strong> — White space isn't empty, it's the frame that gives content weight</li>
+                <li class="reveal"><strong>Color with intent</strong> — One accent color used sparingly creates more impact than a rainbow</li>
+                <li class="reveal"><strong>Typography as structure</strong> — Font weight and scale do the heavy lifting, not decorations</li>
+                <li class="reveal"><strong>Motion with purpose</strong> — Animate to guide attention, not to entertain</li>
+            </ul>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Content Slide</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 3: FEATURE GRID SLIDE
+         ============================================ -->
+    <section class="slide grid-slide" data-slide="3">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">03</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span class="active">Design</span>
+            <span class="sep">/</span>
+            <span>Impact</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal">Core Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card reveal">
+                    <div class="card-icon">&#9632;</div>
+                    <h3>Grid System</h3>
+                    <p>Precise alignment with a flexible 12-column grid</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="card-icon">&#9650;</div>
+                    <h3>Responsive</h3>
+                    <p>Scales from mobile to 4K with clamp-based sizing</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="card-icon">&#9679;</div>
+                    <h3>Animations</h3>
+                    <p>Scroll-triggered reveals with staggered timing</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="card-icon">&#9670;</div>
+                    <h3>Typography</h3>
+                    <p>Curated font pairings for maximum readability</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="card-icon">&#9733;</div>
+                    <h3>Theming</h3>
+                    <p>CSS variables for instant color and style changes</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="card-icon">&#9883;</div>
+                    <h3>Accessible</h3>
+                    <p>Keyboard nav, reduced motion, and semantic HTML</p>
+                </div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Feature Grid</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 4: CODE SLIDE
+         ============================================ -->
+    <section class="slide code-slide" data-slide="4">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">04</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span class="active">Design</span>
+            <span class="sep">/</span>
+            <span>Impact</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal">Quick Setup</h2>
+            <div class="code-block reveal">
+                <div class="code-header">
+                    <span class="code-dot"></span>
+                    <span class="code-dot"></span>
+                    <span class="code-dot"></span>
+                    <span class="code-filename">theme.css</span>
+                </div>
+                <pre><span class="cm">/* Customize with CSS variables */</span>
+<span class="kw">:root</span> <span class="op">{</span>
+    <span class="fn">--bg-primary</span><span class="op">:</span> <span class="str">#1a1a1a</span><span class="op">;</span>
+    <span class="fn">--card-bg</span><span class="op">:</span>    <span class="str">#FF5722</span><span class="op">;</span>
+    <span class="fn">--text</span><span class="op">:</span>       <span class="str">#ffffff</span><span class="op">;</span>
+    <span class="fn">--font</span><span class="op">:</span>       <span class="str">'Archivo Black'</span><span class="op">;</span>
+    <span class="fn">--title-size</span><span class="op">:</span> <span class="kw">clamp</span><span class="op">(</span><span class="num">1.5rem</span><span class="op">,</span> <span class="num">5vw</span><span class="op">,</span> <span class="num">4rem</span><span class="op">)</span><span class="op">;</span>
+<span class="op">}</span>
+
+<span class="cm">/* Every slide fills the viewport */</span>
+<span class="kw">.slide</span> <span class="op">{</span>
+    <span class="fn">height</span><span class="op">:</span> <span class="num">100dvh</span><span class="op">;</span>
+    <span class="fn">overflow</span><span class="op">:</span> <span class="str">hidden</span><span class="op">;</span>
+<span class="op">}</span></pre>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Code Slide</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 5: QUOTE SLIDE
+         ============================================ -->
+    <section class="slide quote-slide" data-slide="5">
+        <div class="section-number">05</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Impact</span>
+        </nav>
+        <div class="slide-content">
+            <div class="quote-mark reveal">"</div>
+            <blockquote class="reveal">
+                Simplicity is the ultimate sophistication.
+            </blockquote>
+            <p class="quote-attribution reveal">— Leonardo da Vinci</p>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Quote Slide</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 6: IMAGE SLIDE
+         ============================================ -->
+    <section class="slide image-slide" data-slide="6">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">06</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Impact</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal">Visual Showcase</h2>
+            <div class="image-placeholder reveal">
+                <div class="placeholder-icon">&#128444;</div>
+                <div class="placeholder-text">Your image here</div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Image Slide</div>
+    </section>
+
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                const idx = Array.from(this.slides).indexOf(entry.target);
+                                if (idx !== -1) {
+                                    this.currentSlide = idx;
+                                    this.updateNavDots();
+                                    this.updateProgressBar();
+                                }
+                            }
+                        });
+                    },
+                    { threshold: 0.15 }
+                );
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        this.goToSlide(this.currentSlide + 1);
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        this.goToSlide(this.currentSlide - 1);
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        this.goToSlide(this.currentSlide + (diff > 0 ? 1 : -1));
+                    }
+                });
+            }
+
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+
+            updateProgressBar() {
+                if (!this.progressBar) return;
+                const pct = ((this.currentSlide + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = pct + '%';
+            }
+
+            setupNavDots() {
+                const container = document.getElementById('navDots');
+                if (!container) return;
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    container.appendChild(dot);
+                });
+            }
+
+            updateNavDots() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            goToSlide(idx) {
+                if (idx < 0 || idx >= this.slides.length) return;
+                this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+
+</body>
+</html>

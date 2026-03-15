@@ -34,7 +34,7 @@ Reference architecture for generating slide presentations. Every presentation fo
             --font-body: 'Satoshi', sans-serif;
             --title-size: clamp(2rem, 6vw, 5rem);
             --subtitle-size: clamp(0.875rem, 2vw, 1.25rem);
-            --body-size: clamp(0.75rem, 1.2vw, 1rem);
+            --body-size: clamp(0.875rem, 1.5vw, 1.5rem);
 
             /* Spacing — MUST use clamp() */
             --slide-padding: clamp(1.5rem, 4vw, 4rem);

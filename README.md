@@ -27,27 +27,27 @@ Copy the skill files to your Claude Code skills directory:
 
 ```bash
 # Create the skill directory
-mkdir -p ~/.claude/skills/frontend-slides/scripts
+mkdir -p ~/.claude/skills/slides/scripts
 
 # Copy all files (or clone this repo directly)
-cp SKILL.md STYLE_PRESETS.md viewport-base.css html-template.md animation-patterns.md ~/.claude/skills/frontend-slides/
-cp scripts/extract-pptx.py ~/.claude/skills/frontend-slides/scripts/
+cp SKILL.md STYLE_PRESETS.md viewport-base.css html-template.md animation-patterns.md ~/.claude/skills/slides/
+cp scripts/extract-pptx.py ~/.claude/skills/slides/scripts/
 ```
 
 Or clone directly:
 
 ```bash
-git clone https://github.com/zarazhangrui/frontend-slides.git ~/.claude/skills/frontend-slides
+git clone https://github.com/andychoi/slides-html.git ~/.claude/skills/slides
 ```
 
-Then use it by typing `/frontend-slides` in Claude Code.
+Then use it by typing `/slides` in Claude Code.
 
 ## Usage
 
 ### Create a New Presentation
 
 ```
-/frontend-slides
+/slides
 
 > "I want to create a pitch deck for my AI startup"
 ```
@@ -62,7 +62,7 @@ The skill will:
 ### Convert a PowerPoint
 
 ```
-/frontend-slides
+/slides
 
 > "Convert my presentation.pptx to a web slideshow"
 ```
@@ -75,23 +75,9 @@ The skill will:
 
 ## Included Styles
 
-### Dark Themes
+- **Default** — Clean, structured, top-aligned (based on Swiss Modern)
 - **Bold Signal** — Confident, high-impact, vibrant card on dark
-- **Electric Studio** — Clean, professional, split-panel
-- **Creative Voltage** — Energetic, retro-modern, electric blue + neon
-- **Dark Botanical** — Elegant, sophisticated, warm accents
-
-### Light Themes
-- **Notebook Tabs** — Editorial, organized, paper with colorful tabs
-- **Pastel Geometry** — Friendly, approachable, vertical pills
-- **Split Pastel** — Playful, modern, two-color vertical split
-- **Vintage Editorial** — Witty, personality-driven, geometric shapes
-
-### Specialty
-- **Neon Cyber** — Futuristic, particle backgrounds, neon glow
-- **Terminal Green** — Developer-focused, hacker aesthetic
-- **Swiss Modern** — Minimal, Bauhaus-inspired, geometric
-- **Paper & Ink** — Literary, drop caps, pull quotes
+- **Swiss Modern** — Minimal, Bauhaus-inspired, geometric, centered
 
 ## Architecture
 
@@ -100,7 +86,7 @@ This skill uses **progressive disclosure** — the main `SKILL.md` is a concise 
 | File | Purpose | Loaded When |
 |------|---------|-------------|
 | `SKILL.md` | Core workflow and rules | Always (skill invocation) |
-| `STYLE_PRESETS.md` | 12 curated visual presets | Phase 2 (style selection) |
+| `STYLE_PRESETS.md` | 3 curated visual presets | Phase 2 (style selection) |
 | `viewport-base.css` | Mandatory responsive CSS | Phase 3 (generation) |
 | `html-template.md` | HTML structure and JS features | Phase 3 (generation) |
 | `animation-patterns.md` | CSS/JS animation reference | Phase 3 (generation) |
@@ -127,9 +113,7 @@ This skill was born from the belief that:
 
 ## Credits
 
-Created by [@zarazhangrui](https://github.com/zarazhangrui) with Claude Code.
-
-Inspired by the "Vibe Coding" philosophy — building beautiful things without being a traditional software engineer.
+Originally by [@zarazhangrui](https://github.com/zarazhangrui), forked and customized by [@andychoi](https://github.com/andychoi) with Claude Code.
 
 ## License
 
