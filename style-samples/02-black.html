@@ -138,12 +138,12 @@
             --code-size: clamp(0.65rem, 1.2vw, 0.95rem);
 
             /* Chart palette */
-            --chart-1: #f8f8f8;
-            --chart-2: #c0c0c0;
-            --chart-3: #888888;
-            --chart-4: #555555;
-            --chart-5: #333333;
-            --chart-6: #1a1a1a;
+            --chart-1: #3b82f6;
+            --chart-2: #ef4444;
+            --chart-3: #22c55e;
+            --chart-4: #f59e0b;
+            --chart-5: #8b5cf6;
+            --chart-6: #06b6d4;
             --chart-track: rgba(128, 128, 128, 0.15);
         }
 
@@ -1306,14 +1306,20 @@
             font-family: var(--font-display);
             font-size: clamp(0.6rem, 1.2vw, 0.85rem);
             font-weight: 800;
-            fill: #fff;
+            fill: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.4);
+            stroke-width: 3px;
         }
         .funnel-value {
             font-family: var(--font-body);
             font-size: clamp(0.55rem, 1vw, 0.75rem);
-            fill: rgba(255, 255, 255, 0.8);
+            fill: rgba(255, 255, 255, 0.95);
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.3);
+            stroke-width: 2px;
         }
 
         /* ===========================================

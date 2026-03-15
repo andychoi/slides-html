@@ -27,11 +27,11 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --border-color: rgba(0, 0, 0, 0.12);
     /* Chart palette */
     --chart-1: #ff3300;
-    --chart-2: #000000;
-    --chart-3: #666666;
-    --chart-4: #999999;
-    --chart-5: #cccccc;
-    --chart-6: #e0e0e0;
+    --chart-2: #264653;
+    --chart-3: #e76f51;
+    --chart-4: #2a9d8f;
+    --chart-5: #e9c46a;
+    --chart-6: #606060;
     --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
@@ -79,12 +79,12 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --gray-mid: #c0c0c0;
     --gray-dark: #4a4a4a;
     /* Chart palette */
-    --chart-1: #f8f8f8;
-    --chart-2: #c0c0c0;
-    --chart-3: #888888;
-    --chart-4: #555555;
-    --chart-5: #333333;
-    --chart-6: #1a1a1a;
+    --chart-1: #3b82f6;
+    --chart-2: #ef4444;
+    --chart-3: #22c55e;
+    --chart-4: #f59e0b;
+    --chart-5: #8b5cf6;
+    --chart-6: #06b6d4;
     --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
@@ -133,12 +133,12 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --gray-mid: #BFBAAF;
     --gray-dark: #60605B;
     /* Chart palette */
-    --chart-1: #003082;
-    --chart-2: #4a6fa5;
-    --chart-3: #BFBAAF;
-    --chart-4: #60605B;
-    --chart-5: #8a9bb5;
-    --chart-6: #c4d0e0;
+    --chart-1: #4a90d9;
+    --chart-2: #e8853d;
+    --chart-3: #5bb378;
+    --chart-4: #d4596e;
+    --chart-5: #8e7cc3;
+    --chart-6: #64748b;
     --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
@@ -174,11 +174,11 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --accent: #BB162B;
     /* Chart palette */
     --chart-1: #BB162B;
-    --chart-2: #ffffff;
-    --chart-3: #9ca3af;
-    --chart-4: #4b5563;
-    --chart-5: #374151;
-    --chart-6: #1f2937;
+    --chart-2: #3b82f6;
+    --chart-3: #10b981;
+    --chart-4: #f59e0b;
+    --chart-5: #8b5cf6;
+    --chart-6: #64748b;
     --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
@@ -211,11 +211,11 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
     --text-on-card: #1a1a1a;
     /* Chart palette */
     --chart-1: #FF5722;
-    --chart-2: #ffffff;
-    --chart-3: #888888;
-    --chart-4: #555555;
-    --chart-5: #333333;
-    --chart-6: #1a1a1a;
+    --chart-2: #29b6f6;
+    --chart-3: #66bb6a;
+    --chart-4: #ffa726;
+    --chart-5: #ab47bc;
+    --chart-6: #ec407a;
     --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```

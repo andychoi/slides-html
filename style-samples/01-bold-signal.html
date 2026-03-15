@@ -163,11 +163,11 @@
 
             /* Chart palette */
             --chart-1: #FF5722;
-            --chart-2: #ffffff;
-            --chart-3: #888888;
-            --chart-4: #555555;
-            --chart-5: #333333;
-            --chart-6: #1a1a1a;
+            --chart-2: #29b6f6;
+            --chart-3: #66bb6a;
+            --chart-4: #ffa726;
+            --chart-5: #ab47bc;
+            --chart-6: #ec407a;
             --chart-track: rgba(255, 255, 255, 0.1);
         }
 
@@ -862,14 +862,20 @@
             font-family: var(--font-display);
             font-size: clamp(0.6rem, 1.2vw, 0.85rem);
             font-weight: 800;
-            fill: #fff;
+            fill: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.4);
+            stroke-width: 3px;
         }
         .funnel-value {
             font-family: var(--font-body);
             font-size: clamp(0.55rem, 1vw, 0.75rem);
-            fill: rgba(255, 255, 255, 0.8);
+            fill: rgba(255, 255, 255, 0.95);
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.3);
+            stroke-width: 2px;
         }
 
         /* Bold Signal chart overrides - all on dark bg */
@@ -879,8 +885,6 @@
         .chart-bar-slide .bar-value { color: var(--text-primary); }
         .chart-progress-slide .progress-value { fill: var(--text-primary); }
         .chart-progress-slide .progress-label { color: rgba(255,255,255,0.6); }
-        .funnel-label { fill: #fff; }
-        .funnel-value { fill: rgba(255,255,255,0.8); }
 
         /* ===========================================
            NAV DOTS
