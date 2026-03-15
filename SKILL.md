@@ -153,13 +153,17 @@ What feeling should the audience have? Options:
 
 Based on mood, generate 3 distinct single-slide HTML previews showing typography, colors, animation, and overall aesthetic. Read [STYLE_PRESETS.md](STYLE_PRESETS.md) for available presets and their specifications.
 
+**Default preset: Black** (use when no style is specified)
+
 | Mood | Suggested Presets |
 |------|-------------------|
-| Impressed/Confident | Bold Signal, Blue |
-| Excited/Energized | Bold Signal, Black Midnight |
-| Calm/Focused | Red, Blue |
-| Inspired/Moved | Red, Black Midnight |
-| Corporate/Professional | Blue, Black |
+| Corporate/Professional | Black, Blue |
+| Impressed/Confident | Black Midnight, Blue |
+| Excited/Energized | Black Midnight, Bold Signal |
+| Calm/Focused | Black, Red |
+| Inspired/Moved | Black Midnight, Red |
+
+**Preset priority order:** Black → Blue → Black Midnight → Red → Bold Signal
 
 Save previews to `.claude-design/slide-previews/` (style-a.html, style-b.html, style-c.html). Each should be self-contained, ~50-100 lines, showing one animated title slide.
 

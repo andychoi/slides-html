@@ -113,13 +113,13 @@ See [CONTENT_TYPES.md](CONTENT_TYPES.md) for full layout reference.
 
 ## Style Presets
 
-| Preset | Vibe | Background |
-|---|---|---|
-| **Red** | Clean, structured, bold red accent | White with red accent |
-| **Black** | Dark-first, data-dense, professional | Alternating dark/light |
-| **Blue** | Corporate, premium, navy + warm silver | Navy-tinted dark/light |
-| **Black Midnight** | Deep midnight with strategic red | Midnight blue-black |
-| **Bold Signal** | Confident, high-impact, vibrant | Dark gradient with colored card |
+| Preset | Vibe | Background | Default |
+|---|---|---|---|
+| **Black** | Dark-first, data-dense, professional | Alternating dark/light | Yes |
+| **Blue** | Corporate, premium, navy + warm silver | Navy-tinted dark/light | |
+| **Black Midnight** | Deep midnight with strategic red | Midnight blue-black | |
+| **Red** | Clean, structured, bold red accent | White with red accent | |
+| **Bold Signal** | Confident, high-impact, vibrant | Dark gradient with colored card | |
 
 Preview all styles: open `style-samples/index.html` in your browser.
 
