@@ -128,7 +128,7 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 
 **When to use:** Before each major section in a 10+ slide deck. Use between 2-5 times per deck.
 
-**Markdown cue:** `---` horizontal rule or `# Section Title` (h1 level) in the outline.
+**Markdown cue:** `# Section: Name` prefix (e.g., `# Section: Market Analysis`), or `# Part N: Name`. Do NOT treat bare `---` or plain `#` headings as section dividers — `---` is a standard slide separator.
 
 ---
 
@@ -259,9 +259,9 @@ Does it show a sequential process?
   → Process / Flow (if conceptual steps)
   → Timeline (if date-based milestones)
 
-Does it compare two things?
-  → Comparison (if qualitative pros/cons)
-  → Table (if structured multi-column data)
+Does it compare things?
+  → Comparison (exactly 2 options, qualitative pros/cons)
+  → Table (3+ options, or structured multi-column data)
 
 Does it present large metrics?
   → Stat Highlight (1-3 numbers, dramatic)

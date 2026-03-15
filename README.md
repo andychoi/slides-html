@@ -96,7 +96,7 @@ Claude Code maps your markdown to the right slide layout automatically:
 | Markdown Pattern | Layout Used | CSS Class |
 |---|---|---|
 | `# Title` (first heading) | Title slide | `title-slide` |
-| `# Section: Name` | Section Divider | `section-divider` |
+| `# Section: Name` or `# Part N: Name` | Section Divider | `section-divider` |
 | `## Agenda` + numbered list | Agenda / TOC | `agenda-slide` |
 | `## Heading` + bullets | Content | `content-slide` |
 | `## Comparison: X vs Y` | Comparison | `comparison-slide` |

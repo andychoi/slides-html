@@ -148,9 +148,9 @@ Based on mood, generate 3 distinct single-slide HTML previews showing typography
 | Mood | Suggested Presets |
 |------|-------------------|
 | Impressed/Confident | Bold Signal, Default |
-| Excited/Energized | Bold Signal, Swiss Modern |
-| Calm/Focused | Default, Swiss Modern |
-| Inspired/Moved | Swiss Modern, Bold Signal |
+| Excited/Energized | Bold Signal, Black |
+| Calm/Focused | Default, Black |
+| Inspired/Moved | Default, Bold Signal |
 
 Save previews to `.claude-design/slide-previews/` (style-a.html, style-b.html, style-c.html). Each should be self-contained, ~50-100 lines, showing one animated title slide.
 
