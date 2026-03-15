@@ -138,6 +138,7 @@
             .roadmap-road, .roadmap-centerline { transition: none !important; stroke-dashoffset: 0 !important; }
             .roadmap-milestone { transition: none !important; opacity: 1 !important; transform: none !important; }
             .gantt-bar { transition: none !important; transform: scaleX(1) !important; }
+            .zone { transition: none !important; opacity: 1 !important; transform: none !important; }
         }
 
         /* ===========================================
@@ -1116,6 +1117,108 @@
         .gantt-axis { border-color: rgba(255,255,255,0.15); }
 
         /* ===========================================
+           COMPOSITE: SHARED GRID + ZONE
+           =========================================== */
+        .composite-grid {
+            display: grid;
+            gap: clamp(0.75rem, 1.5vw, 1.5rem);
+            height: 100%;
+            align-items: stretch;
+        }
+        .split-slide .composite-grid { grid-template-columns: 1fr 1fr; }
+        .quadrant-slide .composite-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+        .third-slide .composite-grid { grid-template-columns: 1fr 2fr; }
+        .three-col-slide .composite-grid { grid-template-columns: 1fr 1fr 1fr; }
+
+        .zone {
+            padding: clamp(0.75rem, 1.5vw, 1.5rem);
+            border-left: 3px solid rgba(255, 255, 255, 0.15);
+            display: flex; flex-direction: column;
+            gap: clamp(0.5rem, 1vw, 1rem);
+            overflow: hidden;
+            opacity: 0; transform: translateY(15px);
+            transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+        }
+        .zone:first-child { border-left: none; }
+        .slide.visible .zone { opacity: 1; transform: translateY(0); }
+        .slide.visible .zone:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .zone:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .zone:nth-child(4) { transition-delay: 0.3s; }
+
+        /* Quadrant borders */
+        .quadrant-slide .zone:nth-child(1),
+        .quadrant-slide .zone:nth-child(2) { border-left: none; }
+        .quadrant-slide .zone:nth-child(3),
+        .quadrant-slide .zone:nth-child(4) { border-top: 1px solid rgba(255, 255, 255, 0.15); }
+        .quadrant-slide .zone:nth-child(2),
+        .quadrant-slide .zone:nth-child(4) { border-left: 3px solid rgba(255, 255, 255, 0.15); }
+
+        .zone-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.5vw, 1.1rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
+            color: var(--text-primary);
+        }
+        .zone p { font-size: var(--body-size); line-height: 1.5; }
+        .zone ul { font-size: var(--body-size); padding-left: 1.2em; }
+        .zone li { line-height: 1.4; margin-bottom: 0.2em; }
+
+        /* Mini content scaling inside zones */
+        .zone .donut-chart { gap: clamp(0.5rem, 1vw, 1rem); }
+        .zone .donut-svg { max-width: 140px; }
+        .zone .donut-center { font-size: 1.2rem; }
+        .zone .donut-legend-item { font-size: clamp(0.6rem, 1vw, 0.75rem); }
+        .zone .donut-swatch { width: 10px; height: 10px; }
+        .zone .bar-chart { gap: clamp(3px, 0.5vw, 6px); }
+        .zone .bar-track { height: clamp(14px, 2vw, 22px); }
+        .zone .bar-label { flex: 0 0 clamp(50px, 10vw, 100px); font-size: clamp(0.6rem, 1vw, 0.8rem); }
+        .zone .bar-value { font-size: clamp(0.6rem, 1vw, 0.8rem); }
+        .zone .progress-ring-svg { width: clamp(70px, 12vw, 120px); }
+        .zone .progress-value { font-size: 1.5rem; }
+        .zone .progress-label { font-size: clamp(0.55rem, 0.9vw, 0.75rem); }
+        .zone .stat-number { font-size: clamp(1.5rem, 4vw, 3rem); }
+        .zone .stat-label { font-size: clamp(0.55rem, 0.9vw, 0.75rem); }
+        .zone table { font-size: clamp(0.6rem, 1vw, 0.8rem); color: var(--text-primary); }
+        .zone th, .zone td { padding: clamp(2px, 0.3vw, 6px) clamp(4px, 0.5vw, 8px); }
+        .zone th { background: rgba(255,255,255,0.08); }
+
+        /* Data table — Bold Signal dark variant */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th,
+        .data-table td {
+            padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.5rem, 1.2vw, 0.9rem);
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+        .data-table thead th {
+            background: rgba(255,255,255,0.08);
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+        .data-table tbody td:first-child {
+            background: rgba(255,255,255,0.05);
+            font-family: var(--font-display);
+        }
+
+        /* Responsive collapse */
+        @media (max-width: 600px) {
+            .split-slide .composite-grid,
+            .third-slide .composite-grid,
+            .three-col-slide .composite-grid { grid-template-columns: 1fr; }
+            .quadrant-slide .composite-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .zone { border-left: none; border-top: 1px solid rgba(255,255,255,0.15); }
+            .zone:first-child { border-top: none; }
+        }
+
+        /* ===========================================
            RESPONSIVE OVERRIDES
            =========================================== */
         @media (max-height: 700px) {
@@ -1608,6 +1711,484 @@
         </div>
         <div class="corner-accent decorative"></div>
         <div class="slide-type-label">Funnel Chart</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 11: CIRCULAR PROCESS FLOW
+         SVG steps around a circle with arrow arcs
+         ============================================ -->
+    <section class="slide cycle-slide" data-slide="11">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">11</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Diagrams</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; text-align: center;">Product Development</h2>
+            <p class="reveal" style="text-align: center; opacity: 0.6; font-size: var(--small-size); margin-bottom: clamp(0.5rem, 1vh, 1rem);">Continuous improvement loop</p>
+            <div class="cycle-chart reveal">
+                <svg viewBox="0 0 300 300" role="img" aria-label="Circular process: Research, Design, Build, Test, Launch">
+                    <title>Product Development Cycle</title>
+                    <defs>
+                        <marker id="bs-arrow-11" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                    <!-- 5 steps around circle (r=110, center 150,150) -->
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="150" cy="40" r="18" fill="var(--chart-1)"/>
+                        <text class="cycle-label" x="150" y="15" text-anchor="middle">Research</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="254.6" cy="84.5" r="18" fill="var(--chart-2)"/>
+                        <text class="cycle-label" x="280" y="80" text-anchor="start">Design</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="214.7" cy="239" r="18" fill="var(--chart-3)"/>
+                        <text class="cycle-label" x="240" y="258" text-anchor="start">Build</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="85.3" cy="239" r="18" fill="var(--chart-4)"/>
+                        <text class="cycle-label" x="60" y="258" text-anchor="end">Test</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="45.4" cy="84.5" r="18" fill="var(--chart-5)"/>
+                        <text class="cycle-label" x="20" y="80" text-anchor="end">Launch</text>
+                    </g>
+                    <!-- Arrow arcs between steps -->
+                    <path class="cycle-arrow" d="M 166,44 A 110,110 0 0,1 250,70" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#bs-arrow-11)"/>
+                    <path class="cycle-arrow" d="M 262,100 A 110,110 0 0,1 224,224" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#bs-arrow-11)"/>
+                    <path class="cycle-arrow" d="M 200,248 A 110,110 0 0,1 100,248" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#bs-arrow-11)"/>
+                    <path class="cycle-arrow" d="M 76,224 A 110,110 0 0,1 38,100" fill="none" stroke="var(--chart-4)" stroke-width="2" marker-end="url(#bs-arrow-11)"/>
+                    <path class="cycle-arrow" d="M 50,70 A 110,110 0 0,1 134,44" fill="none" stroke="var(--chart-5)" stroke-width="2" marker-end="url(#bs-arrow-11)"/>
+                </svg>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Cycle Diagram</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 12: CONVERGE / DIVERGE
+         SVG bezier paths merging to single output
+         ============================================ -->
+    <section class="slide converge-slide" data-slide="12">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">12</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Diagrams</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; text-align: center;">Platform Integration</h2>
+            <p class="reveal" style="text-align: center; opacity: 0.6; font-size: var(--small-size); margin-bottom: clamp(0.5rem, 1vh, 1rem);">Bringing services together into a unified system</p>
+            <div class="converge-chart reveal">
+                <svg viewBox="0 0 500 300" role="img" aria-label="Converging: API Gateway, Auth Service, Data Pipeline into Unified Platform">
+                    <title>Platform Integration</title>
+                    <defs>
+                        <marker id="bs-conv-arrow-12" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                    <g class="converge-input">
+                        <circle class="converge-node" cx="60" cy="60" r="15" fill="var(--chart-1)"/>
+                        <text class="converge-label" x="60" y="30" text-anchor="middle">API Gateway</text>
+                    </g>
+                    <g class="converge-input">
+                        <circle class="converge-node" cx="60" cy="150" r="15" fill="var(--chart-2)"/>
+                        <text class="converge-label" x="60" y="120" text-anchor="middle">Auth Service</text>
+                    </g>
+                    <g class="converge-input">
+                        <circle class="converge-node" cx="60" cy="240" r="15" fill="var(--chart-3)"/>
+                        <text class="converge-label" x="60" y="210" text-anchor="middle">Data Pipeline</text>
+                    </g>
+                    <g class="converge-output">
+                        <circle class="converge-node" cx="440" cy="150" r="22" fill="var(--chart-1)"/>
+                        <text class="converge-label" x="440" y="190" text-anchor="middle">Unified Platform</text>
+                    </g>
+                    <path class="converge-path" d="M 75,60 C 195,60 320,150 418,150" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#bs-conv-arrow-12)"/>
+                    <path class="converge-path" d="M 75,150 C 195,150 320,150 418,150" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#bs-conv-arrow-12)"/>
+                    <path class="converge-path" d="M 75,240 C 195,240 320,150 418,150" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#bs-conv-arrow-12)"/>
+                </svg>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Converge Diagram</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 13: WINDING ROAD TIMELINE
+         SVG S-curve with milestone markers
+         ============================================ -->
+    <section class="slide roadmap-slide" data-slide="13">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">13</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Diagrams</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; text-align: center;">2026 Product Milestones</h2>
+            <p class="reveal" style="text-align: center; opacity: 0.6; font-size: var(--small-size); margin-bottom: clamp(0.5rem, 1vh, 1rem);">Key delivery dates and strategic targets</p>
+            <div class="roadmap-chart reveal">
+                <svg viewBox="0 0 600 280" role="img" aria-label="Roadmap: Q1 Research, Q2 Build, Q3 Beta, Q4 Launch">
+                    <title>2026 Product Milestones</title>
+                    <path class="roadmap-road" d="M 30,220 C 130,220 130,60 300,60 S 470,220 570,220" fill="none" stroke="var(--chart-track)" stroke-width="30" stroke-linecap="round"/>
+                    <path class="roadmap-centerline" d="M 30,220 C 130,220 130,60 300,60 S 470,220 570,220" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-dasharray="8,6"/>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker active" cx="80" cy="200" r="10" fill="var(--chart-1)"/>
+                        <text class="roadmap-date" x="80" y="240" text-anchor="middle">Q1 2026</text>
+                        <text class="roadmap-title" x="80" y="256" text-anchor="middle">Research</text>
+                    </g>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker" cx="210" cy="100" r="10" fill="var(--chart-2)"/>
+                        <text class="roadmap-date" x="210" y="80" text-anchor="middle">Q2 2026</text>
+                        <text class="roadmap-title" x="210" y="66" text-anchor="middle">Build</text>
+                    </g>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker" cx="390" cy="100" r="10" fill="var(--chart-3)"/>
+                        <text class="roadmap-date" x="390" y="80" text-anchor="middle">Q3 2026</text>
+                        <text class="roadmap-title" x="390" y="66" text-anchor="middle">Beta</text>
+                    </g>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker" cx="520" cy="200" r="10" fill="var(--chart-4)"/>
+                        <text class="roadmap-date" x="520" y="240" text-anchor="middle">Q4 2026</text>
+                        <text class="roadmap-title" x="520" y="256" text-anchor="middle">Launch</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Roadmap</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 14: GANTT CHART
+         CSS grid with overlapping phase bars
+         ============================================ -->
+    <section class="slide gantt-slide" data-slide="14">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">14</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Diagrams</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; text-align: center;">Project Timeline</h2>
+            <p class="reveal" style="text-align: center; opacity: 0.6; font-size: var(--small-size); margin-bottom: clamp(0.5rem, 1vh, 1rem);">Phase overlap and delivery schedule</p>
+            <div class="gantt-chart reveal" style="--gantt-cols: 10" role="img" aria-label="Gantt chart: Research Jan-Mar, Design Feb-Apr, Development Apr-Aug, Testing Jul-Sep, Launch Sep-Oct">
+                <div class="gantt-row">
+                    <span class="gantt-label">Research</span>
+                    <div class="gantt-bar" style="--gantt-start: 1; --gantt-end: 4; background: var(--chart-1)">
+                        <span>Jan — Mar</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Design</span>
+                    <div class="gantt-bar" style="--gantt-start: 2; --gantt-end: 5; background: var(--chart-2)">
+                        <span>Feb — Apr</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Development</span>
+                    <div class="gantt-bar" style="--gantt-start: 4; --gantt-end: 9; background: var(--chart-3)">
+                        <span>Apr — Aug</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Testing</span>
+                    <div class="gantt-bar" style="--gantt-start: 7; --gantt-end: 10; background: var(--chart-4)">
+                        <span>Jul — Sep</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Launch</span>
+                    <div class="gantt-bar" style="--gantt-start: 9; --gantt-end: 11; background: var(--chart-5)">
+                        <span>Sep — Oct</span>
+                    </div>
+                </div>
+                <div class="gantt-axis">
+                    <span class="gantt-tick">Jan</span>
+                    <span class="gantt-tick">Feb</span>
+                    <span class="gantt-tick">Mar</span>
+                    <span class="gantt-tick">Apr</span>
+                    <span class="gantt-tick">May</span>
+                    <span class="gantt-tick">Jun</span>
+                    <span class="gantt-tick">Jul</span>
+                    <span class="gantt-tick">Aug</span>
+                    <span class="gantt-tick">Sep</span>
+                    <span class="gantt-tick">Oct</span>
+                </div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Gantt Chart</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 15: SPLIT COMPOSITE
+         Half & half — bullets left, table right
+         ============================================ -->
+    <section class="slide split-slide" data-slide="15" style="background: var(--bg-gradient);">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">15</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Composites</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; border-left: 4px solid var(--card-bg); padding-left: clamp(0.75rem, 2vw, 1.5rem);">Revenue Overview</h2>
+            <div class="composite-grid reveal">
+                <div class="zone zone-left" role="region" aria-label="Left column">
+                    <h3 class="zone-title">Key Highlights</h3>
+                    <ul>
+                        <li><strong>Revenue</strong> — $2.4M (+18% YoY)</li>
+                        <li><strong>Customers</strong> — 1,200 active accounts</li>
+                        <li><strong>NPS Score</strong> — 72 (up from 64)</li>
+                    </ul>
+                </div>
+                <div class="zone zone-right" role="region" aria-label="Right column">
+                    <h3 class="zone-title">By Region</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Region</th><th>Revenue</th><th>Growth</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>NA</td><td>$1.2M</td><td>+22%</td></tr>
+                            <tr><td>EU</td><td>$680K</td><td>+15%</td></tr>
+                            <tr><td>APAC</td><td>$520K</td><td>+12%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Split Composite</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 16: QUADRANT COMPOSITE
+         2x2 dashboard — ring, donut, bullets, table
+         ============================================ -->
+    <section class="slide quadrant-slide" data-slide="16" style="background: var(--bg-gradient);">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">16</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Composites</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; text-align: center;">Q4 Dashboard</h2>
+            <div class="composite-grid reveal">
+                <div class="zone zone-top-left" role="region" aria-label="Top left">
+                    <h3 class="zone-title">Satisfaction</h3>
+                    <div class="progress-ring-item">
+                        <div class="progress-ring-svg">
+                            <svg viewBox="0 0 200 200" role="img" aria-label="92%">
+                                <circle class="progress-track" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                                <circle class="progress-fill" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                    stroke-dasharray="462.44 502.65" stroke-linecap="round"
+                                    style="--target-offset: 0"/>
+                                <text class="progress-value" x="100" y="100"
+                                    text-anchor="middle" dominant-baseline="central">92%</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="zone zone-top-right" role="region" aria-label="Top right">
+                    <h3 class="zone-title">Market Share</h3>
+                    <div class="donut-chart">
+                        <div class="donut-svg">
+                            <svg viewBox="0 0 200 200" role="img" aria-label="Market share">
+                                <circle class="donut-segment" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-1)" stroke-width="25"
+                                    stroke-dasharray="226.19 502.65" stroke-dashoffset="0"
+                                    style="--target-offset: 0"/>
+                                <circle class="donut-segment" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-2)" stroke-width="25"
+                                    stroke-dasharray="175.93 502.65" stroke-dashoffset="-226.19"
+                                    style="--target-offset: -226.19"/>
+                                <circle class="donut-segment" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-3)" stroke-width="25"
+                                    stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12"
+                                    style="--target-offset: -402.12"/>
+                            </svg>
+                        </div>
+                        <div class="donut-legend">
+                            <div class="donut-legend-item">
+                                <span class="donut-swatch" style="background: var(--chart-1)"></span>
+                                <span>Mobile</span><span>45%</span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <span class="donut-swatch" style="background: var(--chart-2)"></span>
+                                <span>Desktop</span><span>35%</span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <span class="donut-swatch" style="background: var(--chart-3)"></span>
+                                <span>Tablet</span><span>20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zone zone-bottom-left" role="region" aria-label="Bottom left">
+                    <h3 class="zone-title">Key Wins</h3>
+                    <ul>
+                        <li>Launched v2.0 platform</li>
+                        <li>Closed enterprise deal</li>
+                        <li>Expanded to 3 new markets</li>
+                    </ul>
+                </div>
+                <div class="zone zone-bottom-right" role="region" aria-label="Bottom right">
+                    <h3 class="zone-title">Metrics</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Metric</th><th>Target</th><th>Actual</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Revenue</td><td>$2M</td><td>$2.4M</td></tr>
+                            <tr><td>Users</td><td>1K</td><td>1.2K</td></tr>
+                            <tr><td>NPS</td><td>65</td><td>72</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Quadrant Composite</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 17: THIRD SPLIT COMPOSITE
+         1/3 progress ring + 2/3 bar chart
+         ============================================ -->
+    <section class="slide third-slide" data-slide="17" style="background: var(--bg-gradient);">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">17</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Composites</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; border-left: 4px solid var(--card-bg); padding-left: clamp(0.75rem, 2vw, 1.5rem);">Market Analysis</h2>
+            <div class="composite-grid reveal">
+                <div class="zone zone-narrow" role="region" aria-label="Key metric">
+                    <div class="progress-ring-item">
+                        <div class="progress-ring-svg">
+                            <svg viewBox="0 0 200 200" role="img" aria-label="Market Share: 85%">
+                                <circle class="progress-track" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                                <circle class="progress-fill" cx="100" cy="100" r="80"
+                                    fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                    stroke-dasharray="427.25 502.65" stroke-linecap="round"
+                                    style="--target-offset: 0"/>
+                                <text class="progress-value" x="100" y="100"
+                                    text-anchor="middle" dominant-baseline="central">85%</text>
+                            </svg>
+                        </div>
+                        <div class="progress-label">Market Share</div>
+                    </div>
+                </div>
+                <div class="zone zone-wide" role="region" aria-label="Revenue breakdown">
+                    <h3 class="zone-title">Revenue by Segment</h3>
+                    <div class="bar-chart" role="img" aria-label="Revenue by segment">
+                        <div class="bar-row">
+                            <span class="bar-label">Enterprise</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="--bar-width: 100%"></div>
+                            </div>
+                            <span class="bar-value">540</span>
+                        </div>
+                        <div class="bar-row">
+                            <span class="bar-label">Mid-Market</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="--bar-width: 59%"></div>
+                            </div>
+                            <span class="bar-value">320</span>
+                        </div>
+                        <div class="bar-row">
+                            <span class="bar-label">SMB</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="--bar-width: 33%"></div>
+                            </div>
+                            <span class="bar-value">180</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Third Split Composite</div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 18: THREE COLUMN COMPOSITE
+         3 equal columns with zone-titles
+         ============================================ -->
+    <section class="slide three-col-slide" data-slide="18" style="background: var(--bg-gradient);">
+        <div class="grid-lines decorative"></div>
+        <div class="section-number">18</div>
+        <nav class="nav-breadcrumbs">
+            <span>Overview</span>
+            <span class="sep">/</span>
+            <span>Design</span>
+            <span class="sep">/</span>
+            <span class="active">Composites</span>
+        </nav>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--h2-size); text-transform: uppercase; text-align: center;">Team Structure</h2>
+            <div class="composite-grid reveal">
+                <div class="zone zone-col-1" role="region" aria-label="Column 1">
+                    <h3 class="zone-title">Engineering</h3>
+                    <ul>
+                        <li>24 engineers</li>
+                        <li>4 tech leads</li>
+                        <li>2 architects</li>
+                    </ul>
+                </div>
+                <div class="zone zone-col-2" role="region" aria-label="Column 2">
+                    <h3 class="zone-title">Design</h3>
+                    <ul>
+                        <li>8 designers</li>
+                        <li>2 UX researchers</li>
+                        <li>1 design lead</li>
+                    </ul>
+                </div>
+                <div class="zone zone-col-3" role="region" aria-label="Column 3">
+                    <h3 class="zone-title">Product</h3>
+                    <ul>
+                        <li>6 PMs</li>
+                        <li>2 analysts</li>
+                        <li>1 VP Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="corner-accent decorative"></div>
+        <div class="slide-type-label">Three Column Composite</div>
     </section>
 
     <script>
