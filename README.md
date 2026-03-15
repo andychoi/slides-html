@@ -2,16 +2,57 @@
 
 A Claude Code skill for generating professional HTML presentations from structured markdown content.
 
-## How It Works
+## Quick Start
 
-1. **Write a markdown file** describing your slides (see format below)
-2. **Run `/slides`** in Claude Code
-3. **Pick a style preset** (Default, Black, or Bold Signal)
-4. **Get a single HTML file** — zero dependencies, works forever
+### 1. Prepare Your Content
 
-## Preparing Your Markdown
+You can provide content in three ways:
+
+| Input | How | Example |
+|-------|-----|---------|
+| **Markdown file** | Write a `.md` file with slide content (see format below) | `slides my-talk.md` |
+| **PowerPoint file** | Provide a `.pptx` file for conversion | `slides deck.pptx` |
+| **Topic only** | Just describe what you want — Claude generates content | `slides` → "A pitch deck about AI safety" |
+
+### 2. Run the Skill
+
+**Two-step workflow (recommended):**
+```
+/slides-markdown    →  generates a slide-ready .md file (content + structure)
+/slides             →  generates the HTML presentation (design + animation)
+```
+
+**One-step workflow:**
+```
+/slides             →  does everything in one pass (content + design)
+```
+
+Use `/slides-markdown` first when you want to **review and edit the content** before committing to a visual style. It produces a properly formatted markdown file with the correct heading prefixes for all 14 layout types.
+
+### 3. Provide Context for Better Results
+
+When running `/slides`, tell Claude:
+
+- **Purpose** — _"This is a conference talk for developers"_ or _"Internal quarterly review for leadership"_
+- **Audience** — _"Technical PMs who know the product but not the code"_
+- **Source documents** — Attach or reference files: _"Use the notes in `research.md` and data from `metrics.csv`"_
+- **Images** — Point to a folder: _"Use images from `./assets/`"_ — Claude will review each image and design slides around them
+
+**Example prompt:**
+> `/slides` — Create a 15-slide pitch deck for Series A investors. Use content from `pitch-notes.md` and our logo in `assets/logo.png`. Tone: confident and data-driven.
+
+---
+
+## Writing Effective Markdown
 
 Structure your content as a markdown file before generating slides. Claude Code uses this to select the right layout for each slide automatically.
+
+### Key Rules
+
+1. **Separate slides with `---`** (horizontal rule)
+2. **Use specific prefixes** to trigger layouts — `## Comparison:`, `## Timeline:`, `## Process:`, `## Stats`, `# Section:`
+3. **Keep content concise** — 4-6 bullets per slide max. If content overflows, split into multiple slides
+4. **Use bold + dash** for structured bullets — `- **Label** — Description` renders as styled key-value pairs
 
 ### Markdown Format
 
@@ -111,6 +152,28 @@ Claude Code maps your markdown to the right slide layout automatically:
 
 See [CONTENT_TYPES.md](CONTENT_TYPES.md) for full layout reference.
 
+## Using Source Documents
+
+You can feed Claude any combination of source material when running `/slides`:
+
+| Source Type | What Claude Does |
+|-------------|------------------|
+| **Markdown file** (`.md`) | Uses as slide content directly — layout detection via heading patterns |
+| **PowerPoint** (`.pptx`) | Extracts text, images, speaker notes; rebuilds as HTML |
+| **Text/notes** (`.txt`, `.md`) | Distills key points into slide-appropriate content |
+| **Data files** (`.csv`, `.json`) | Pulls stats, comparisons, timelines from structured data |
+| **Images folder** | Reviews each image, selects usable ones, designs slides around them |
+| **PDF** (`.pdf`) | Reads content and restructures for presentation format |
+
+### Tips for Best Results
+
+- **Be specific about purpose and audience** — _"investor pitch"_ produces very different output than _"team standup"_
+- **Provide more content than you need** — Claude will curate and cut. It's easier to trim than to invent
+- **Name your markdown headings with prefixes** — `## Timeline: Roadmap` is much better than `## Our Plan` for layout detection
+- **Use the bold-dash pattern** for structured content — `- **$4.2B** — Total addressable market` renders as styled stat cards
+- **Include a logo** — If you provide one, it appears in style previews and the final deck
+- **Don't worry about design** — Focus on content; Claude handles typography, color, animation, and responsive layout
+
 ## Style Presets
 
 | Preset | Vibe | Background | Default |
@@ -167,7 +230,8 @@ Then use `/slides` in Claude Code.
 ```
 slides-html/
   README.md                 # Project overview
-  SKILL.md                  # Claude Code skill entry point
+  SKILL.md                  # /slides — HTML presentation generator
+  SKILL-markdown.md         # /slides-markdown — markdown content generator
   CONTENT_TYPES.md          # Layout taxonomy and selection guide
   STYLE_PRESETS.md           # Visual preset specifications
   reference/
