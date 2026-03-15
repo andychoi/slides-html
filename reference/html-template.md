@@ -1566,3 +1566,379 @@ Structure is similar across presets (Black adds `slide--light grid-bg-light` and
     </div>
 </section>
 ```
+
+### 19. Circular Process Flow (`cycle-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide cycle-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Cycle Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="cycle-chart reveal">
+            <svg viewBox="0 0 300 300" role="img" aria-label="Circular process flow">
+                <title>Product Development Cycle</title>
+                <!-- Arrowhead marker — ID must be unique per slide (use slide number) -->
+                <defs>
+                    <marker id="arrow-N" markerWidth="8" markerHeight="6"
+                        refX="8" refY="3" orient="auto">
+                        <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                    </marker>
+                </defs>
+                <!-- 5 steps positioned around circle (r=110, center 150,150) -->
+                <!-- Step 1: top (150, 40) — angle -90deg -->
+                <g class="cycle-step">
+                    <circle class="cycle-node" cx="150" cy="40" r="18"
+                        fill="var(--chart-1)"/>
+                    <text class="cycle-label" x="150" y="15"
+                        text-anchor="middle">Research</text>
+                </g>
+                <!-- Step 2: top-right (254.6, 84.5) — angle -18deg -->
+                <g class="cycle-step">
+                    <circle class="cycle-node" cx="254.6" cy="84.5" r="18"
+                        fill="var(--chart-2)"/>
+                    <text class="cycle-label" x="280" y="80"
+                        text-anchor="start">Design</text>
+                </g>
+                <!-- Step 3: bottom-right (214.7, 239) — angle 54deg -->
+                <g class="cycle-step">
+                    <circle class="cycle-node" cx="214.7" cy="239" r="18"
+                        fill="var(--chart-3)"/>
+                    <text class="cycle-label" x="240" y="258"
+                        text-anchor="start">Build</text>
+                </g>
+                <!-- Step 4: bottom-left (85.3, 239) — angle 126deg -->
+                <g class="cycle-step">
+                    <circle class="cycle-node" cx="85.3" cy="239" r="18"
+                        fill="var(--chart-4)"/>
+                    <text class="cycle-label" x="60" y="258"
+                        text-anchor="end">Test</text>
+                </g>
+                <!-- Step 5: top-left (45.4, 84.5) — angle 198deg -->
+                <g class="cycle-step">
+                    <circle class="cycle-node" cx="45.4" cy="84.5" r="18"
+                        fill="var(--chart-5)"/>
+                    <text class="cycle-label" x="20" y="80"
+                        text-anchor="end">Launch</text>
+                </g>
+                <!-- Arrow arcs between steps -->
+                <path class="cycle-arrow" d="M 166,44 A 110,110 0 0,1 250,70"
+                    fill="none" stroke="var(--chart-1)" stroke-width="2"
+                    marker-end="url(#arrow-N)"/>
+                <path class="cycle-arrow" d="M 262,100 A 110,110 0 0,1 224,224"
+                    fill="none" stroke="var(--chart-2)" stroke-width="2"
+                    marker-end="url(#arrow-N)"/>
+                <path class="cycle-arrow" d="M 200,248 A 110,110 0 0,1 100,248"
+                    fill="none" stroke="var(--chart-3)" stroke-width="2"
+                    marker-end="url(#arrow-N)"/>
+                <path class="cycle-arrow" d="M 76,224 A 110,110 0 0,1 38,100"
+                    fill="none" stroke="var(--chart-4)" stroke-width="2"
+                    marker-end="url(#arrow-N)"/>
+                <path class="cycle-arrow" d="M 50,70 A 110,110 0 0,1 134,44"
+                    fill="none" stroke="var(--chart-5)" stroke-width="2"
+                    marker-end="url(#arrow-N)"/>
+            </svg>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide cycle-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Cycle Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="cycle-chart reveal">
+            <!-- Same SVG structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / TOTAL</span>
+    </div>
+</section>
+```
+
+### 20. Converge/Diverge (`converge-slide`)
+
+**Default/Red preset (converge):**
+
+```html
+<section class="slide converge-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Converge Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="converge-chart reveal">
+            <svg viewBox="0 0 500 300" role="img" aria-label="Converging diagram showing platform integration">
+                <title>Platform Integration</title>
+                <!-- Arrowhead marker — ID must be unique per slide -->
+                <defs>
+                    <marker id="conv-arrow-N" markerWidth="8" markerHeight="6"
+                        refX="8" refY="3" orient="auto">
+                        <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                    </marker>
+                </defs>
+                <!-- Input nodes (left side, evenly spaced) -->
+                <g class="converge-input">
+                    <circle class="converge-node" cx="60" cy="60" r="15"
+                        fill="var(--chart-1)"/>
+                    <text class="converge-label" x="60" y="30"
+                        text-anchor="middle">API Gateway</text>
+                </g>
+                <g class="converge-input">
+                    <circle class="converge-node" cx="60" cy="150" r="15"
+                        fill="var(--chart-2)"/>
+                    <text class="converge-label" x="60" y="120"
+                        text-anchor="middle">Auth Service</text>
+                </g>
+                <g class="converge-input">
+                    <circle class="converge-node" cx="60" cy="240" r="15"
+                        fill="var(--chart-3)"/>
+                    <text class="converge-label" x="60" y="210"
+                        text-anchor="middle">Data Pipeline</text>
+                </g>
+                <!-- Output node (right side, centered) -->
+                <g class="converge-output">
+                    <circle class="converge-node" cx="440" cy="150" r="22"
+                        fill="var(--chart-1)"/>
+                    <text class="converge-label" x="440" y="190"
+                        text-anchor="middle">Unified Platform</text>
+                </g>
+                <!-- Bezier paths from inputs to output — with arrowheads -->
+                <path class="converge-path"
+                    d="M 75,60 C 195,60 320,150 418,150"
+                    fill="none" stroke="var(--chart-1)" stroke-width="2"
+                    marker-end="url(#conv-arrow-N)"/>
+                <path class="converge-path"
+                    d="M 75,150 C 195,150 320,150 418,150"
+                    fill="none" stroke="var(--chart-2)" stroke-width="2"
+                    marker-end="url(#conv-arrow-N)"/>
+                <path class="converge-path"
+                    d="M 75,240 C 195,240 320,150 418,150"
+                    fill="none" stroke="var(--chart-3)" stroke-width="2"
+                    marker-end="url(#conv-arrow-N)"/>
+            </svg>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide converge-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Converge Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="converge-chart reveal">
+            <!-- Same SVG structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Diverge variant:** Uses the same `converge-slide` class and `converge-chart` container. Nodes and paths are mirrored — 1 input on the left, 3-5 outputs on the right. Replace `converge-input`/`converge-output` roles (single node gets `converge-input`, multiple nodes get `converge-output`). Paths flow left → right with bezier curves fanning out.
+
+### 21. Winding Road Timeline (`roadmap-slide`)
+
+**Dark-background slide pattern:** Like Phase 1's progress rings, this slide uses a dark background in all presets. In the Red preset, this means overriding the default white bg with dark colors and omitting the `swiss-grid` decorative element (not visible on dark). In Black-family presets, use `slide--dark grid-bg-dark`.
+
+**Default/Red preset:**
+
+```html
+<section class="slide roadmap-slide" data-slide="N">
+    <!-- No swiss-grid: dark background slide (same pattern as chart-progress-slide) -->
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="red-bar-h reveal"></div>
+        <h2 class="slide-title" style="position: relative; color: var(--bg-primary)">Roadmap Title</h2>
+        <div class="roadmap-chart reveal">
+            <svg viewBox="0 0 600 280" role="img" aria-label="Product roadmap with milestones">
+                <title>2026 Product Milestones</title>
+                <!-- Road path: thick S-curve -->
+                <path class="roadmap-road"
+                    d="M 30,220 C 130,220 130,60 300,60 S 470,220 570,220"
+                    fill="none" stroke="var(--chart-track)" stroke-width="30"
+                    stroke-linecap="round"/>
+                <!-- Optional center dashed line -->
+                <path class="roadmap-centerline"
+                    d="M 30,220 C 130,220 130,60 300,60 S 470,220 570,220"
+                    fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"
+                    stroke-dasharray="8,6"/>
+                <!-- Milestone 1 (leftmost on path) -->
+                <g class="roadmap-milestone">
+                    <circle class="roadmap-marker active" cx="80" cy="200" r="10"
+                        fill="var(--chart-1)"/>
+                    <text class="roadmap-date" x="80" y="240"
+                        text-anchor="middle">Q1 2026</text>
+                    <text class="roadmap-title" x="80" y="256"
+                        text-anchor="middle">Research</text>
+                </g>
+                <!-- Milestone 2 -->
+                <g class="roadmap-milestone">
+                    <circle class="roadmap-marker" cx="210" cy="100" r="10"
+                        fill="var(--chart-2)"/>
+                    <text class="roadmap-date" x="210" y="80"
+                        text-anchor="middle">Q2 2026</text>
+                    <text class="roadmap-title" x="210" y="66"
+                        text-anchor="middle">Build</text>
+                </g>
+                <!-- Milestone 3 -->
+                <g class="roadmap-milestone">
+                    <circle class="roadmap-marker" cx="390" cy="100" r="10"
+                        fill="var(--chart-3)"/>
+                    <text class="roadmap-date" x="390" y="80"
+                        text-anchor="middle">Q3 2026</text>
+                    <text class="roadmap-title" x="390" y="66"
+                        text-anchor="middle">Beta</text>
+                </g>
+                <!-- Milestone 4 (rightmost on path) -->
+                <g class="roadmap-milestone">
+                    <circle class="roadmap-marker" cx="520" cy="200" r="10"
+                        fill="var(--chart-4)"/>
+                    <text class="roadmap-date" x="520" y="240"
+                        text-anchor="middle">Q4 2026</text>
+                    <text class="roadmap-title" x="520" y="256"
+                        text-anchor="middle">Launch</text>
+                </g>
+            </svg>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide roadmap-slide slide--dark grid-bg-dark" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Roadmap Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="roadmap-chart reveal">
+            <!-- Same SVG structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / TOTAL</span>
+    </div>
+</section>
+```
+
+### 22. Gantt Chart (`gantt-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide gantt-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Gantt Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="gantt-chart reveal" role="img" aria-label="Gantt chart showing project timeline">
+            <!-- Phase rows -->
+            <div class="gantt-row">
+                <span class="gantt-label">Research</span>
+                <div class="gantt-bar" style="--gantt-start: 1; --gantt-end: 4; background: var(--chart-1)">
+                    <span>Jan — Mar</span>
+                </div>
+            </div>
+            <div class="gantt-row">
+                <span class="gantt-label">Design</span>
+                <div class="gantt-bar" style="--gantt-start: 2; --gantt-end: 5; background: var(--chart-2)">
+                    <span>Feb — Apr</span>
+                </div>
+            </div>
+            <div class="gantt-row">
+                <span class="gantt-label">Development</span>
+                <div class="gantt-bar" style="--gantt-start: 4; --gantt-end: 9; background: var(--chart-3)">
+                    <span>Apr — Aug</span>
+                </div>
+            </div>
+            <div class="gantt-row">
+                <span class="gantt-label">Testing</span>
+                <div class="gantt-bar" style="--gantt-start: 7; --gantt-end: 10; background: var(--chart-4)">
+                    <span>Jul — Sep</span>
+                </div>
+            </div>
+            <div class="gantt-row">
+                <span class="gantt-label">Launch</span>
+                <div class="gantt-bar" style="--gantt-start: 9; --gantt-end: 11; background: var(--chart-5)">
+                    <span>Sep — Oct</span>
+                </div>
+            </div>
+            <!-- Time axis -->
+            <div class="gantt-axis">
+                <span class="gantt-tick">Jan</span>
+                <span class="gantt-tick">Feb</span>
+                <span class="gantt-tick">Mar</span>
+                <span class="gantt-tick">Apr</span>
+                <span class="gantt-tick">May</span>
+                <span class="gantt-tick">Jun</span>
+                <span class="gantt-tick">Jul</span>
+                <span class="gantt-tick">Aug</span>
+                <span class="gantt-tick">Sep</span>
+                <span class="gantt-tick">Oct</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide gantt-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Gantt Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="gantt-chart reveal" role="img" aria-label="Gantt chart showing project timeline">
+            <!-- Same gantt-row structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / TOTAL</span>
+    </div>
+</section>
+```

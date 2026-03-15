@@ -164,6 +164,48 @@ Conversion through the sales process
 
 ---
 
+## Cycle: Product Development
+Continuous improvement loop
+
+- Research
+- Design
+- Build
+- Test
+- Launch
+
+---
+
+## Converge: Platform Integration
+Bringing services together into a unified system
+
+- API Gateway
+- Auth Service
+- Data Pipeline
+→ Unified Platform
+
+---
+
+## Roadmap: 2026 Product Milestones
+Key delivery dates and strategic targets
+
+- Q1 2026: Research & Discovery
+- Q2 2026: Core Platform Build
+- Q3 2026: Beta Launch
+- Q4 2026: General Availability
+
+---
+
+## Gantt: Project Timeline
+Phase overlap and delivery schedule
+
+- Research: Jan — Mar
+- Design: Feb — Apr
+- Development: Apr — Aug
+- Testing: Jul — Sep
+- Launch: Sep — Oct
+
+---
+
 ## Thank You
 Questions, feedback, and open discussion
 

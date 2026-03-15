@@ -26,6 +26,10 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 | 16 | **Bar Chart** | `chart-bar-slide` | Light | Comparative quantities — 3-8 horizontal bars |
 | 17 | **Progress Rings** | `chart-progress-slide` | Dark | Independent metrics — 2-4 animated circular gauges |
 | 18 | **Funnel** | `funnel-slide` | Light | Pipeline/conversion — 3-5 narrowing SVG trapezoid stages |
+| 19 | **Circular Process Flow** | `cycle-slide` | Light | Cyclical process — 3-6 steps around a circle with arrow arcs |
+| 20 | **Converge/Diverge** | `converge-slide` | Light | Multiple inputs merging or one input splitting — SVG bezier paths |
+| 21 | **Winding Road Timeline** | `roadmap-slide` | Dark | S-curve road path with milestone markers along the route |
+| 22 | **Gantt Chart** | `gantt-slide` | Light | Overlapping phase bars on a time axis — CSS grid layout |
 
 ---
 
@@ -312,6 +316,65 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 
 ---
 
+### 19. Circular Process Flow (`cycle-slide`)
+
+**Purpose:** Visualizing cyclical or repeating processes.
+
+**Structure:**
+- SVG circle with 3-6 step nodes positioned around it, connected by arrow arcs
+- Each node is a colored circle with a label
+- Arrowhead markers show flow direction
+
+**When to use:** Product development cycles, iterative processes, continuous improvement loops, seasonal patterns.
+
+**Markdown cue:** `## Cycle: Title` followed by `- Step` bullet items.
+
+---
+
+### 20. Converge/Diverge (`converge-slide`)
+
+**Purpose:** Showing multiple inputs merging into one output (converge) or one input splitting into many (diverge).
+
+**Structure:**
+- SVG with input nodes on one side, output node(s) on the other, connected by curved bezier paths with arrowheads
+- Colors from chart palette
+
+**When to use:** System integration, data pipelines, resource allocation, team structures, platform convergence.
+
+**Markdown cue:** `## Converge: Title` followed by `- Input` items and `→ Output` line. `## Diverge: Title` for the reverse.
+
+---
+
+### 21. Winding Road Timeline (`roadmap-slide`)
+
+**Purpose:** Showing a journey or roadmap with milestones along a visual path.
+
+**Structure:**
+- SVG S-curve road path (thick stroke) with colored milestone markers positioned along it
+- Labels alternate above/below the road
+- Dark background for dramatic effect
+
+**When to use:** Product roadmaps, strategic plans, journey visualizations, multi-phase projects where the path metaphor adds meaning.
+
+**Markdown cue:** `## Roadmap: Title` followed by `- Q1 2026: Milestone` dated items.
+
+---
+
+### 22. Gantt Chart (`gantt-slide`)
+
+**Purpose:** Showing overlapping project phases on a time axis.
+
+**Structure:**
+- CSS grid with phase labels on the left and colored horizontal bars spanning their date ranges
+- Time axis at the bottom
+- Bars grow from left with staggered animation
+
+**When to use:** Project schedules, sprint planning, resource allocation timelines, release planning.
+
+**Markdown cue:** `## Gantt: Title` followed by `- Phase: Start — End` items.
+
+---
+
 ## Choosing the Right Layout
 
 ```
@@ -340,6 +403,19 @@ Does it show data as a chart or visualization?
   → Quantities compared across categories? → Bar Chart
   → Progress toward independent goals? → Progress Rings
   → Narrowing pipeline or conversion? → Funnel
+
+Does it show a cyclical/repeating process?
+  → Circular Process Flow
+
+Does it show multiple inputs merging or one input splitting?
+  → Converge/Diverge
+
+Does it show a journey/roadmap with milestones along a path?
+  → Winding Road Timeline (visual S-curve path)
+  → Timeline (type 9 — horizontal linear milestones)
+
+Does it show overlapping phases on a time axis?
+  → Gantt Chart
 
 Does it show code?
   → Code
@@ -432,6 +508,19 @@ A well-structured 15-slide deck typically follows this pattern:
 | Funnel container | `.funnel-chart` | Wraps the SVG funnel |
 | Funnel stage | `.funnel-stage` | SVG `<g>` with polygon + text |
 | Funnel shape | `.funnel-shape` | SVG `<polygon>`, colored via `--chart-N` |
+| Cycle container | `.cycle-chart` | Centers SVG |
+| Cycle step | `.cycle-step` | SVG `<g>` with node + label |
+| Cycle arrow | `.cycle-arrow` | SVG `<path>` arc with arrowhead |
+| Converge container | `.converge-chart` | Centers SVG |
+| Converge path | `.converge-path` | SVG `<path>` bezier with arrowhead |
+| Converge node | `.converge-node` | SVG `<circle>` |
+| Roadmap container | `.roadmap-chart` | Centers SVG |
+| Roadmap road | `.roadmap-road` | Thick SVG `<path>` S-curve |
+| Roadmap milestone | `.roadmap-milestone` | SVG `<g>` with marker + labels |
+| Roadmap marker | `.roadmap-marker` | SVG `<circle>`, `.active` = accent |
+| Gantt container | `.gantt-chart` | CSS grid layout |
+| Gantt bar | `.gantt-bar` | Colored bar, `grid-column` positioning |
+| Gantt axis | `.gantt-axis` | Bottom row time labels |
 
 ### Black Preset Classes (also used by Blue, Black Midnight)
 
@@ -473,3 +562,16 @@ A well-structured 15-slide deck typically follows this pattern:
 | Funnel container | `.funnel-chart` | Wraps the SVG funnel |
 | Funnel stage | `.funnel-stage` | SVG `<g>` with polygon + text |
 | Funnel shape | `.funnel-shape` | SVG `<polygon>`, colored via `--chart-N` |
+| Cycle container | `.cycle-chart` | Centers SVG |
+| Cycle step | `.cycle-step` | SVG `<g>` with node + label |
+| Cycle arrow | `.cycle-arrow` | SVG `<path>` arc with arrowhead |
+| Converge container | `.converge-chart` | Centers SVG |
+| Converge path | `.converge-path` | SVG `<path>` bezier with arrowhead |
+| Converge node | `.converge-node` | SVG `<circle>` |
+| Roadmap container | `.roadmap-chart` | Centers SVG |
+| Roadmap road | `.roadmap-road` | Thick SVG `<path>` S-curve |
+| Roadmap milestone | `.roadmap-milestone` | SVG `<g>` with marker + labels |
+| Roadmap marker | `.roadmap-marker` | SVG `<circle>`, `.active` = accent |
+| Gantt container | `.gantt-chart` | CSS grid layout |
+| Gantt bar | `.gantt-bar` | Colored bar, `grid-column` positioning |
+| Gantt axis | `.gantt-axis` | Bottom row time labels |
