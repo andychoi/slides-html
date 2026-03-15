@@ -1942,3 +1942,318 @@ Structure is similar across presets (Black adds `slide--light grid-bg-light` and
     </div>
 </section>
 ```
+
+---
+
+### 23. Split (`split-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide split-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Split Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="composite-grid reveal">
+            <div class="zone zone-left" role="region" aria-label="Left column">
+                <h3 class="zone-title">Key Highlights</h3>
+                <div class="bullet-item">
+                    <div class="bullet-marker filled"></div>
+                    <div>
+                        <strong>Revenue</strong>
+                        <span class="desc">$2.4M (+18% YoY)</span>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="bullet-marker filled"></div>
+                    <div>
+                        <strong>Customers</strong>
+                        <span class="desc">1,200 active accounts</span>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="bullet-marker filled"></div>
+                    <div>
+                        <strong>NPS Score</strong>
+                        <span class="desc">72 (up from 64)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="zone zone-right" role="region" aria-label="Right column">
+                <h3 class="zone-title">By Region</h3>
+                <table class="swiss-table">
+                    <thead>
+                        <tr><th>Region</th><th>Revenue</th><th>Growth</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>NA</td><td>$1.2M</td><td>+22%</td></tr>
+                        <tr><td>EU</td><td>$680K</td><td>+15%</td></tr>
+                        <tr><td>APAC</td><td>$520K</td><td>+12%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide split-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Split Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="composite-grid reveal">
+            <!-- Same zone structure as Red preset -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / TOTAL</span>
+    </div>
+</section>
+```
+
+---
+
+### 24. Quadrant (`quadrant-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide quadrant-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Dashboard Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="composite-grid reveal">
+            <div class="zone zone-top-left" role="region" aria-label="Top left">
+                <h3 class="zone-title">Satisfaction</h3>
+                <div class="progress-ring-item">
+                    <div class="progress-ring-svg">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="92%">
+                            <circle class="progress-track" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                            <circle class="progress-fill" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                stroke-dasharray="462.44 502.65" stroke-linecap="round"
+                                style="--target-offset: 0"/>
+                            <text class="progress-value" x="100" y="100"
+                                text-anchor="middle" dominant-baseline="central">92%</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="zone zone-top-right" role="region" aria-label="Top right">
+                <h3 class="zone-title">Market Share</h3>
+                <div class="donut-chart">
+                    <div class="donut-svg">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="Market share">
+                            <circle class="donut-segment" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-1)" stroke-width="25"
+                                stroke-dasharray="226.19 502.65" stroke-dashoffset="0"
+                                style="--target-offset: 0"/>
+                            <circle class="donut-segment" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-2)" stroke-width="25"
+                                stroke-dasharray="175.93 502.65" stroke-dashoffset="-226.19"
+                                style="--target-offset: -226.19"/>
+                            <circle class="donut-segment" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-3)" stroke-width="25"
+                                stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12"
+                                style="--target-offset: -402.12"/>
+                        </svg>
+                    </div>
+                    <div class="donut-legend">
+                        <div class="donut-legend-item">
+                            <span class="donut-swatch" style="background: var(--chart-1)"></span>
+                            <span>Mobile</span><span>45%</span>
+                        </div>
+                        <div class="donut-legend-item">
+                            <span class="donut-swatch" style="background: var(--chart-2)"></span>
+                            <span>Desktop</span><span>35%</span>
+                        </div>
+                        <div class="donut-legend-item">
+                            <span class="donut-swatch" style="background: var(--chart-3)"></span>
+                            <span>Tablet</span><span>20%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="zone zone-bottom-left" role="region" aria-label="Bottom left">
+                <h3 class="zone-title">Key Wins</h3>
+                <ul>
+                    <li>Launched v2.0 platform</li>
+                    <li>Closed enterprise deal</li>
+                    <li>Expanded to 3 new markets</li>
+                </ul>
+            </div>
+            <div class="zone zone-bottom-right" role="region" aria-label="Bottom right">
+                <h3 class="zone-title">Metrics</h3>
+                <table class="swiss-table">
+                    <thead>
+                        <tr><th>Metric</th><th>Target</th><th>Actual</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Revenue</td><td>$2M</td><td>$2.4M</td></tr>
+                        <tr><td>Users</td><td>1K</td><td>1.2K</td></tr>
+                        <tr><td>NPS</td><td>65</td><td>72</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:**
+
+```html
+<section class="slide quadrant-slide slide--light grid-bg-light" data-slide="N">
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="slide-header reveal">
+            <h2>Dashboard Title</h2>
+            <p class="slide-subtitle">Subtitle text</p>
+        </div>
+        <div class="composite-grid reveal">
+            <!-- Same zone structure as Red preset, using data-table instead of swiss-table -->
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num-label">N / TOTAL</span>
+    </div>
+</section>
+```
+
+---
+
+### 25. Third Split (`third-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide third-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Third Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="composite-grid reveal">
+            <div class="zone zone-narrow" role="region" aria-label="Key metric">
+                <div class="progress-ring-item">
+                    <div class="progress-ring-svg">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="Market Share: 85%">
+                            <circle class="progress-track" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                            <circle class="progress-fill" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                stroke-dasharray="427.25 502.65" stroke-linecap="round"
+                                style="--target-offset: 0"/>
+                            <text class="progress-value" x="100" y="100"
+                                text-anchor="middle" dominant-baseline="central">85%</text>
+                        </svg>
+                    </div>
+                    <div class="progress-label">Market Share</div>
+                </div>
+            </div>
+            <div class="zone zone-wide" role="region" aria-label="Revenue breakdown">
+                <h3 class="zone-title">Revenue by Segment</h3>
+                <div class="bar-chart" role="img" aria-label="Revenue by segment">
+                    <div class="bar-row">
+                        <span class="bar-label">Enterprise</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--bar-width: 100%"></div>
+                        </div>
+                        <span class="bar-value">540</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Mid-Market</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--bar-width: 59%"></div>
+                        </div>
+                        <span class="bar-value">320</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">SMB</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--bar-width: 33%"></div>
+                        </div>
+                        <span class="bar-value">180</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:** Same structure with `slide--light grid-bg-light` + `slide-header`.
+
+---
+
+### 26. Three Column (`three-col-slide`)
+
+**Default/Red preset:**
+
+```html
+<section class="slide three-col-slide" data-slide="N">
+    <div class="swiss-grid decorative"><!-- grid lines --></div>
+    <h2 class="slide-title">Three Columns Title</h2>
+    <p class="slide-subtitle">Subtitle text</p>
+    <div class="section-title">Label</div>
+    <div class="slide-content">
+        <div class="composite-grid reveal">
+            <div class="zone zone-col-1" role="region" aria-label="Column 1">
+                <h3 class="zone-title">Engineering</h3>
+                <ul>
+                    <li>24 engineers</li>
+                    <li>4 tech leads</li>
+                    <li>2 architects</li>
+                </ul>
+            </div>
+            <div class="zone zone-col-2" role="region" aria-label="Column 2">
+                <h3 class="zone-title">Design</h3>
+                <ul>
+                    <li>8 designers</li>
+                    <li>2 UX researchers</li>
+                    <li>1 design lead</li>
+                </ul>
+            </div>
+            <div class="zone zone-col-3" role="region" aria-label="Column 3">
+                <h3 class="zone-title">Product</h3>
+                <ul>
+                    <li>6 PMs</li>
+                    <li>2 analysts</li>
+                    <li>1 VP Product</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-rule">
+        <span>Label</span>
+        <span class="slide-num">N / TOTAL</span>
+    </div>
+</section>
+```
+
+**Black preset:** Same structure with `slide--light grid-bg-light` + `slide-header`.

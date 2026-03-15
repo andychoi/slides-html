@@ -206,6 +206,86 @@ Phase overlap and delivery schedule
 
 ---
 
+## Split: Revenue Overview
+Key highlights alongside regional breakdown
+
+### Left
+- **Revenue** — $2.4M (+18% YoY)
+- **Customers** — 1,200 active accounts
+- **NPS Score** — 72 (up from 64)
+
+### Right
+| Region | Revenue | Growth |
+|--------|---------|--------|
+| NA | $1.2M | +22% |
+| EU | $680K | +15% |
+| APAC | $520K | +12% |
+
+---
+
+## Quadrant: Q4 Dashboard
+Performance overview across key metrics
+
+### Top-Left
+- Customer Satisfaction: 92%
+
+### Top-Right
+- Mobile: 45%
+- Desktop: 35%
+- Tablet: 20%
+
+### Bottom-Left
+**Key Wins**
+- Launched v2.0 platform
+- Closed enterprise deal
+- Expanded to 3 new markets
+
+### Bottom-Right
+| Metric | Target | Actual |
+|--------|--------|--------|
+| Revenue | $2M | $2.4M |
+| Users | 1K | 1.2K |
+| NPS | 65 | 72 |
+
+---
+
+## Third: Market Analysis
+Key metric with supporting data
+
+### Narrow
+- Market Share: 85%
+
+### Wide
+Revenue breakdown by segment
+- Enterprise: 540
+- Mid-Market: 320
+- SMB: 180
+
+---
+
+## Three Columns: Team Structure
+Organization across departments
+
+### Col 1
+**Engineering**
+- 24 engineers
+- 4 tech leads
+- 2 architects
+
+### Col 2
+**Design**
+- 8 designers
+- 2 UX researchers
+- 1 design lead
+
+### Col 3
+**Product**
+- 6 PMs
+- 2 analysts
+- 1 VP Product
+
+---
+
 ## Thank You
 Questions, feedback, and open discussion
 

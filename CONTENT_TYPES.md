@@ -30,6 +30,10 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 | 20 | **Converge/Diverge** | `converge-slide` | Light | Multiple inputs merging or one input splitting — SVG bezier paths |
 | 21 | **Winding Road Timeline** | `roadmap-slide` | Dark | S-curve road path with milestone markers along the route |
 | 22 | **Gantt Chart** | `gantt-slide` | Light | Overlapping phase bars on a time axis — CSS grid layout |
+| 23 | **Split (Half & Half)** | `split-slide` | Light | 2 equal columns, each zone holds any content type |
+| 24 | **Quadrant (2x2)** | `quadrant-slide` | Light | 4 boxes in a 2x2 grid, each holds any content type |
+| 25 | **Third Split** | `third-slide` | Light | Asymmetric 1/3 + 2/3 split, narrow + wide zones |
+| 26 | **Three Column** | `three-col-slide` | Light | 3 equal columns, each holds any content type |
 
 ---
 
@@ -375,6 +379,66 @@ Canonical layout types for HTML slide presentations. Use these names and CSS cla
 
 ---
 
+### 23. Split (`split-slide`)
+
+**Purpose:** Two equal columns where each zone independently holds any content type (bullets, table, chart, stats).
+
+**Structure:**
+- `.composite-grid` with two `.zone` children (`.zone-left`, `.zone-right`)
+- Each zone has optional `.zone-title` heading
+- Zone content parsed independently — can be bullets, table, mini-chart, stats, or plain text
+
+**When to use:** When a single slide needs to present two distinct but related content blocks side by side — e.g., key highlights + regional breakdown, text + table, bullets + chart.
+
+**Markdown cue:** `## Split: Title` followed by `### Left` and `### Right` subsections.
+
+---
+
+### 24. Quadrant (`quadrant-slide`)
+
+**Purpose:** Four boxes in a 2x2 grid, each holding any content type — ideal for dashboards.
+
+**Structure:**
+- `.composite-grid` with four `.zone` children (`.zone-top-left`, `.zone-top-right`, `.zone-bottom-left`, `.zone-bottom-right`)
+- Each zone has optional `.zone-title` heading
+- Zone content parsed independently
+
+**When to use:** Dashboard-style slides combining 4 different metrics, charts, or content blocks. Each quadrant stays compact.
+
+**Markdown cue:** `## Quadrant: Title` followed by `### Top-Left`, `### Top-Right`, `### Bottom-Left`, `### Bottom-Right` subsections.
+
+---
+
+### 25. Third Split (`third-slide`)
+
+**Purpose:** Asymmetric 1/3 + 2/3 split — narrow zone for a single stat or ring, wide zone for a list, chart, or table.
+
+**Structure:**
+- `.composite-grid` with two `.zone` children (`.zone-narrow`, `.zone-wide`)
+- Narrow zone best for single metric (progress ring, stat number)
+- Wide zone for richer content (bar chart, table, bullet list)
+
+**When to use:** When one piece of content is a focal metric and the other provides supporting detail — e.g., a progress ring + bar chart breakdown.
+
+**Markdown cue:** `## Third: Title` followed by `### Narrow` and `### Wide` subsections.
+
+---
+
+### 26. Three Column (`three-col-slide`)
+
+**Purpose:** Three equal columns, each holding any content type.
+
+**Structure:**
+- `.composite-grid` with three `.zone` children (`.zone-col-1`, `.zone-col-2`, `.zone-col-3`)
+- Each zone has optional `.zone-title` heading
+- Zone content parsed independently
+
+**When to use:** Comparing three departments, categories, or options side by side — e.g., team structure across Engineering / Design / Product.
+
+**Markdown cue:** `## Three Columns: Title` followed by `### Col 1`, `### Col 2`, `### Col 3` subsections.
+
+---
+
 ## Choosing the Right Layout
 
 ```
@@ -416,6 +480,12 @@ Does it show a journey/roadmap with milestones along a path?
 
 Does it show overlapping phases on a time axis?
   → Gantt Chart
+
+Does it need to show multiple different content types on one slide?
+  → 2 equal sections? → Split
+  → 4 sections (dashboard)? → Quadrant
+  → 1 small + 1 large section? → Third Split
+  → 3 equal sections? → Three Column
 
 Does it show code?
   → Code
@@ -521,6 +591,9 @@ A well-structured 15-slide deck typically follows this pattern:
 | Gantt container | `.gantt-chart` | CSS grid layout |
 | Gantt bar | `.gantt-bar` | Colored bar, `grid-column` positioning |
 | Gantt axis | `.gantt-axis` | Bottom row time labels |
+| Composite grid | `.composite-grid` | Shared grid container for composite layouts |
+| Content zone | `.zone` | Individual content cell within composite grid |
+| Zone title | `.zone-title` | Optional `<h3>` heading within zone |
 
 ### Black Preset Classes (also used by Blue, Black Midnight)
 
@@ -575,3 +648,6 @@ A well-structured 15-slide deck typically follows this pattern:
 | Gantt container | `.gantt-chart` | CSS grid layout |
 | Gantt bar | `.gantt-bar` | Colored bar, `grid-column` positioning |
 | Gantt axis | `.gantt-axis` | Bottom row time labels |
+| Composite grid | `.composite-grid` | Shared grid container for composite layouts |
+| Content zone | `.zone` | Individual content cell within composite grid |
+| Zone title | `.zone-title` | Optional `<h3>` heading within zone |
