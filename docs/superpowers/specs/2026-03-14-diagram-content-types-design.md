@@ -10,7 +10,7 @@
 
 Extend the presentation system with 4 diagram-focused slide types: circular process flow, converging/diverging arrows, winding road timeline, and Gantt chart. These complement the Phase 1 data visualization types (donut, bar, progress, funnel) with process and planning visualizations.
 
-All types use the same inline SVG + CSS architecture established in Phase 1, reusing the existing `--chart-*` color palette and `.slide.visible .reveal` animation pattern.
+All types use the same inline SVG + CSS architecture established in Phase 1, reusing the existing `--chart-*` color palette (defined in Phase 1, already in all preset CSS) and `.slide.visible .reveal` animation pattern. The `--chart-track` variable (also from Phase 1) is used for the roadmap road stroke.
 
 ---
 
@@ -123,14 +123,23 @@ M 50,250 C 150,250 150,50 300,50 S 450,250 550,250
 **Pure CSS:** CSS grid layout, similar approach to bar chart.
 
 **Structure:**
-- Grid: rows = phases, columns = time units
+- Container is a CSS grid: `display: grid; grid-template-columns: clamp(60px, 12vw, 120px) repeat(N, 1fr)` where N = number of time units
+- Rows: one per phase + one for axis
 - Left column: phase labels (fixed width)
-- Grid area: colored bars positioned via `grid-column: start / end`
+- Grid area: colored bars positioned via CSS custom properties
 - Bottom row: time axis labels
 
-**Time normalization:** The generator maps date ranges to grid column positions. For example, if the time range is Jan-Oct (10 months), each month = 1 column. A phase spanning "Apr — Aug" maps to `grid-column: 4 / 9`.
+**CSS grid mapping:** Each `.gantt-bar` uses inline CSS custom properties `--gantt-start` and `--gantt-end` mapped to grid columns:
+```css
+.gantt-bar {
+    grid-column: calc(var(--gantt-start) + 1) / calc(var(--gantt-end) + 1);
+    /* +1 offset because column 1 is the label column */
+}
+```
 
-**Bar sizing:** Each `.gantt-bar` uses inline styles for `grid-column` and `grid-row` positioning. Color cycles through `--chart-N`.
+**Time normalization:** The generator maps date ranges to grid column positions. For example, if the time range is Jan-Oct (10 months), each month = 1 column. A phase spanning "Apr — Aug" maps to `--gantt-start: 4; --gantt-end: 9`.
+
+**Bar sizing:** Each `.gantt-bar` uses inline styles for positioning and color. Color cycles through `--chart-N`.
 
 **Animation:** Bars grow from `transform: scaleX(0)` to `scaleX(1)` with `transform-origin: left`, staggered per row.
 
@@ -200,9 +209,9 @@ M 50,250 C 150,250 150,50 300,50 S 450,250 550,250
         <div class="cycle-chart reveal">
             <svg viewBox="0 0 300 300" role="img" aria-label="Circular process flow">
                 <title>Product Development Cycle</title>
-                <!-- Arrowhead marker definition -->
+                <!-- Arrowhead marker — ID must be unique per slide (use slide number) -->
                 <defs>
-                    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+                    <marker id="arrow-N" markerWidth="8" markerHeight="6"
                         refX="8" refY="3" orient="auto">
                         <polygon points="0,0 8,3 0,6" fill="currentColor"/>
                     </marker>
@@ -246,19 +255,19 @@ M 50,250 C 150,250 150,50 300,50 S 450,250 550,250
                 <!-- Arrow arcs between steps -->
                 <path class="cycle-arrow" d="M 166,44 A 110,110 0 0,1 250,70"
                     fill="none" stroke="var(--chart-1)" stroke-width="2"
-                    marker-end="url(#arrowhead)"/>
+                    marker-end="url(#arrow-N)"/>
                 <path class="cycle-arrow" d="M 262,100 A 110,110 0 0,1 224,224"
                     fill="none" stroke="var(--chart-2)" stroke-width="2"
-                    marker-end="url(#arrowhead)"/>
+                    marker-end="url(#arrow-N)"/>
                 <path class="cycle-arrow" d="M 200,248 A 110,110 0 0,1 100,248"
                     fill="none" stroke="var(--chart-3)" stroke-width="2"
-                    marker-end="url(#arrowhead)"/>
+                    marker-end="url(#arrow-N)"/>
                 <path class="cycle-arrow" d="M 76,224 A 110,110 0 0,1 38,100"
                     fill="none" stroke="var(--chart-4)" stroke-width="2"
-                    marker-end="url(#arrowhead)"/>
+                    marker-end="url(#arrow-N)"/>
                 <path class="cycle-arrow" d="M 50,70 A 110,110 0 0,1 134,44"
                     fill="none" stroke="var(--chart-5)" stroke-width="2"
-                    marker-end="url(#arrowhead)"/>
+                    marker-end="url(#arrow-N)"/>
             </svg>
         </div>
     </div>
@@ -306,6 +315,13 @@ M 50,250 C 150,250 150,50 300,50 S 450,250 550,250
         <div class="converge-chart reveal">
             <svg viewBox="0 0 500 300" role="img" aria-label="Converging diagram showing platform integration">
                 <title>Platform Integration</title>
+                <!-- Arrowhead marker — ID must be unique per slide -->
+                <defs>
+                    <marker id="conv-arrow-N" markerWidth="8" markerHeight="6"
+                        refX="8" refY="3" orient="auto">
+                        <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                    </marker>
+                </defs>
                 <!-- Input nodes (left side, evenly spaced) -->
                 <g class="converge-input">
                     <circle class="converge-node" cx="60" cy="60" r="15"
@@ -332,16 +348,19 @@ M 50,250 C 150,250 150,50 300,50 S 450,250 550,250
                     <text class="converge-label" x="440" y="190"
                         text-anchor="middle">Unified Platform</text>
                 </g>
-                <!-- Bezier paths from inputs to output -->
+                <!-- Bezier paths from inputs to output — with arrowheads -->
                 <path class="converge-path"
                     d="M 75,60 C 195,60 320,150 418,150"
-                    fill="none" stroke="var(--chart-1)" stroke-width="2"/>
+                    fill="none" stroke="var(--chart-1)" stroke-width="2"
+                    marker-end="url(#conv-arrow-N)"/>
                 <path class="converge-path"
                     d="M 75,150 C 195,150 320,150 418,150"
-                    fill="none" stroke="var(--chart-2)" stroke-width="2"/>
+                    fill="none" stroke="var(--chart-2)" stroke-width="2"
+                    marker-end="url(#conv-arrow-N)"/>
                 <path class="converge-path"
                     d="M 75,240 C 195,240 320,150 418,150"
-                    fill="none" stroke="var(--chart-3)" stroke-width="2"/>
+                    fill="none" stroke="var(--chart-3)" stroke-width="2"
+                    marker-end="url(#conv-arrow-N)"/>
             </svg>
         </div>
     </div>
@@ -373,14 +392,19 @@ M 50,250 C 150,250 150,50 300,50 S 450,250 550,250
 </section>
 ```
 
+**Diverge variant:** Uses the same `converge-slide` class and `converge-chart` container. Nodes and paths are mirrored — 1 input on the left, 3-5 outputs on the right. Replace `converge-input`/`converge-output` roles (single node gets `converge-input`, multiple nodes get `converge-output`). Paths flow left → right with bezier curves fanning out.
+
 ---
 
 ### 21. Winding Road Timeline (`roadmap-slide`)
+
+**Dark-background slide pattern:** Like Phase 1's progress rings, this slide uses a dark background in all presets. In the Red preset, this means overriding the default white bg with dark colors and omitting the `swiss-grid` decorative element (not visible on dark). In Black-family presets, use `slide--dark grid-bg-dark`.
 
 **Default/Red preset:**
 
 ```html
 <section class="slide roadmap-slide" data-slide="N">
+    <!-- No swiss-grid: dark background slide (same pattern as chart-progress-slide) -->
     <div class="section-title">Label</div>
     <div class="slide-content">
         <div class="red-bar-h reveal"></div>
