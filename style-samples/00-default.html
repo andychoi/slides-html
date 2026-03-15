@@ -200,41 +200,94 @@
             text-transform: uppercase;
             color: var(--text-secondary);
         }
-        .bottom-rule .red-dot {
-            width: clamp(6px, 0.8vw, 10px);
-            height: clamp(6px, 0.8vw, 10px);
-            background: var(--accent);
-            border-radius: 50%;
-        }
 
-        /* Slide type label */
-        .slide-type-label {
+
+        /* Section title — top-right breadcrumb label */
+        .section-title {
             position: absolute;
             top: var(--slide-padding);
             right: var(--slide-padding);
+            font-family: var(--font-body);
             font-size: var(--label-size);
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--text-secondary);
+            color: rgba(0, 0, 0, 0.3);
             opacity: 0;
             transition: opacity 0.3s ease 0.15s;
         }
-        .slide.visible .slide-type-label { opacity: 1; }
+        .slide.visible .section-title { opacity: 1; }
+        /* Invert on dark slides */
+        .quote-slide .section-title { color: rgba(255, 255, 255, 0.25); }
 
-        /* Slide number */
-        .slide-num {
+        /* Slide number in bottom-rule — accent color */
+        .bottom-rule .slide-num {
+            font-family: var(--font-display);
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+        }
+
+        /* Slide title — top-left header on content slides, single line + red bar */
+        .slide-title {
             position: absolute;
             top: var(--slide-padding);
             left: var(--slide-padding);
             font-family: var(--font-display);
-            font-size: var(--label-size);
+            font-size: var(--h2-size);
             font-weight: 800;
-            letter-spacing: 0.15em;
-            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            white-space: nowrap;
+            color: var(--text-primary);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(12px);
+            transition: opacity 0.3s var(--ease-out-expo) 0.05s,
+                        transform 0.3s var(--ease-out-expo) 0.05s;
         }
-        .slide.visible .slide-num { opacity: 1; }
+        .slide.visible .slide-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Red bar under slide title */
+        .slide-title::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            margin-top: clamp(0.3rem, 0.8vw, 0.5rem);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease-out-expo) 0.15s;
+        }
+        .slide.visible .slide-title::after { transform: scaleX(1); }
+
+        /* Slide subtitle — below title, body font, muted */
+        .slide-subtitle {
+            position: absolute;
+            top: calc(var(--slide-padding) + var(--h2-size) + clamp(1.2rem, 2.5vh, 2rem));
+            left: var(--slide-padding);
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 1.3vw, 1.1rem);
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.45);
+            letter-spacing: 0.02em;
+            line-height: 1.4;
+            max-width: 50%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s var(--ease-out-expo) 0.12s,
+                        transform 0.3s var(--ease-out-expo) 0.12s;
+        }
+        .slide.visible .slide-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* ===========================================
            1. TITLE SLIDE
@@ -336,30 +389,10 @@
             gap: clamp(2rem, 5vw, 5rem);
             align-items: start;
             justify-content: start;
-            padding-top: clamp(3rem, 6vh, 5rem);
+            /* Extra top padding to clear the absolute-positioned slide-title */
+            padding-top: clamp(5rem, 12vh, 9rem);
             padding-bottom: clamp(3rem, 6vh, 5rem);
         }
-
-        .content-left h2 {
-            font-family: var(--font-display);
-            font-size: var(--h2-size);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-
-        .content-left .red-bar {
-            width: clamp(40px, 6vw, 80px);
-            height: 4px;
-            background: var(--accent);
-            margin-top: clamp(0.5rem, 1.5vw, 1rem);
-            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s var(--ease-out-expo) 0.15s;
-        }
-        .slide.visible .content-left .red-bar { transform: scaleX(1); }
 
         .content-left .lead-text {
             font-size: var(--body-size);
@@ -427,16 +460,8 @@
             flex-direction: column;
             justify-content: flex-start;
             gap: var(--content-gap);
-            padding-top: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(5rem, 12vh, 9rem);
             padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .grid-slide h2 {
-            font-family: var(--font-display);
-            font-size: var(--h2-size);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
         }
 
         .swiss-feature-grid {
@@ -500,16 +525,8 @@
             flex-direction: column;
             justify-content: flex-start;
             gap: var(--content-gap);
-            padding-top: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(5rem, 12vh, 9rem);
             padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .code-slide h2 {
-            font-family: var(--font-display);
-            font-size: var(--h2-size);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
         }
 
         .code-container {
@@ -600,7 +617,6 @@
 
         .quote-slide .bottom-rule { border-color: rgba(255,255,255,0.2); }
         .quote-slide .bottom-rule span { color: rgba(255,255,255,0.3); }
-        .quote-slide .slide-type-label { color: rgba(255,255,255,0.3); }
         .quote-slide .slide-num { color: var(--accent); }
 
         /* Large outline circle on quote slide */
@@ -635,17 +651,8 @@
             grid-template-columns: 1fr 1fr;
             gap: clamp(2rem, 5vw, 5rem);
             align-items: start;
-            padding-top: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(5rem, 12vh, 9rem);
             padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .image-slide h2 {
-            font-family: var(--font-display);
-            font-size: var(--h2-size);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
         }
 
         .image-slide .image-desc {
@@ -698,6 +705,592 @@
         }
 
         /* ===========================================
+           7. SECTION DIVIDER
+           =========================================== */
+        .slide.section-divider {
+            background: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .section-divider .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: clamp(3rem, 10vw, 10rem);
+        }
+
+        .section-divider .section-number {
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 15vw, 14rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            opacity: 0.15;
+            position: absolute;
+            top: 50%;
+            right: clamp(2rem, 8vw, 8rem);
+            transform: translateY(-50%);
+        }
+
+        .section-divider .section-divider-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 5vw, 4rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .section-divider .section-divider-subtitle {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            margin-top: clamp(0.5rem, 1.5vw, 1rem);
+            max-width: 35ch;
+            line-height: 1.5;
+        }
+
+        /* Red geometric accent — triangle */
+        .section-divider .geo-accent {
+            position: absolute;
+            bottom: clamp(4rem, 12vh, 8rem);
+            right: clamp(3rem, 10vw, 8rem);
+            width: 0;
+            height: 0;
+            border-left: clamp(20px, 3vw, 40px) solid transparent;
+            border-right: clamp(20px, 3vw, 40px) solid transparent;
+            border-bottom: clamp(35px, 5vw, 70px) solid var(--accent);
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.3s var(--ease-out-expo) 0.2s,
+                        opacity 0.2s ease 0.2s;
+        }
+        .section-divider.visible .geo-accent {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .section-divider .section-number {
+                font-size: clamp(4rem, 25vw, 8rem);
+                right: clamp(1rem, 4vw, 3rem);
+            }
+            .section-divider .slide-content {
+                padding-left: var(--slide-padding);
+            }
+        }
+
+        /* ===========================================
+           8. AGENDA / TOC SLIDE
+           =========================================== */
+        .slide.agenda-slide {
+            background: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .agenda-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 0;
+            padding-top: clamp(5rem, 12vh, 9rem);
+            padding-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .agenda-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            list-style: none;
+        }
+
+        .agenda-item {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.75rem, 2vw, 1.5rem);
+            padding: clamp(0.6rem, 1.5vw, 1rem) clamp(0.75rem, 2vw, 1.25rem);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .agenda-item:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .agenda-item.active {
+            background: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .agenda-item.active + .agenda-item {
+            border-top-color: var(--accent);
+        }
+
+        .agenda-item .agenda-num {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1.2;
+            flex-shrink: 0;
+            min-width: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .agenda-item.active .agenda-num {
+            color: #ffffff;
+        }
+
+        .agenda-item .agenda-text h3 {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.3vw, 1rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+        }
+        .agenda-item.active .agenda-text h3 {
+            color: #ffffff;
+        }
+
+        .agenda-item .agenda-text p {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: clamp(0.1rem, 0.3vw, 0.25rem);
+        }
+        .agenda-item.active .agenda-text p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .agenda-item { gap: clamp(0.5rem, 3vw, 1rem); }
+        }
+
+        /* ===========================================
+           9. TIMELINE / ROADMAP SLIDE
+           =========================================== */
+        .slide.timeline-slide {
+            background: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .timeline-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: var(--content-gap);
+            padding-top: clamp(5rem, 12vh, 9rem);
+            padding-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .timeline-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-top: clamp(2.5rem, 5vh, 4rem);
+        }
+
+        /* Horizontal connecting line */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: calc(clamp(2.5rem, 5vh, 4rem) + clamp(6px, 0.8vw, 10px));
+            left: clamp(6px, 0.8vw, 10px);
+            right: clamp(6px, 0.8vw, 10px);
+            height: 2px;
+            background: var(--text-primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+
+        .timeline-item .timeline-date {
+            position: absolute;
+            top: clamp(-2.2rem, -4vh, -3rem);
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .timeline-item .timeline-marker {
+            width: clamp(12px, 1.6vw, 20px);
+            height: clamp(12px, 1.6vw, 20px);
+            border: 2px solid var(--text-primary);
+            background: var(--bg-primary);
+            flex-shrink: 0;
+            z-index: 1;
+        }
+        .timeline-item.active .timeline-marker {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .timeline-item .timeline-label {
+            margin-top: clamp(0.5rem, 1.2vw, 0.75rem);
+        }
+
+        .timeline-item .timeline-label h4 {
+            font-family: var(--font-display);
+            font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+        }
+
+        .timeline-item .timeline-label p {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: clamp(0.1rem, 0.3vw, 0.2rem);
+            max-width: 14ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 600px) {
+            .timeline-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: clamp(1rem, 3vw, 1.5rem);
+                padding-top: 0;
+                padding-left: clamp(2rem, 6vw, 3rem);
+            }
+            .timeline-container::before {
+                top: 0;
+                bottom: 0;
+                left: clamp(5px, 0.8vw, 9px);
+                right: auto;
+                width: 2px;
+                height: auto;
+            }
+            .timeline-item {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: clamp(0.5rem, 2vw, 1rem);
+                text-align: left;
+            }
+            .timeline-item .timeline-date {
+                position: static;
+                margin-bottom: 0;
+            }
+            .timeline-item .timeline-marker {
+                position: absolute;
+                left: calc(-1 * clamp(2rem, 6vw, 3rem) + clamp(-1px, -0.1vw, 0px));
+            }
+            .timeline-item .timeline-label {
+                margin-top: 0;
+            }
+            .timeline-item .timeline-label p {
+                max-width: none;
+            }
+        }
+
+        /* ===========================================
+           10. COMPARISON SLIDE
+           =========================================== */
+        .slide.comparison-slide {
+            background: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .comparison-slide .slide-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 5rem);
+            align-items: start;
+            padding-top: clamp(5rem, 12vh, 9rem);
+            padding-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .comparison-col {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.2vh, 1rem);
+        }
+
+        .comparison-col .col-header {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.3vw, 1rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+        }
+        .comparison-col.col-left .col-header {
+            border-bottom: 4px solid var(--accent);
+        }
+        .comparison-col.col-right .col-header {
+            border-bottom: 2px solid var(--text-primary);
+        }
+
+        .comparison-col .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+            font-size: var(--body-size);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .comparison-slide .slide-content {
+                grid-template-columns: 1fr;
+                gap: var(--content-gap);
+            }
+        }
+
+        /* ===========================================
+           11. TABLE / MATRIX SLIDE
+           =========================================== */
+        .slide.table-slide {
+            background: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .table-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: var(--content-gap);
+            padding-top: clamp(5rem, 12vh, 9rem);
+            padding-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .swiss-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--text-primary);
+        }
+
+        .swiss-table thead th {
+            background: rgba(0, 0, 0, 0.04);
+            font-family: var(--font-display);
+            font-size: clamp(0.6rem, 1vw, 0.8rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.5rem, 1.2vw, 1rem);
+            text-align: left;
+            border-bottom: 2px solid var(--text-primary);
+        }
+
+        .swiss-table tbody td {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            padding: clamp(0.35rem, 0.9vw, 0.6rem) clamp(0.5rem, 1.2vw, 1rem);
+            border-bottom: 1px solid var(--border-color);
+            line-height: 1.4;
+        }
+
+        .swiss-table tbody td:first-child {
+            background: rgba(0, 0, 0, 0.02);
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(0.6rem, 1vw, 0.8rem);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .swiss-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .swiss-table th + th,
+        .swiss-table td + td {
+            border-left: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 600px) {
+            .swiss-table {
+                font-size: clamp(0.65rem, 2.5vw, 0.85rem);
+            }
+            .swiss-table thead th,
+            .swiss-table tbody td {
+                padding: clamp(0.25rem, 1vw, 0.4rem) clamp(0.3rem, 1vw, 0.5rem);
+            }
+        }
+
+        /* ===========================================
+           12. STAT HIGHLIGHT SLIDE
+           =========================================== */
+        .slide.stat-slide {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .stat-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        .stat-slide .red-bar-h {
+            width: clamp(60px, 8vw, 120px);
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease-out-expo) 0.1s;
+        }
+        .stat-slide.visible .red-bar-h { transform: scaleX(1); }
+
+        .stat-row {
+            display: flex;
+            justify-content: center;
+            gap: clamp(2rem, 6vw, 6rem);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-item .stat-label {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
+        }
+
+        .stat-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
+        .stat-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
+        .stat-slide .bottom-rule .slide-num { color: var(--accent); }
+        .stat-slide .section-title { color: rgba(255, 255, 255, 0.25); }
+
+        @media (max-width: 600px) {
+            .stat-row {
+                flex-direction: column;
+                gap: clamp(1.5rem, 4vw, 2rem);
+            }
+        }
+
+        /* ===========================================
+           13. PROCESS / FLOW SLIDE
+           =========================================== */
+        .slide.process-slide {
+            background: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .process-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: var(--content-gap);
+            padding-top: clamp(5rem, 12vh, 9rem);
+            padding-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+        }
+
+        .process-step {
+            flex: 1;
+            border: 2px solid var(--text-primary);
+            padding: clamp(0.6rem, 1.5vw, 1.25rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.5vw, 0.4rem);
+            position: relative;
+        }
+
+        .process-step.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .process-step .step-number {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .process-step .step-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+        }
+
+        .process-step .step-desc {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .process-step.active .step-desc {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Arrow between steps */
+        .process-arrow {
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(0.2rem, 0.5vw, 0.4rem);
+            flex-shrink: 0;
+        }
+
+        .process-arrow::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: clamp(6px, 0.8vw, 10px) solid transparent;
+            border-bottom: clamp(6px, 0.8vw, 10px) solid transparent;
+            border-left: clamp(8px, 1.2vw, 14px) solid var(--text-primary);
+        }
+
+        @media (max-width: 600px) {
+            .process-flow {
+                flex-direction: column;
+            }
+            .process-arrow {
+                justify-content: center;
+                padding: clamp(0.2rem, 0.5vw, 0.3rem) 0;
+            }
+            .process-arrow::after {
+                border-top: clamp(8px, 1.2vw, 14px) solid var(--text-primary);
+                border-bottom: none;
+                border-left: clamp(6px, 0.8vw, 10px) solid transparent;
+                border-right: clamp(6px, 0.8vw, 10px) solid transparent;
+            }
+        }
+
+        /* ===========================================
            NAV DOTS
            =========================================== */
         .nav-dots {
@@ -738,6 +1331,92 @@
         }
 
         /* ===========================================
+           14. CLOSING / Q&A SLIDE
+           =========================================== */
+        .slide.closing-slide {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: var(--slide-padding);
+        }
+
+        .closing-slide .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(1rem, 2.5vw, 2rem);
+        }
+
+        .closing-slide .red-bar-h {
+            width: clamp(60px, 8vw, 120px);
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease-out-expo) 0.1s;
+        }
+        .closing-slide.visible .red-bar-h { transform: scaleX(1); }
+
+        .closing-slide .closing-heading {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .closing-slide .closing-subtitle {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+
+        .closing-contact {
+            display: flex;
+            gap: clamp(1.5rem, 4vw, 4rem);
+            margin-top: clamp(1rem, 3vw, 2.5rem);
+        }
+
+        .closing-contact .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+
+        .closing-contact .contact-label {
+            font-family: var(--font-display);
+            font-size: var(--label-size);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+        }
+
+        .closing-contact .contact-value {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.02em;
+        }
+
+        .closing-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
+        .closing-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
+        .closing-slide .bottom-rule .slide-num { color: var(--accent); }
+        .closing-slide .section-title { color: rgba(255, 255, 255, 0.25); }
+
+        @media (max-width: 600px) {
+            .closing-contact {
+                flex-direction: column;
+                gap: clamp(1rem, 3vw, 1.5rem);
+            }
+        }
+
+        /* ===========================================
            RESPONSIVE OVERRIDES
            =========================================== */
         @media (max-height: 600px) {
@@ -772,8 +1451,7 @@
         </div>
         <div class="geo-circle decorative"></div>
         <div class="geo-rect decorative"></div>
-        <div class="slide-num">01</div>
-        <div class="slide-type-label">Title Slide</div>
+        <div class="section-title">Title Slide</div>
         <div class="slide-content">
             <h1 class="reveal">Default<br>Preset</h1>
             <div class="title-barline reveal"></div>
@@ -781,16 +1459,16 @@
         </div>
         <div class="bottom-rule">
             <span>Default Style</span>
-            <div class="red-dot"></div>
-            <span>Top-Aligned Layout</span>
+
+            <span class="slide-num">01 / 14</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 2: CONTENT SLIDE
-         Title + body top-aligned
+         SLIDE 2: AGENDA / TOC
+         Numbered list with active highlight
          ============================================ -->
-    <section class="slide content-slide" data-slide="2">
+    <section class="slide agenda-slide" data-slide="2">
         <div class="swiss-grid decorative">
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
@@ -798,12 +1476,98 @@
             <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
             <div class="swiss-grid-line h"></div>
         </div>
-        <div class="slide-num">02</div>
-        <div class="slide-type-label">Content Slide</div>
+        <h2 class="slide-title">Agenda</h2>
+        <p class="slide-subtitle">What we will cover in this session</p>
+        <div class="section-title">Overview</div>
+        <div class="slide-content">
+            <div class="agenda-list reveal">
+                <div class="agenda-item">
+                    <span class="agenda-num">01</span>
+                    <div class="agenda-text">
+                        <h3>Introduction</h3>
+                        <p>Project background and key objectives</p>
+                    </div>
+                </div>
+                <div class="agenda-item active">
+                    <span class="agenda-num">02</span>
+                    <div class="agenda-text">
+                        <h3>Design System</h3>
+                        <p>Core principles, typography, and color</p>
+                    </div>
+                </div>
+                <div class="agenda-item">
+                    <span class="agenda-num">03</span>
+                    <div class="agenda-text">
+                        <h3>Components</h3>
+                        <p>Reusable patterns and layout modules</p>
+                    </div>
+                </div>
+                <div class="agenda-item">
+                    <span class="agenda-num">04</span>
+                    <div class="agenda-text">
+                        <h3>Implementation</h3>
+                        <p>Technical setup and build process</p>
+                    </div>
+                </div>
+                <div class="agenda-item">
+                    <span class="agenda-num">05</span>
+                    <div class="agenda-text">
+                        <h3>Next Steps</h3>
+                        <p>Roadmap and open discussion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Overview</span>
+
+            <span class="slide-num">02 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 3: SECTION DIVIDER
+         Large section number, vertically centered
+         ============================================ -->
+    <section class="slide section-divider" data-slide="3">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <div class="section-number reveal">02</div>
+        <div class="geo-accent decorative"></div>
+        <div class="section-title">Section</div>
+        <div class="slide-content">
+            <h2 class="section-divider-title reveal">Design<br>System</h2>
+            <p class="section-divider-subtitle reveal">Exploring the foundational elements that drive consistency across every layout.</p>
+        </div>
+        <div class="bottom-rule">
+            <span>Section</span>
+
+            <span class="slide-num">03 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 4: CONTENT SLIDE
+         Title + body top-aligned
+         ============================================ -->
+    <section class="slide content-slide" data-slide="4">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Design Principles</h2>
+        <p class="slide-subtitle">Top-aligned layout with structured reading flow</p>
+        <div class="section-title">Principles</div>
         <div class="slide-content">
             <div class="content-left">
-                <h2 class="reveal">Design<br>Principles</h2>
-                <div class="red-bar"></div>
                 <p class="lead-text reveal">Content is top-aligned for a structured, document-like reading flow. No vertical centering — everything anchors to the top.</p>
             </div>
             <div class="content-right">
@@ -839,15 +1603,15 @@
         </div>
         <div class="bottom-rule">
             <span>Principles</span>
-            <div class="red-dot"></div>
-            <span>02 / 06</span>
+
+            <span class="slide-num">04 / 14</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 3: FEATURE GRID SLIDE
+         SLIDE 5: FEATURE GRID SLIDE
          ============================================ -->
-    <section class="slide grid-slide" data-slide="3">
+    <section class="slide grid-slide" data-slide="5">
         <div class="swiss-grid decorative">
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
@@ -855,10 +1619,10 @@
             <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
             <div class="swiss-grid-line h"></div>
         </div>
-        <div class="slide-num">03</div>
-        <div class="slide-type-label">Feature Grid</div>
+        <h2 class="slide-title">Capabilities</h2>
+        <p class="slide-subtitle">Six core design capabilities built into every slide</p>
+        <div class="section-title">Features</div>
         <div class="slide-content">
-            <h2 class="reveal">Capabilities</h2>
             <div class="swiss-feature-grid reveal">
                 <div class="swiss-feature-cell">
                     <div class="cell-number">01</div>
@@ -894,15 +1658,16 @@
         </div>
         <div class="bottom-rule">
             <span>Features</span>
-            <div class="red-dot"></div>
-            <span>03 / 06</span>
+
+            <span class="slide-num">05 / 14</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 4: CODE SLIDE
+         SLIDE 6: COMPARISON
+         Two columns with headers and bullet items
          ============================================ -->
-    <section class="slide code-slide" data-slide="4">
+    <section class="slide comparison-slide" data-slide="6">
         <div class="swiss-grid decorative">
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
@@ -910,10 +1675,254 @@
             <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
             <div class="swiss-grid-line h"></div>
         </div>
-        <div class="slide-num">04</div>
-        <div class="slide-type-label">Code Slide</div>
+        <h2 class="slide-title">Comparison</h2>
+        <p class="slide-subtitle">Evaluating two approaches side by side</p>
+        <div class="section-title">Analysis</div>
         <div class="slide-content">
-            <h2 class="reveal">Configuration</h2>
+            <div class="comparison-col col-left reveal">
+                <div class="col-header">Approach A</div>
+                <div class="bullet-item">
+                    <div class="bullet-marker filled"></div>
+                    <div>
+                        <strong>Performance</strong>
+                        <span class="desc">Sub-100ms render times across all viewports.</span>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="bullet-marker"></div>
+                    <div>
+                        <strong>Scalability</strong>
+                        <span class="desc">Modular architecture supports rapid iteration.</span>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="bullet-marker circle"></div>
+                    <div>
+                        <strong>Accessibility</strong>
+                        <span class="desc">Full WCAG 2.1 AA compliance built in.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="comparison-col col-right reveal">
+                <div class="col-header">Approach B</div>
+                <div class="bullet-item">
+                    <div class="bullet-marker"></div>
+                    <div>
+                        <strong>Flexibility</strong>
+                        <span class="desc">Runtime theming with CSS custom properties.</span>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="bullet-marker circle"></div>
+                    <div>
+                        <strong>Simplicity</strong>
+                        <span class="desc">Minimal markup with semantic defaults.</span>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="bullet-marker filled"></div>
+                    <div>
+                        <strong>Portability</strong>
+                        <span class="desc">Zero dependencies, single-file deployment.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Analysis</span>
+
+            <span class="slide-num">06 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 7: TABLE / MATRIX
+         Full data table with header and leading column
+         ============================================ -->
+    <section class="slide table-slide" data-slide="7">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Feature Matrix</h2>
+        <p class="slide-subtitle">Capability breakdown across product tiers</p>
+        <div class="section-title">Data</div>
+        <div class="slide-content">
+            <table class="swiss-table reveal">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter</th>
+                        <th>Professional</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Slide Layouts</td>
+                        <td>6 core</td>
+                        <td>13 layouts</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Themes</td>
+                        <td>1 preset</td>
+                        <td>5 presets</td>
+                        <td>Full editor</td>
+                    </tr>
+                    <tr>
+                        <td>Animations</td>
+                        <td>Fade only</td>
+                        <td>Reveal system</td>
+                        <td>Custom easing</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td>HTML</td>
+                        <td>HTML + PDF</td>
+                        <td>All formats</td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Community</td>
+                        <td>Email</td>
+                        <td>Dedicated</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bottom-rule">
+            <span>Data</span>
+
+            <span class="slide-num">07 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 8: TIMELINE / ROADMAP
+         Horizontal milestones with connecting line
+         ============================================ -->
+    <section class="slide timeline-slide" data-slide="8">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Roadmap</h2>
+        <p class="slide-subtitle">Key milestones from concept to launch</p>
+        <div class="section-title">Timeline</div>
+        <div class="slide-content">
+            <div class="timeline-container reveal">
+                <div class="timeline-item">
+                    <span class="timeline-date">Q1 2025</span>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-label">
+                        <h4>Research</h4>
+                        <p>User interviews and competitive analysis</p>
+                    </div>
+                </div>
+                <div class="timeline-item active">
+                    <span class="timeline-date">Q2 2025</span>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-label">
+                        <h4>Design</h4>
+                        <p>System foundations and prototyping</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Q3 2025</span>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-label">
+                        <h4>Build</h4>
+                        <p>Component library and integration</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Q4 2025</span>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-label">
+                        <h4>Launch</h4>
+                        <p>Public release and documentation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Timeline</span>
+
+            <span class="slide-num">08 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 9: PROCESS / FLOW
+         Horizontal steps with arrows
+         ============================================ -->
+    <section class="slide process-slide" data-slide="9">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Workflow</h2>
+        <p class="slide-subtitle">From concept to production in four steps</p>
+        <div class="section-title">Process</div>
+        <div class="slide-content">
+            <div class="process-flow reveal">
+                <div class="process-step">
+                    <span class="step-number">01</span>
+                    <span class="step-title">Define</span>
+                    <span class="step-desc">Establish goals, audience, and constraints</span>
+                </div>
+                <div class="process-arrow"></div>
+                <div class="process-step active">
+                    <span class="step-number">02</span>
+                    <span class="step-title">Design</span>
+                    <span class="step-desc">Create layouts, select typography and color</span>
+                </div>
+                <div class="process-arrow"></div>
+                <div class="process-step">
+                    <span class="step-number">03</span>
+                    <span class="step-title">Build</span>
+                    <span class="step-desc">Develop components and integrate content</span>
+                </div>
+                <div class="process-arrow"></div>
+                <div class="process-step">
+                    <span class="step-number">04</span>
+                    <span class="step-title">Ship</span>
+                    <span class="step-desc">Test, optimize, and deploy to production</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Process</span>
+
+            <span class="slide-num">09 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 10: CODE SLIDE
+         ============================================ -->
+    <section class="slide code-slide" data-slide="10">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Configuration</h2>
+        <p class="slide-subtitle">Theme variables and grid setup</p>
+        <div class="section-title">Setup</div>
+        <div class="slide-content">
             <div class="code-container reveal">
                 <div class="code-tab-bar">
                     <div class="code-tab active">Theme.css</div>
@@ -937,36 +1946,15 @@
         </div>
         <div class="bottom-rule">
             <span>Setup</span>
-            <div class="red-dot"></div>
-            <span>04 / 06</span>
+
+            <span class="slide-num">10 / 14</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 5: QUOTE SLIDE
+         SLIDE 11: IMAGE SLIDE
          ============================================ -->
-    <section class="slide quote-slide" data-slide="5">
-        <div class="quote-circle decorative"></div>
-        <div class="slide-num">05</div>
-        <div class="slide-type-label">Quote Slide</div>
-        <div class="slide-content">
-            <div class="red-bar-h reveal"></div>
-            <blockquote class="reveal">
-                Less, but better.
-            </blockquote>
-            <p class="attribution reveal">— Dieter Rams</p>
-        </div>
-        <div class="bottom-rule">
-            <span>Inspiration</span>
-            <div class="red-dot"></div>
-            <span>05 / 06</span>
-        </div>
-    </section>
-
-    <!-- ============================================
-         SLIDE 6: IMAGE SLIDE
-         ============================================ -->
-    <section class="slide image-slide" data-slide="6">
+    <section class="slide image-slide" data-slide="11">
         <div class="swiss-grid decorative">
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
             <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
@@ -974,11 +1962,11 @@
             <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
             <div class="swiss-grid-line h"></div>
         </div>
-        <div class="slide-num">06</div>
-        <div class="slide-type-label">Image Slide</div>
+        <h2 class="slide-title">Visual Reference</h2>
+        <p class="slide-subtitle">Precision-framed images with geometric accents</p>
+        <div class="section-title">Media</div>
         <div class="slide-content">
             <div>
-                <h2 class="reveal">Visual<br>Reference</h2>
                 <p class="image-desc reveal">Images are framed with precision — bordered, aligned to the grid, and accented with geometric marks.</p>
             </div>
             <div class="image-placeholder reveal">
@@ -988,8 +1976,88 @@
         </div>
         <div class="bottom-rule">
             <span>Media</span>
-            <div class="red-dot"></div>
-            <span>06 / 06</span>
+
+            <span class="slide-num">11 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 12: STAT HIGHLIGHT
+         Dark background, 3 large statistics
+         ============================================ -->
+    <section class="slide stat-slide" data-slide="12">
+        <div class="section-title">Metrics</div>
+        <div class="slide-content">
+            <div class="red-bar-h reveal"></div>
+            <div class="stat-row">
+                <div class="stat-item reveal">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Performance Score</span>
+                </div>
+                <div class="stat-item reveal">
+                    <span class="stat-number">13</span>
+                    <span class="stat-label">Slide Layouts</span>
+                </div>
+                <div class="stat-item reveal">
+                    <span class="stat-number">&lt;1s</span>
+                    <span class="stat-label">Load Time</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Metrics</span>
+
+            <span class="slide-num">12 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 13: QUOTE SLIDE
+         ============================================ -->
+    <section class="slide quote-slide" data-slide="13">
+        <div class="quote-circle decorative"></div>
+        <div class="section-title">Inspiration</div>
+        <div class="slide-content">
+            <div class="red-bar-h reveal"></div>
+            <blockquote class="reveal">
+                Less, but better.
+            </blockquote>
+            <p class="attribution reveal">— Dieter Rams</p>
+        </div>
+        <div class="bottom-rule">
+            <span>Inspiration</span>
+
+            <span class="slide-num">13 / 14</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 14: CLOSING / Q&A
+         ============================================ -->
+    <section class="slide closing-slide" data-slide="14">
+        <div class="section-title">Close</div>
+        <div class="slide-content">
+            <div class="red-bar-h reveal"></div>
+            <h2 class="closing-heading reveal">Thank You</h2>
+            <p class="closing-subtitle reveal">Questions, feedback, and next steps</p>
+            <div class="closing-contact reveal">
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">hello@example.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Website</span>
+                    <span class="contact-value">example.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Follow</span>
+                    <span class="contact-value">@example</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Close</span>
+            <span class="slide-num">14 / 14</span>
         </div>
     </section>
 
@@ -1086,7 +2154,7 @@
                 const container = document.getElementById('navDots');
                 if (!container) return;
                 const current = this.slides[this.currentSlide];
-                container.classList.toggle('dots-inverted', current.classList.contains('quote-slide'));
+                container.classList.toggle('dots-inverted', current.classList.contains('quote-slide') || current.classList.contains('stat-slide') || current.classList.contains('closing-slide'));
             }
 
             goToSlide(idx) {

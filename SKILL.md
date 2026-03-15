@@ -44,7 +44,7 @@ These invariants apply to EVERY slide in EVERY presentation:
 - Include `prefers-reduced-motion` support
 - Never negate CSS functions directly (`-clamp()`, `-min()`, `-max()` are silently ignored) — use `calc(-1 * clamp(...))` instead
 
-**When generating, read `viewport-base.css` and include its full contents in every presentation.**
+**When generating, read `reference/viewport-base.css` and include its full contents in every presentation.**
 
 ### Content Density Limits Per Slide
 
@@ -172,9 +172,9 @@ Generate the full presentation using content from Phase 1 (text, or text + curat
 If images were provided, the slide outline already incorporates them from Step 1.2. If not, CSS-generated visuals (gradients, shapes, patterns) provide visual interest — this is a fully supported first-class path.
 
 **Before generating, read these supporting files:**
-- [html-template.md](html-template.md) — HTML architecture and JS features
-- [viewport-base.css](viewport-base.css) — Mandatory CSS (include in full)
-- [animation-patterns.md](animation-patterns.md) — Animation reference for the chosen feeling
+- [reference/html-template.md](reference/html-template.md) — HTML architecture and JS features
+- [reference/viewport-base.css](reference/viewport-base.css) — Mandatory CSS (include in full)
+- [reference/animation-patterns.md](reference/animation-patterns.md) — Animation reference for the chosen feeling
 
 **Key requirements:**
 - Single self-contained HTML file, all CSS/JS inline
@@ -213,7 +213,7 @@ When converting PowerPoint files:
 | File | Purpose | When to Read |
 |------|---------|-------------|
 | [STYLE_PRESETS.md](STYLE_PRESETS.md) | 3 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
-| [viewport-base.css](viewport-base.css) | Mandatory responsive CSS — copy into every presentation | Phase 3 (generation) |
-| [html-template.md](html-template.md) | HTML structure, JS features, code quality standards | Phase 3 (generation) |
-| [animation-patterns.md](animation-patterns.md) | CSS/JS animation snippets and effect-to-feeling guide | Phase 3 (generation) |
+| [reference/viewport-base.css](reference/viewport-base.css) | Mandatory responsive CSS — copy into every presentation | Phase 3 (generation) |
+| [reference/html-template.md](reference/html-template.md) | HTML structure, JS features, code quality standards | Phase 3 (generation) |
+| [reference/animation-patterns.md](reference/animation-patterns.md) | CSS/JS animation snippets and effect-to-feeling guide | Phase 3 (generation) |
 | [scripts/extract-pptx.py](scripts/extract-pptx.py) | Python script for PPT content extraction | Phase 4 (conversion) |

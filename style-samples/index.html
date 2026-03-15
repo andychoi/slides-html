@@ -151,25 +151,18 @@
             opacity: 0.9;
         }
 
-        .preview-swiss-modern {
-            background: #ffffff;
-            position: relative;
+        .preview-black {
+            background: #0a0a0a;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
         }
-        .preview-swiss-modern::before {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: #ff3300;
-            border-radius: 50%;
-            top: 30px;
-            right: 40px;
-        }
-        .preview-swiss-modern::after {
-            content: 'Sw';
+        .preview-black::after {
+            content: 'Bk';
             font-size: 3rem;
-            font-weight: 800;
-            color: #000;
+            font-weight: 700;
+            color: #f8f8f8;
         }
 
         footer {
@@ -201,25 +194,26 @@
             </div>
         </a>
 
+        <a class="card" href="02-black.html">
+            <div class="card-preview preview-black"></div>
+            <div class="card-info">
+                <div class="card-number">Preset 02</div>
+                <div class="card-title">Black</div>
+                <div class="card-vibe">Dark-first, data-dense, alternating light/dark</div>
+                <span class="card-category">Dark</span>
+            </div>
+        </a>
+
         <a class="card" href="01-bold-signal.html">
             <div class="card-preview preview-bold-signal"></div>
             <div class="card-info">
-                <div class="card-number">Preset 01</div>
+                <div class="card-number">Preset 03</div>
                 <div class="card-title">Bold Signal</div>
                 <div class="card-vibe">Confident, bold, modern, high-impact</div>
                 <span class="card-category">Dark</span>
             </div>
         </a>
 
-        <a class="card" href="11-swiss-modern.html">
-            <div class="card-preview preview-swiss-modern"></div>
-            <div class="card-info">
-                <div class="card-number">Preset 02</div>
-                <div class="card-title">Swiss Modern</div>
-                <div class="card-vibe">Clean, precise, Bauhaus-inspired</div>
-                <span class="card-category">Specialty</span>
-            </div>
-        </a>
     </div>
 
     <footer>

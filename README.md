@@ -1,120 +1,186 @@
-# Frontend Slides
+# Slides HTML
 
-A Claude Code skill for creating stunning, animation-rich HTML presentations — from scratch or by converting PowerPoint files.
+A Claude Code skill for generating professional HTML presentations from structured markdown content.
 
-## What This Does
+## How It Works
 
-**Frontend Slides** helps non-designers create beautiful web presentations without knowing CSS or JavaScript. It uses a "show, don't tell" approach: instead of asking you to describe your aesthetic preferences in words, it generates visual previews and lets you pick what you like.
+1. **Write a markdown file** describing your slides (see format below)
+2. **Run `/slides`** in Claude Code
+3. **Pick a style preset** (Default, Black, or Bold Signal)
+4. **Get a single HTML file** — zero dependencies, works forever
 
-Here is a deck about the skill, made through the skill:
+## Preparing Your Markdown
 
-https://github.com/user-attachments/assets/ef57333e-f879-432a-afb9-180388982478
+Structure your content as a markdown file before generating slides. Claude Code uses this to select the right layout for each slide automatically.
 
+### Markdown Format
 
-### Key Features
+```markdown
+# Presentation Title
+Subtitle or tagline here
 
-- **Zero Dependencies** — Single HTML files with inline CSS/JS. No npm, no build tools, no frameworks.
-- **Visual Style Discovery** — Can't articulate design preferences? No problem. Pick from generated visual previews.
-- **PPT Conversion** — Convert existing PowerPoint files to web, preserving all images and content.
-- **Anti-AI-Slop** — Curated distinctive styles that avoid generic AI aesthetics (bye-bye, purple gradients on white).
-- **Production Quality** — Accessible, responsive, well-commented code you can customize.
+---
+
+## Agenda
+1. Introduction — Project background and objectives
+2. Market Analysis — Competitive landscape review
+3. Product Strategy — Roadmap and priorities
+4. Results — Key metrics and outcomes
+
+---
+
+# Section: Market Analysis
+Understanding the competitive landscape
+
+---
+
+## Key Findings
+- **Market Size** — $4.2B and growing at 18% CAGR
+- **Competitors** — Three major players, fragmented tail
+- **Opportunity** — Underserved mid-market segment
+
+---
+
+## Comparison: Build vs Buy
+### Build In-House
+- Full control over architecture
+- Higher upfront investment
+- Custom-tailored to workflows
+
+### Buy / License
+- Faster deployment
+- Vendor dependency risk
+- Predictable subscription cost
+
+---
+
+## Timeline: Product Roadmap
+- Q1 2026: Research — User interviews and requirements
+- Q2 2026: Build — Core platform development
+- Q3 2026: Beta — Closed beta with partners
+- Q4 2026: Launch — Public release
+
+---
+
+> "The details are not the details. They make the design."
+> — Charles Eames
+
+---
+
+## Stats
+- 98% — Performance Score
+- 13 — Slide Layouts
+- <1s — Load Time
+
+---
+
+## Process: Development Workflow
+1. Define — Establish goals and constraints
+2. Design → Create layouts and prototypes
+3. Build — Develop and integrate
+4. Ship — Test and deploy
+
+---
+
+| Feature | Starter | Professional | Enterprise |
+|---------|---------|-------------|------------|
+| Users   | Up to 5 | Up to 50    | Unlimited  |
+| Storage | 10 GB   | 100 GB      | 1 TB+      |
+| Support | Email   | Chat        | Dedicated  |
+```
+
+### Content Type Detection
+
+Claude Code maps your markdown to the right slide layout automatically:
+
+| Markdown Pattern | Layout Used | CSS Class |
+|---|---|---|
+| `# Title` (first heading) | Title slide | `title-slide` |
+| `# Section: Name` | Section Divider | `section-divider` |
+| `## Agenda` + numbered list | Agenda / TOC | `agenda-slide` |
+| `## Heading` + bullets | Content | `content-slide` |
+| `## Comparison: X vs Y` | Comparison | `comparison-slide` |
+| `## Timeline: Name` + dated items | Timeline | `timeline-slide` |
+| `## Process: Name` + numbered steps | Process / Flow | `process-slide` |
+| `## Stats` + metrics | Stat Highlight | `stat-slide` |
+| Markdown table (`\| col \|`) | Table / Matrix | `table-slide` |
+| `> blockquote` with attribution | Quote | `quote-slide` |
+| ` ```code``` ` blocks | Code | `code-slide` |
+| `![image](path)` | Image | `image-slide` |
+| 3-6 items with title + description | Feature Grid | `grid-slide` |
+
+See [CONTENT_TYPES.md](CONTENT_TYPES.md) for full layout reference.
+
+## Style Presets
+
+| Preset | Vibe | Background |
+|---|---|---|
+| **Default** | Clean, structured, Swiss-inspired | White with red accent |
+| **Black** | Dark-first, data-dense, professional | Alternating dark/light |
+| **Bold Signal** | Confident, high-impact, vibrant | Dark gradient with colored card |
+
+Preview all styles: open `style-samples/index.html` in your browser.
+
+See [STYLE_PRESETS.md](STYLE_PRESETS.md) for full preset reference.
+
+## 14 Slide Layouts
+
+Every preset includes all 14 layout types:
+
+1. **Title** — Opening slide with title, subtitle, metadata
+2. **Content** — Heading + bullets or key-value data
+3. **Feature Grid** — 3-6 numbered feature cards
+4. **Code** — Syntax-highlighted code with tab bar
+5. **Quote** — Large quotation with attribution
+6. **Image** — Two-column: text + visual
+7. **Section Divider** — Dramatic transition between sections
+8. **Agenda / TOC** — Numbered section list with active highlight
+9. **Timeline / Roadmap** — Horizontal milestones with dates
+10. **Comparison** — Two-column side-by-side evaluation
+11. **Table / Matrix** — Structured rows and columns
+12. **Stat Highlight** — 1-3 large KPI numbers
+13. **Process / Flow** — Sequential steps with arrows
+14. **Closing / Q&A** — Thank you, contact info, questions
 
 ## Installation
 
-### For Claude Code Users
-
-Copy the skill files to your Claude Code skills directory:
+Clone to your Claude Code skills directory:
 
 ```bash
-# Create the skill directory
-mkdir -p ~/.claude/skills/slides/scripts
-
-# Copy all files (or clone this repo directly)
-cp SKILL.md STYLE_PRESETS.md viewport-base.css html-template.md animation-patterns.md ~/.claude/skills/slides/
-cp scripts/extract-pptx.py ~/.claude/skills/slides/scripts/
+git clone https://github.com/anthropics/slides-html.git ~/.claude/skills/slides
 ```
 
-Or clone directly:
+Then use `/slides` in Claude Code.
 
-```bash
-git clone https://github.com/andychoi/slides-html.git ~/.claude/skills/slides
-```
+## Output
 
-Then use it by typing `/slides` in Claude Code.
+- **Single HTML file** — inline CSS + JS, no external dependencies
+- **Responsive** — works on all screen sizes with `clamp()` sizing
+- **Accessible** — keyboard navigation, ARIA labels, reduced-motion support
+- **Scroll-snap** — full-viewport slides with smooth scrolling
+- **Animations** — staggered reveal transitions triggered by scroll
 
-## Usage
-
-### Create a New Presentation
-
-```
-/slides
-
-> "I want to create a pitch deck for my AI startup"
-```
-
-The skill will:
-1. Ask about your content (slides, messages, images)
-2. Ask about the feeling you want (impressed? excited? calm?)
-3. Generate 3 visual style previews for you to compare
-4. Create the full presentation in your chosen style
-5. Open it in your browser
-
-### Convert a PowerPoint
+## Project Structure
 
 ```
-/slides
-
-> "Convert my presentation.pptx to a web slideshow"
+slides-html/
+  README.md                 # Project overview
+  SKILL.md                  # Claude Code skill entry point
+  CONTENT_TYPES.md          # Layout taxonomy and selection guide
+  STYLE_PRESETS.md           # Visual preset specifications
+  reference/
+    html-template.md         # HTML structure reference
+    animation-patterns.md    # Animation reference
+    viewport-base.css        # Mandatory responsive base CSS
+  style-samples/
+    index.html               # Style gallery
+    00-default.html          # Default preset (14 layouts)
+    01-bold-signal.html      # Bold Signal preset
+    02-black.html            # Black preset (14 layouts)
+  scripts/
+    extract-pptx.py          # PowerPoint content extraction
 ```
-
-The skill will:
-1. Extract all text, images, and notes from your PPT
-2. Show you the extracted content for confirmation
-3. Let you pick a visual style
-4. Generate an HTML presentation with all your original assets
-
-## Included Styles
-
-- **Default** — Clean, structured, top-aligned (based on Swiss Modern)
-- **Bold Signal** — Confident, high-impact, vibrant card on dark
-- **Swiss Modern** — Minimal, Bauhaus-inspired, geometric, centered
-
-## Architecture
-
-This skill uses **progressive disclosure** — the main `SKILL.md` is a concise map (~180 lines), with supporting files loaded on-demand only when needed:
-
-| File | Purpose | Loaded When |
-|------|---------|-------------|
-| `SKILL.md` | Core workflow and rules | Always (skill invocation) |
-| `STYLE_PRESETS.md` | 3 curated visual presets | Phase 2 (style selection) |
-| `viewport-base.css` | Mandatory responsive CSS | Phase 3 (generation) |
-| `html-template.md` | HTML structure and JS features | Phase 3 (generation) |
-| `animation-patterns.md` | CSS/JS animation reference | Phase 3 (generation) |
-| `scripts/extract-pptx.py` | PPT content extraction | Phase 4 (conversion) |
-
-This design follows [OpenAI's harness engineering](https://openai.com/index/harness-engineering/) principle: "give the agent a map, not a 1,000-page instruction manual."
-
-## Philosophy
-
-This skill was born from the belief that:
-
-1. **You don't need to be a designer to make beautiful things.** You just need to react to what you see.
-
-2. **Dependencies are debt.** A single HTML file will work in 10 years. A React project from 2019? Good luck.
-
-3. **Generic is forgettable.** Every presentation should feel custom-crafted, not template-generated.
-
-4. **Comments are kindness.** Code should explain itself to future-you (or anyone else who opens it).
-
-## Requirements
-
-- [Claude Code](https://claude.ai/claude-code) CLI
-- For PPT conversion: Python with `python-pptx` library
-
-## Credits
-
-Originally by [@zarazhangrui](https://github.com/zarazhangrui), forked and customized by [@andychoi](https://github.com/andychoi) with Claude Code.
 
 ## License
 
-MIT — Use it, modify it, share it.
+MIT

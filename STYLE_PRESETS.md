@@ -2,7 +2,7 @@
 
 Curated visual styles for Frontend Slides. Each preset is inspired by real design references — no generic "AI slop" aesthetics. **Abstract shapes only — no illustrations.**
 
-**Viewport CSS:** For mandatory base styles, see [viewport-base.css](viewport-base.css). Include in every presentation.
+**Viewport CSS:** For mandatory base styles, see [reference/viewport-base.css](reference/viewport-base.css). Include in every presentation.
 
 ---
 
@@ -10,7 +10,7 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 
 **Vibe:** Clean, structured, top-aligned — based on Swiss Modern
 
-**Layout:** Content title top-left, body top-aligned (not vertically centered). Title slide has slim barline between title and subtitle rows with equal left/right margin.
+**Layout:** Slide title (h2) positioned absolute top-left via `.slide-title`, section title top-right via `.section-title` in light grey. Body top-aligned (not vertically centered). Title slide has slim barline between title and subtitle rows with equal left/right margin.
 
 **Typography:**
 - Display: `Archivo` (800)
@@ -30,25 +30,32 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 
 **Signature Elements:**
 - Top-aligned content (not vertically centered)
+- Slide title absolute top-left (`.slide-title`), section title top-right (`.section-title`) in light grey
 - Slim barline between title and subtitle with equal left/right margin
 - Visible 6-column grid background
 - Red accent dots and geometric shapes
 - Same visual language as Swiss Modern, structured layout
 
-**Key CSS differences from Swiss Modern:**
+**Key CSS patterns:**
 ```css
-/* Content slides: top-aligned instead of centered */
-.content-slide .slide-content { align-items: start; }
-.grid-slide .slide-content { justify-content: flex-start; }
-.code-slide .slide-content { justify-content: flex-start; }
-
-/* Title barline between title and subtitle */
-.title-barline {
-    height: 2px;
-    background: var(--border-color);
-    margin-left: clamp(0.5rem, 1.5vw, 1.5rem);
-    margin-right: clamp(0.5rem, 1.5vw, 1.5rem);
+/* Slide title — absolute top-left on content slides */
+.slide-title {
+    position: absolute;
+    top: var(--slide-padding);
+    left: var(--slide-padding);
+    padding-top: clamp(1rem, 2vh, 1.5rem);
 }
+
+/* Section title — top-right breadcrumb */
+.section-title {
+    position: absolute;
+    top: var(--slide-padding);
+    right: var(--slide-padding);
+    color: rgba(0, 0, 0, 0.3);
+}
+
+/* Content area gets extra top padding to clear slide-title */
+.content-slide .slide-content { padding-top: clamp(5rem, 12vh, 9rem); }
 ```
 
 ---
@@ -82,15 +89,56 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 
 ---
 
-## Swiss Modern
+## Black
 
-**Vibe:** Clean, precise, Bauhaus-inspired
+**Vibe:** Dark-first, data-dense, professional — alternating light/dark slides
 
-**Typography:** `Archivo` (800) + `Nunito` (400)
+**Layout:** Slide header with 3px top border rule. Section title top-right (`.section-title`). Footer bar at bottom with presenter label and slide number. Alternates between `slide--dark` and `slide--light` variants.
 
-**Colors:** Pure white, pure black, red accent (#ff3300)
+**Typography:**
+- Display: `Archivo Black` (900)
+- Body: `Nunito` (300/400/600/700)
 
-**Signature:** Visible grid, asymmetric layouts, geometric shapes, vertically centered content
+**Colors:**
+```css
+:root {
+    --black: #0a0a0a;
+    --white: #f8f8f8;
+    --gray-light: #ececec;
+    --gray-mid: #c0c0c0;
+    --gray-dark: #4a4a4a;
+}
+```
+
+**Signature Elements:**
+- Alternating dark/light slides for rhythm and contrast
+- CSS grid background pattern (64px squares, 4% opacity lines)
+- Slide header with 3px top border rule (`.slide-header`)
+- Feature tables (`.ftable` / `.frow`) for key/value data
+- Property grids (`.prop-grid` / `.prop-item`) for 2-column feature cards
+- Step lists (`.step-list` / `.step-item`) with large faded numbers
+- Callout blocks with left border (`.callout`)
+- Decorative vertical/horizontal hairlines on title slide
+- Footer bar with border-top, not floating bottom-rule
+- Title slide has overline text + tag pills
+
+**Key CSS patterns:**
+```css
+/* Alternating slide backgrounds */
+.slide--dark { background: var(--black); color: var(--white); }
+.slide--light { background: var(--white); color: var(--black); }
+
+/* Grid background pattern */
+.grid-bg-dark {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+
+/* Slide header with top border */
+.slide-header { border-top: 3px solid currentColor; padding-top: 10px; }
+```
 
 ---
 
@@ -99,8 +147,8 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 | Preset | Display Font | Body Font | Source |
 |--------|--------------|-----------|--------|
 | Default | Archivo | Nunito | Google |
+| Black | Archivo Black | Nunito | Google |
 | Bold Signal | Archivo Black | Space Grotesk | Google |
-| Swiss Modern | Archivo | Nunito | Google |
 
 ---
 
