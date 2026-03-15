@@ -103,6 +103,12 @@
                 transition-duration: 0.2s !important;
             }
             html { scroll-behavior: auto; }
+            .donut-segment, .progress-fill {
+                transition: none !important;
+                stroke-dashoffset: var(--target-offset, 0) !important;
+            }
+            .bar-fill { transition: none !important; width: var(--bar-width) !important; }
+            .funnel-stage { transition: none !important; opacity: 1 !important; transform: none !important; }
         }
 
         /* ===========================================
@@ -126,6 +132,15 @@
             --label-size: clamp(0.6rem, 1vw, 0.8rem);
             --subtitle-size: clamp(0.85rem, 1.8vw, 1.3rem);
             --code-size: clamp(0.65rem, 1.2vw, 0.95rem);
+
+            /* Chart palette */
+            --chart-1: #ff3300;
+            --chart-2: #000000;
+            --chart-3: #666666;
+            --chart-4: #999999;
+            --chart-5: #cccccc;
+            --chart-6: #e0e0e0;
+            --chart-track: rgba(128, 128, 128, 0.15);
         }
 
         body {
@@ -1417,6 +1432,204 @@
         }
 
         /* ===========================================
+           CHART: DONUT
+           =========================================== */
+        .donut-chart {
+            display: flex;
+            align-items: center;
+            gap: clamp(1.5rem, 3vw, 3rem);
+        }
+        .donut-svg { flex: 0 0 auto; max-width: min(50%, 280px); }
+        .donut-svg svg { width: 100%; height: auto; transform: rotate(-90deg); }
+        .donut-segment {
+            transition: stroke-dashoffset 1s var(--ease-out-expo);
+            stroke-dashoffset: 502.65;
+        }
+        .slide.visible .donut-segment { stroke-dashoffset: var(--target-offset, 0); }
+        .donut-segment:nth-child(2) { transition-delay: 0.15s; }
+        .donut-segment:nth-child(3) { transition-delay: 0.3s; }
+        .donut-segment:nth-child(4) { transition-delay: 0.45s; }
+        .donut-segment:nth-child(5) { transition-delay: 0.6s; }
+        .donut-segment:nth-child(6) { transition-delay: 0.75s; }
+        .donut-center {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            fill: var(--text-primary);
+            transform: rotate(90deg);
+            transform-origin: center;
+        }
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vw, 1rem);
+        }
+        .donut-legend-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+            font-size: var(--body-size);
+        }
+        .donut-legend-item span:last-child {
+            margin-left: auto;
+            font-family: var(--font-display);
+            font-weight: 800;
+        }
+        .donut-swatch {
+            width: clamp(12px, 1.5vw, 18px);
+            height: clamp(12px, 1.5vw, 18px);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) {
+            .donut-chart { flex-direction: column; }
+            .donut-svg { max-width: min(60%, 200px); }
+        }
+
+        /* ===========================================
+           CHART: BAR
+           =========================================== */
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+            width: 100%;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 1rem);
+        }
+        .bar-label {
+            flex: 0 0 clamp(80px, 15vw, 160px);
+            font-size: var(--body-size);
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .bar-track {
+            flex: 1;
+            height: clamp(20px, 3vw, 36px);
+            background: var(--chart-track);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            width: 0;
+            background: var(--chart-1);
+            border-radius: 2px;
+            transition: width 0.8s var(--ease-out-expo);
+        }
+        .slide.visible .bar-fill { width: var(--bar-width); }
+        .bar-row:nth-child(2) .bar-fill { transition-delay: 0.1s; }
+        .bar-row:nth-child(3) .bar-fill { transition-delay: 0.2s; }
+        .bar-row:nth-child(4) .bar-fill { transition-delay: 0.3s; }
+        .bar-row:nth-child(5) .bar-fill { transition-delay: 0.4s; }
+        .bar-row:nth-child(6) .bar-fill { transition-delay: 0.5s; }
+        .bar-row:nth-child(7) .bar-fill { transition-delay: 0.6s; }
+        .bar-row:nth-child(8) .bar-fill { transition-delay: 0.7s; }
+        .bar-value {
+            flex: 0 0 clamp(40px, 6vw, 70px);
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: var(--body-size);
+        }
+
+        /* ===========================================
+           CHART: PROGRESS RINGS
+           =========================================== */
+        .chart-progress-slide {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+        .chart-progress-slide .section-title { color: rgba(255, 255, 255, 0.25); }
+        .chart-progress-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
+        .chart-progress-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
+        .chart-progress-slide .bottom-rule .slide-num { color: var(--accent); }
+        .progress-rings {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1.5rem, 4vw, 4rem);
+            flex-wrap: wrap;
+        }
+        .progress-ring-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 1rem);
+        }
+        .progress-ring-svg {
+            width: clamp(100px, 18vw, 180px);
+            height: auto;
+        }
+        .progress-ring-svg svg {
+            width: 100%;
+            height: auto;
+            transform: rotate(-90deg);
+        }
+        .progress-fill {
+            transition: stroke-dashoffset 1.2s var(--ease-out-expo);
+            stroke-dashoffset: 502.65;
+        }
+        .slide.visible .progress-fill { stroke-dashoffset: var(--target-offset, 0); }
+        .progress-ring-item:nth-child(2) .progress-fill { transition-delay: 0.2s; }
+        .progress-ring-item:nth-child(3) .progress-fill { transition-delay: 0.4s; }
+        .progress-ring-item:nth-child(4) .progress-fill { transition-delay: 0.6s; }
+        .progress-value {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            fill: var(--bg-primary);
+            transform: rotate(90deg);
+            transform-origin: center;
+        }
+        .progress-label {
+            font-size: clamp(0.65rem, 1.2vw, 0.9rem);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        /* ===========================================
+           CHART: FUNNEL
+           =========================================== */
+        .funnel-chart {
+            max-width: min(80%, 500px);
+            margin: 0 auto;
+        }
+        .funnel-chart svg { width: 100%; height: auto; }
+        .funnel-stage {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+        }
+        .slide.visible .funnel-stage {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slide.visible .funnel-stage:nth-child(2) { transition-delay: 0.15s; }
+        .slide.visible .funnel-stage:nth-child(3) { transition-delay: 0.3s; }
+        .slide.visible .funnel-stage:nth-child(4) { transition-delay: 0.45s; }
+        .slide.visible .funnel-stage:nth-child(5) { transition-delay: 0.6s; }
+        .funnel-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+            font-weight: 800;
+            fill: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .funnel-value {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 1vw, 0.75rem);
+            fill: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===========================================
            RESPONSIVE OVERRIDES
            =========================================== */
         @media (max-height: 600px) {
@@ -1460,7 +1673,7 @@
         <div class="bottom-rule">
             <span>Red Style</span>
 
-            <span class="slide-num">01 / 14</span>
+            <span class="slide-num">01 / 19</span>
         </div>
     </section>
 
@@ -1521,7 +1734,7 @@
         <div class="bottom-rule">
             <span>Overview</span>
 
-            <span class="slide-num">02 / 14</span>
+            <span class="slide-num">02 / 19</span>
         </div>
     </section>
 
@@ -1547,7 +1760,7 @@
         <div class="bottom-rule">
             <span>Section</span>
 
-            <span class="slide-num">03 / 14</span>
+            <span class="slide-num">03 / 19</span>
         </div>
     </section>
 
@@ -1604,7 +1817,7 @@
         <div class="bottom-rule">
             <span>Principles</span>
 
-            <span class="slide-num">04 / 14</span>
+            <span class="slide-num">04 / 19</span>
         </div>
     </section>
 
@@ -1659,7 +1872,7 @@
         <div class="bottom-rule">
             <span>Features</span>
 
-            <span class="slide-num">05 / 14</span>
+            <span class="slide-num">05 / 19</span>
         </div>
     </section>
 
@@ -1731,7 +1944,7 @@
         <div class="bottom-rule">
             <span>Analysis</span>
 
-            <span class="slide-num">06 / 14</span>
+            <span class="slide-num">06 / 19</span>
         </div>
     </section>
 
@@ -1797,7 +2010,7 @@
         <div class="bottom-rule">
             <span>Data</span>
 
-            <span class="slide-num">07 / 14</span>
+            <span class="slide-num">07 / 19</span>
         </div>
     </section>
 
@@ -1855,7 +2068,7 @@
         <div class="bottom-rule">
             <span>Timeline</span>
 
-            <span class="slide-num">08 / 14</span>
+            <span class="slide-num">08 / 19</span>
         </div>
     </section>
 
@@ -1904,7 +2117,7 @@
         <div class="bottom-rule">
             <span>Process</span>
 
-            <span class="slide-num">09 / 14</span>
+            <span class="slide-num">09 / 19</span>
         </div>
     </section>
 
@@ -1947,7 +2160,7 @@
         <div class="bottom-rule">
             <span>Setup</span>
 
-            <span class="slide-num">10 / 14</span>
+            <span class="slide-num">10 / 19</span>
         </div>
     </section>
 
@@ -1977,7 +2190,7 @@
         <div class="bottom-rule">
             <span>Media</span>
 
-            <span class="slide-num">11 / 14</span>
+            <span class="slide-num">11 / 19</span>
         </div>
     </section>
 
@@ -2007,7 +2220,7 @@
         <div class="bottom-rule">
             <span>Metrics</span>
 
-            <span class="slide-num">12 / 14</span>
+            <span class="slide-num">12 / 19</span>
         </div>
     </section>
 
@@ -2027,14 +2240,272 @@
         <div class="bottom-rule">
             <span>Inspiration</span>
 
-            <span class="slide-num">13 / 14</span>
+            <span class="slide-num">13 / 19</span>
         </div>
     </section>
 
     <!-- ============================================
          SLIDE 14: CLOSING / Q&A
          ============================================ -->
-    <section class="slide closing-slide" data-slide="14">
+    <!-- ============================================
+         SLIDE 15: DONUT CHART
+         SVG donut with legend — parts of a whole
+         ============================================ -->
+    <section class="slide chart-donut-slide" data-slide="15">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Market Share</h2>
+        <p class="slide-subtitle">Regional distribution of active users</p>
+        <div class="section-title">Data Viz</div>
+        <div class="slide-content">
+            <div class="donut-chart reveal">
+                <div class="donut-svg">
+                    <svg viewBox="0 0 200 200" role="img" aria-label="Donut chart showing market share by region">
+                        <title>Market Share Distribution</title>
+                        <circle class="donut-segment" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-1)" stroke-width="25"
+                            stroke-dasharray="201.06 502.65" stroke-dashoffset="0"
+                            style="--target-offset: 0">
+                            <title>North America: 40%</title>
+                        </circle>
+                        <circle class="donut-segment" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-2)" stroke-width="25"
+                            stroke-dasharray="150.80 502.65" stroke-dashoffset="-201.06"
+                            style="--target-offset: -201.06">
+                            <title>Europe: 30%</title>
+                        </circle>
+                        <circle class="donut-segment" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-3)" stroke-width="25"
+                            stroke-dasharray="100.53 502.65" stroke-dashoffset="-351.86"
+                            style="--target-offset: -351.86">
+                            <title>Asia Pacific: 20%</title>
+                        </circle>
+                        <circle class="donut-segment" cx="100" cy="100" r="80"
+                            fill="none" stroke="var(--chart-4)" stroke-width="25"
+                            stroke-dasharray="50.27 502.65" stroke-dashoffset="-452.39"
+                            style="--target-offset: -452.39">
+                            <title>Other: 10%</title>
+                        </circle>
+                        <text class="donut-center" x="100" y="100" text-anchor="middle" dominant-baseline="central">100%</text>
+                    </svg>
+                </div>
+                <div class="donut-legend">
+                    <div class="donut-legend-item">
+                        <span class="donut-swatch" style="background: var(--chart-1)"></span>
+                        <span>North America</span>
+                        <span>40%</span>
+                    </div>
+                    <div class="donut-legend-item">
+                        <span class="donut-swatch" style="background: var(--chart-2)"></span>
+                        <span>Europe</span>
+                        <span>30%</span>
+                    </div>
+                    <div class="donut-legend-item">
+                        <span class="donut-swatch" style="background: var(--chart-3)"></span>
+                        <span>Asia Pacific</span>
+                        <span>20%</span>
+                    </div>
+                    <div class="donut-legend-item">
+                        <span class="donut-swatch" style="background: var(--chart-4)"></span>
+                        <span>Other</span>
+                        <span>10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Data Viz</span>
+            <span class="slide-num">15 / 18</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 16: BAR CHART
+         Horizontal bars — comparative quantities
+         ============================================ -->
+    <section class="slide chart-bar-slide" data-slide="16">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Revenue by Region</h2>
+        <p class="slide-subtitle">Annual revenue in millions (USD)</p>
+        <div class="section-title">Data Viz</div>
+        <div class="slide-content">
+            <div class="bar-chart reveal" role="img" aria-label="Bar chart showing revenue by region">
+                <div class="bar-row">
+                    <span class="bar-label">North America</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="--bar-width: 100%"></div>
+                    </div>
+                    <span class="bar-value">850</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Europe</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="--bar-width: 73%"></div>
+                    </div>
+                    <span class="bar-value">620</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Asia Pacific</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="--bar-width: 56%"></div>
+                    </div>
+                    <span class="bar-value">480</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Latin America</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="--bar-width: 25%"></div>
+                    </div>
+                    <span class="bar-value">210</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Middle East</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="--bar-width: 16%"></div>
+                    </div>
+                    <span class="bar-value">140</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Data Viz</span>
+            <span class="slide-num">16 / 18</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 17: PROGRESS RINGS
+         Circular gauges — independent metrics (dark bg)
+         ============================================ -->
+    <section class="slide chart-progress-slide" data-slide="17">
+        <div class="section-title">Data Viz</div>
+        <div class="slide-content">
+            <div class="red-bar-h reveal"></div>
+            <h2 class="slide-title" style="position: relative; color: var(--bg-primary)">Q4 Goals</h2>
+            <div class="progress-rings reveal">
+                <div class="progress-ring-item">
+                    <div class="progress-ring-svg">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="Customer Satisfaction: 92%">
+                            <title>Customer Satisfaction: 92%</title>
+                            <circle class="progress-track" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                            <circle class="progress-fill" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-1)" stroke-width="20"
+                                stroke-dasharray="462.44 502.65"
+                                stroke-linecap="round"
+                                style="--target-offset: 0"/>
+                            <text class="progress-value" x="100" y="100"
+                                text-anchor="middle" dominant-baseline="central">92%</text>
+                        </svg>
+                    </div>
+                    <div class="progress-label">Customer Satisfaction</div>
+                </div>
+                <div class="progress-ring-item">
+                    <div class="progress-ring-svg">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="Revenue Target: 78%">
+                            <title>Revenue Target: 78%</title>
+                            <circle class="progress-track" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                            <circle class="progress-fill" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-2)" stroke-width="20"
+                                stroke-dasharray="392.07 502.65"
+                                stroke-linecap="round"
+                                style="--target-offset: 0"/>
+                            <text class="progress-value" x="100" y="100"
+                                text-anchor="middle" dominant-baseline="central">78%</text>
+                        </svg>
+                    </div>
+                    <div class="progress-label">Revenue Target</div>
+                </div>
+                <div class="progress-ring-item">
+                    <div class="progress-ring-svg">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="User Growth: 85%">
+                            <title>User Growth: 85%</title>
+                            <circle class="progress-track" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-track)" stroke-width="20"/>
+                            <circle class="progress-fill" cx="100" cy="100" r="80"
+                                fill="none" stroke="var(--chart-3)" stroke-width="20"
+                                stroke-dasharray="427.25 502.65"
+                                stroke-linecap="round"
+                                style="--target-offset: 0"/>
+                            <text class="progress-value" x="100" y="100"
+                                text-anchor="middle" dominant-baseline="central">85%</text>
+                        </svg>
+                    </div>
+                    <div class="progress-label">User Growth</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Data Viz</span>
+            <span class="slide-num">17 / 18</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 18: FUNNEL
+         SVG trapezoids — narrowing pipeline
+         ============================================ -->
+    <section class="slide funnel-slide" data-slide="18">
+        <div class="swiss-grid decorative">
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line v"></div>
+            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
+            <div class="swiss-grid-line h"></div>
+        </div>
+        <h2 class="slide-title">Sales Pipeline</h2>
+        <p class="slide-subtitle">Conversion through the sales process</p>
+        <div class="section-title">Data Viz</div>
+        <div class="slide-content">
+            <div class="funnel-chart reveal">
+                <svg viewBox="0 0 400 300" role="img" aria-label="Sales funnel showing conversion stages">
+                    <title>Sales Pipeline Funnel</title>
+                    <g class="funnel-stage">
+                        <polygon class="funnel-shape" points="20,10 380,10 350,75 50,75"
+                            fill="var(--chart-1)"/>
+                        <text class="funnel-label" x="200" y="35" text-anchor="middle">Leads</text>
+                        <text class="funnel-value" x="200" y="58" text-anchor="middle">10,000</text>
+                    </g>
+                    <g class="funnel-stage">
+                        <polygon class="funnel-shape" points="50,80 350,80 310,145 90,145"
+                            fill="var(--chart-2)"/>
+                        <text class="funnel-label" x="200" y="105" text-anchor="middle">Qualified</text>
+                        <text class="funnel-value" x="200" y="128" text-anchor="middle">4,200</text>
+                    </g>
+                    <g class="funnel-stage">
+                        <polygon class="funnel-shape" points="90,150 310,150 270,215 130,215"
+                            fill="var(--chart-3)"/>
+                        <text class="funnel-label" x="200" y="175" text-anchor="middle">Proposals</text>
+                        <text class="funnel-value" x="200" y="198" text-anchor="middle">1,800</text>
+                    </g>
+                    <g class="funnel-stage">
+                        <polygon class="funnel-shape" points="130,220 270,220 250,285 150,285"
+                            fill="var(--chart-4)"/>
+                        <text class="funnel-label" x="200" y="245" text-anchor="middle">Closed Won</text>
+                        <text class="funnel-value" x="200" y="268" text-anchor="middle">620</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Data Viz</span>
+            <span class="slide-num">18 / 18</span>
+        </div>
+    </section>
+
+    <section class="slide closing-slide" data-slide="19">
         <div class="section-title">Close</div>
         <div class="slide-content">
             <div class="red-bar-h reveal"></div>
@@ -2057,7 +2528,7 @@
         </div>
         <div class="bottom-rule">
             <span>Close</span>
-            <span class="slide-num">14 / 14</span>
+            <span class="slide-num">19 / 19</span>
         </div>
     </section>
 
@@ -2154,7 +2625,7 @@
                 const container = document.getElementById('navDots');
                 if (!container) return;
                 const current = this.slides[this.currentSlide];
-                container.classList.toggle('dots-inverted', current.classList.contains('quote-slide') || current.classList.contains('stat-slide') || current.classList.contains('closing-slide'));
+                container.classList.toggle('dots-inverted', current.classList.contains('quote-slide') || current.classList.contains('stat-slide') || current.classList.contains('closing-slide') || current.classList.contains('chart-progress-slide'));
             }
 
             goToSlide(idx) {
