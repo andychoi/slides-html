@@ -109,6 +109,11 @@
             }
             .bar-fill { transition: none !important; width: var(--bar-width) !important; }
             .funnel-stage { transition: none !important; opacity: 1 !important; transform: none !important; }
+            .cycle-step, .cycle-arrow { transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+            .converge-input, .converge-output, .converge-path { transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+            .roadmap-road, .roadmap-centerline { transition: none !important; stroke-dashoffset: 0 !important; }
+            .roadmap-milestone { transition: none !important; opacity: 1 !important; transform: none !important; }
+            .gantt-bar { transition: none !important; transform: scaleX(1) !important; }
         }
 
         /* ===========================================
@@ -1323,6 +1328,179 @@
         }
 
         /* ===========================================
+           DIAGRAM: CIRCULAR PROCESS FLOW
+           =========================================== */
+        .cycle-chart { max-width: min(80%, 400px); margin: 0 auto; }
+        .cycle-chart svg { width: 100%; height: auto; }
+        .cycle-step {
+            opacity: 0; transform: scale(0.5);
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+        .slide.visible .cycle-step { opacity: 1; transform: scale(1); }
+        .slide.visible .cycle-step:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .cycle-step:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .cycle-step:nth-child(4) { transition-delay: 0.3s; }
+        .slide.visible .cycle-step:nth-child(5) { transition-delay: 0.4s; }
+        .slide.visible .cycle-step:nth-child(6) { transition-delay: 0.5s; }
+        .cycle-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.5rem, 1vw, 0.75rem);
+            font-weight: 900;
+            fill: currentColor;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .cycle-arrow {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 0.6s var(--ease-out-expo);
+        }
+        .slide.visible .cycle-arrow { stroke-dashoffset: 0; }
+        .slide.visible .cycle-arrow:nth-of-type(1) { transition-delay: 0.5s; }
+        .slide.visible .cycle-arrow:nth-of-type(2) { transition-delay: 0.6s; }
+        .slide.visible .cycle-arrow:nth-of-type(3) { transition-delay: 0.7s; }
+        .slide.visible .cycle-arrow:nth-of-type(4) { transition-delay: 0.8s; }
+        .slide.visible .cycle-arrow:nth-of-type(5) { transition-delay: 0.9s; }
+        .slide.visible .cycle-arrow:nth-of-type(6) { transition-delay: 1.0s; }
+
+        /* ===========================================
+           DIAGRAM: CONVERGE / DIVERGE
+           =========================================== */
+        .converge-chart { max-width: min(90%, 500px); margin: 0 auto; }
+        .converge-chart svg { width: 100%; height: auto; }
+        .converge-path {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            transition: stroke-dashoffset 0.8s var(--ease-out-expo);
+        }
+        .slide.visible .converge-path { stroke-dashoffset: 0; }
+        .slide.visible .converge-path:nth-of-type(2) { transition-delay: 0.15s; }
+        .slide.visible .converge-path:nth-of-type(3) { transition-delay: 0.3s; }
+        .slide.visible .converge-path:nth-of-type(4) { transition-delay: 0.45s; }
+        .slide.visible .converge-path:nth-of-type(5) { transition-delay: 0.6s; }
+        .converge-input, .converge-output {
+            opacity: 0; transform: scale(0.7);
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+        .slide.visible .converge-input,
+        .slide.visible .converge-output { opacity: 1; transform: scale(1); }
+        .slide.visible .converge-input:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .converge-input:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .converge-input:nth-child(4) { transition-delay: 0.3s; }
+        .slide.visible .converge-input:nth-child(5) { transition-delay: 0.4s; }
+        .slide.visible .converge-output { transition-delay: 0.6s; }
+        .converge-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.5rem, 1.1vw, 0.8rem);
+            font-weight: 900;
+            fill: currentColor;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===========================================
+           DIAGRAM: WINDING ROAD TIMELINE
+           =========================================== */
+        .roadmap-slide.slide--dark { background: var(--black); color: var(--white); }
+        .roadmap-chart { max-width: min(90%, 550px); margin: 0 auto; }
+        .roadmap-chart svg { width: 100%; height: auto; }
+        .roadmap-road {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1.5s var(--ease-out-expo);
+        }
+        .slide.visible .roadmap-road { stroke-dashoffset: 0; }
+        .roadmap-centerline {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1.5s var(--ease-out-expo) 0.2s;
+        }
+        .slide.visible .roadmap-centerline { stroke-dashoffset: 0; }
+        .roadmap-milestone {
+            opacity: 0; transform: scale(0.5);
+            transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+        }
+        .slide.visible .roadmap-milestone { opacity: 1; transform: scale(1); }
+        .slide.visible .roadmap-milestone:nth-child(3) { transition-delay: 0.6s; }
+        .slide.visible .roadmap-milestone:nth-child(4) { transition-delay: 0.8s; }
+        .slide.visible .roadmap-milestone:nth-child(5) { transition-delay: 1.0s; }
+        .slide.visible .roadmap-milestone:nth-child(6) { transition-delay: 1.2s; }
+        .slide.visible .roadmap-milestone:nth-child(7) { transition-delay: 1.4s; }
+        .slide.visible .roadmap-milestone:nth-child(8) { transition-delay: 1.6s; }
+        .roadmap-marker.active { r: 14; }
+        .roadmap-date {
+            font-family: var(--font-display);
+            font-size: clamp(0.5rem, 1vw, 0.7rem);
+            font-weight: 900;
+            fill: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .roadmap-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.45rem, 0.9vw, 0.65rem);
+            fill: var(--gray-mid);
+        }
+
+        /* ===========================================
+           DIAGRAM: GANTT CHART
+           =========================================== */
+        .gantt-chart {
+            display: grid;
+            grid-template-columns: clamp(60px, 12vw, 120px) repeat(var(--gantt-cols, 10), 1fr);
+            gap: clamp(4px, 0.5vw, 8px);
+            width: 100%;
+            align-items: center;
+        }
+        .gantt-row { display: contents; }
+        .gantt-label {
+            font-size: var(--body-size);
+            font-weight: 600;
+            text-align: right;
+            padding-right: clamp(4px, 0.5vw, 8px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .gantt-bar {
+            height: clamp(20px, 3vw, 32px);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(4px, 0.5vw, 8px);
+            font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+            color: #fff;
+            font-weight: 600;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease-out-expo);
+            grid-column: calc(var(--gantt-start) + 1) / calc(var(--gantt-end) + 1);
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.3);
+            stroke-width: 2px;
+        }
+        .slide.visible .gantt-bar { transform: scaleX(1); }
+        .gantt-row:nth-child(2) .gantt-bar { transition-delay: 0.1s; }
+        .gantt-row:nth-child(3) .gantt-bar { transition-delay: 0.2s; }
+        .gantt-row:nth-child(4) .gantt-bar { transition-delay: 0.3s; }
+        .gantt-row:nth-child(5) .gantt-bar { transition-delay: 0.4s; }
+        .gantt-row:nth-child(6) .gantt-bar { transition-delay: 0.5s; }
+        .gantt-row:nth-child(7) .gantt-bar { transition-delay: 0.6s; }
+        .gantt-axis {
+            grid-column: 2 / -1;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+            padding-top: clamp(4px, 0.5vw, 8px);
+        }
+        .gantt-tick {
+            font-size: clamp(0.5rem, 0.8vw, 0.65rem);
+            color: var(--gray-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===========================================
            RESPONSIVE OVERRIDES
            =========================================== */
         @media (max-height: 600px) {
@@ -1360,7 +1538,7 @@
         </div>
         <div class="bottom-rule">
             <span>Black Preset</span>
-            <span class="slide-num-label">01 / 18</span>
+            <span class="slide-num-label">01 / 23</span>
         </div>
     </section>
 
@@ -1406,7 +1584,7 @@
         </div>
         <div class="bottom-rule">
             <span>Agenda</span>
-            <span class="slide-num-label">02 / 18</span>
+            <span class="slide-num-label">02 / 23</span>
         </div>
     </section>
 
@@ -1423,7 +1601,7 @@
         </div>
         <div class="bottom-rule">
             <span>Section Divider</span>
-            <span class="slide-num-label">03 / 18</span>
+            <span class="slide-num-label">03 / 23</span>
         </div>
     </section>
 
@@ -1468,7 +1646,7 @@
         </div>
         <div class="bottom-rule">
             <span>Design Principles</span>
-            <span class="slide-num-label">04 / 18</span>
+            <span class="slide-num-label">04 / 23</span>
         </div>
     </section>
 
@@ -1513,7 +1691,7 @@
         </div>
         <div class="bottom-rule">
             <span>Capabilities</span>
-            <span class="slide-num-label">05 / 18</span>
+            <span class="slide-num-label">05 / 23</span>
         </div>
     </section>
 
@@ -1554,7 +1732,7 @@
         </div>
         <div class="bottom-rule">
             <span>Comparison</span>
-            <span class="slide-num-label">06 / 18</span>
+            <span class="slide-num-label">06 / 23</span>
         </div>
     </section>
 
@@ -1615,7 +1793,7 @@
         </div>
         <div class="bottom-rule">
             <span>Feature Matrix</span>
-            <span class="slide-num-label">07 / 18</span>
+            <span class="slide-num-label">07 / 23</span>
         </div>
     </section>
 
@@ -1660,7 +1838,7 @@
         </div>
         <div class="bottom-rule">
             <span>Roadmap</span>
-            <span class="slide-num-label">08 / 18</span>
+            <span class="slide-num-label">08 / 23</span>
         </div>
     </section>
 
@@ -1710,7 +1888,7 @@
         </div>
         <div class="bottom-rule">
             <span>Workflow</span>
-            <span class="slide-num-label">09 / 18</span>
+            <span class="slide-num-label">09 / 23</span>
         </div>
     </section>
 
@@ -1747,7 +1925,7 @@
         </div>
         <div class="bottom-rule">
             <span>Setup</span>
-            <span class="slide-num-label">10 / 18</span>
+            <span class="slide-num-label">10 / 23</span>
         </div>
     </section>
 
@@ -1771,7 +1949,7 @@
         </div>
         <div class="bottom-rule">
             <span>Media</span>
-            <span class="slide-num-label">11 / 18</span>
+            <span class="slide-num-label">11 / 23</span>
         </div>
     </section>
 
@@ -1800,7 +1978,7 @@
         </div>
         <div class="bottom-rule">
             <span>Key Metrics</span>
-            <span class="slide-num-label">12 / 18</span>
+            <span class="slide-num-label">12 / 23</span>
         </div>
     </section>
 
@@ -1820,7 +1998,7 @@
         </div>
         <div class="bottom-rule">
             <span>Inspiration</span>
-            <span class="slide-num-label">13 / 18</span>
+            <span class="slide-num-label">13 / 23</span>
         </div>
     </section>
 
@@ -1892,7 +2070,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">14 / 18</span>
+            <span class="slide-num-label">14 / 23</span>
         </div>
     </section>
 
@@ -1947,7 +2125,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">15 / 18</span>
+            <span class="slide-num-label">15 / 23</span>
         </div>
     </section>
 
@@ -2018,7 +2196,7 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">16 / 18</span>
+            <span class="slide-num-label">16 / 23</span>
         </div>
     </section>
 
@@ -2065,14 +2243,223 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num-label">17 / 18</span>
+            <span class="slide-num-label">17 / 23</span>
         </div>
     </section>
 
     <!-- =========================================
          SLIDE 18: CLOSING / Q&A (dark)
          ========================================= -->
-    <section class="slide closing-slide slide--dark grid-bg-dark" data-slide="18">
+    <!-- ============================================
+         SLIDE 19: CIRCULAR PROCESS FLOW
+         SVG steps around a circle with arrow arcs
+         ============================================ -->
+    <section class="slide cycle-slide slide--light grid-bg-light" data-slide="19">
+        <div class="section-title">Diagrams</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Product Development</h2>
+                <p class="slide-subtitle">Continuous improvement loop</p>
+            </div>
+            <div class="cycle-chart reveal">
+                <svg viewBox="0 0 300 300" role="img" aria-label="Circular process: Research, Design, Build, Test, Launch">
+                    <title>Product Development Cycle</title>
+                    <defs>
+                        <marker id="arrow-19" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                    <!-- 5 steps around circle (r=110, center 150,150) -->
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="150" cy="40" r="18" fill="var(--chart-1)"/>
+                        <text class="cycle-label" x="150" y="15" text-anchor="middle">Research</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="254.6" cy="84.5" r="18" fill="var(--chart-2)"/>
+                        <text class="cycle-label" x="280" y="80" text-anchor="start">Design</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="214.7" cy="239" r="18" fill="var(--chart-3)"/>
+                        <text class="cycle-label" x="240" y="258" text-anchor="start">Build</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="85.3" cy="239" r="18" fill="var(--chart-4)"/>
+                        <text class="cycle-label" x="60" y="258" text-anchor="end">Test</text>
+                    </g>
+                    <g class="cycle-step">
+                        <circle class="cycle-node" cx="45.4" cy="84.5" r="18" fill="var(--chart-5)"/>
+                        <text class="cycle-label" x="20" y="80" text-anchor="end">Launch</text>
+                    </g>
+                    <!-- Arrow arcs between steps -->
+                    <path class="cycle-arrow" d="M 166,44 A 110,110 0 0,1 250,70" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 262,100 A 110,110 0 0,1 224,224" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 200,248 A 110,110 0 0,1 100,248" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 76,224 A 110,110 0 0,1 38,100" fill="none" stroke="var(--chart-4)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 50,70 A 110,110 0 0,1 134,44" fill="none" stroke="var(--chart-5)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                </svg>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Diagrams</span>
+            <span class="slide-num-label">19 / 23</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 20: CONVERGE
+         SVG bezier paths merging to single output
+         ============================================ -->
+    <section class="slide converge-slide slide--light grid-bg-light" data-slide="20">
+        <div class="section-title">Diagrams</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Platform Integration</h2>
+                <p class="slide-subtitle">Bringing services together into a unified system</p>
+            </div>
+            <div class="converge-chart reveal">
+                <svg viewBox="0 0 500 300" role="img" aria-label="Converging: API Gateway, Auth Service, Data Pipeline into Unified Platform">
+                    <title>Platform Integration</title>
+                    <defs>
+                        <marker id="conv-arrow-20" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0,0 8,3 0,6" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                    <g class="converge-input">
+                        <circle class="converge-node" cx="60" cy="60" r="15" fill="var(--chart-1)"/>
+                        <text class="converge-label" x="60" y="30" text-anchor="middle">API Gateway</text>
+                    </g>
+                    <g class="converge-input">
+                        <circle class="converge-node" cx="60" cy="150" r="15" fill="var(--chart-2)"/>
+                        <text class="converge-label" x="60" y="120" text-anchor="middle">Auth Service</text>
+                    </g>
+                    <g class="converge-input">
+                        <circle class="converge-node" cx="60" cy="240" r="15" fill="var(--chart-3)"/>
+                        <text class="converge-label" x="60" y="210" text-anchor="middle">Data Pipeline</text>
+                    </g>
+                    <g class="converge-output">
+                        <circle class="converge-node" cx="440" cy="150" r="22" fill="var(--chart-1)"/>
+                        <text class="converge-label" x="440" y="190" text-anchor="middle">Unified Platform</text>
+                    </g>
+                    <path class="converge-path" d="M 75,60 C 195,60 320,150 418,150" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#conv-arrow-20)"/>
+                    <path class="converge-path" d="M 75,150 C 195,150 320,150 418,150" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#conv-arrow-20)"/>
+                    <path class="converge-path" d="M 75,240 C 195,240 320,150 418,150" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#conv-arrow-20)"/>
+                </svg>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Diagrams</span>
+            <span class="slide-num-label">20 / 23</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 21: WINDING ROAD TIMELINE
+         SVG S-curve with milestone markers (dark bg)
+         ============================================ -->
+    <section class="slide roadmap-slide slide--dark grid-bg-dark" data-slide="21">
+        <div class="section-title">Diagrams</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>2026 Product Milestones</h2>
+                <p class="slide-subtitle">Key delivery dates and strategic targets</p>
+            </div>
+            <div class="roadmap-chart reveal">
+                <svg viewBox="0 0 600 280" role="img" aria-label="Roadmap: Q1 Research, Q2 Build, Q3 Beta, Q4 Launch">
+                    <title>2026 Product Milestones</title>
+                    <path class="roadmap-road" d="M 30,220 C 130,220 130,60 300,60 S 470,220 570,220" fill="none" stroke="var(--chart-track)" stroke-width="30" stroke-linecap="round"/>
+                    <path class="roadmap-centerline" d="M 30,220 C 130,220 130,60 300,60 S 470,220 570,220" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-dasharray="8,6"/>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker active" cx="80" cy="200" r="10" fill="var(--chart-1)"/>
+                        <text class="roadmap-date" x="80" y="240" text-anchor="middle">Q1 2026</text>
+                        <text class="roadmap-title" x="80" y="256" text-anchor="middle">Research</text>
+                    </g>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker" cx="210" cy="100" r="10" fill="var(--chart-2)"/>
+                        <text class="roadmap-date" x="210" y="80" text-anchor="middle">Q2 2026</text>
+                        <text class="roadmap-title" x="210" y="66" text-anchor="middle">Build</text>
+                    </g>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker" cx="390" cy="100" r="10" fill="var(--chart-3)"/>
+                        <text class="roadmap-date" x="390" y="80" text-anchor="middle">Q3 2026</text>
+                        <text class="roadmap-title" x="390" y="66" text-anchor="middle">Beta</text>
+                    </g>
+                    <g class="roadmap-milestone">
+                        <circle class="roadmap-marker" cx="520" cy="200" r="10" fill="var(--chart-4)"/>
+                        <text class="roadmap-date" x="520" y="240" text-anchor="middle">Q4 2026</text>
+                        <text class="roadmap-title" x="520" y="256" text-anchor="middle">Launch</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Diagrams</span>
+            <span class="slide-num-label">21 / 23</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 22: GANTT CHART
+         CSS grid with overlapping phase bars
+         ============================================ -->
+    <section class="slide gantt-slide slide--light grid-bg-light" data-slide="22">
+        <div class="section-title">Diagrams</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Project Timeline</h2>
+                <p class="slide-subtitle">Phase overlap and delivery schedule</p>
+            </div>
+            <div class="gantt-chart reveal" style="--gantt-cols: 10" role="img" aria-label="Gantt chart: Research Jan-Mar, Design Feb-Apr, Development Apr-Aug, Testing Jul-Sep, Launch Sep-Oct">
+                <div class="gantt-row">
+                    <span class="gantt-label">Research</span>
+                    <div class="gantt-bar" style="--gantt-start: 1; --gantt-end: 4; background: var(--chart-1)">
+                        <span>Jan — Mar</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Design</span>
+                    <div class="gantt-bar" style="--gantt-start: 2; --gantt-end: 5; background: var(--chart-2)">
+                        <span>Feb — Apr</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Development</span>
+                    <div class="gantt-bar" style="--gantt-start: 4; --gantt-end: 9; background: var(--chart-3)">
+                        <span>Apr — Aug</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Testing</span>
+                    <div class="gantt-bar" style="--gantt-start: 7; --gantt-end: 10; background: var(--chart-4)">
+                        <span>Jul — Sep</span>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <span class="gantt-label">Launch</span>
+                    <div class="gantt-bar" style="--gantt-start: 9; --gantt-end: 11; background: var(--chart-5)">
+                        <span>Sep — Oct</span>
+                    </div>
+                </div>
+                <div class="gantt-axis">
+                    <span class="gantt-tick">Jan</span>
+                    <span class="gantt-tick">Feb</span>
+                    <span class="gantt-tick">Mar</span>
+                    <span class="gantt-tick">Apr</span>
+                    <span class="gantt-tick">May</span>
+                    <span class="gantt-tick">Jun</span>
+                    <span class="gantt-tick">Jul</span>
+                    <span class="gantt-tick">Aug</span>
+                    <span class="gantt-tick">Sep</span>
+                    <span class="gantt-tick">Oct</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Diagrams</span>
+            <span class="slide-num-label">22 / 23</span>
+        </div>
+    </section>
+
+    <section class="slide closing-slide slide--dark grid-bg-dark" data-slide="23">
         <div class="section-title">Close</div>
         <div class="slide-content">
             <h2 class="closing-title reveal">Thank You</h2>
@@ -2094,7 +2481,7 @@
         </div>
         <div class="bottom-rule">
             <span>Close</span>
-            <span class="slide-num-label">18 / 18</span>
+            <span class="slide-num-label">23 / 23</span>
         </div>
     </section>
 
@@ -2193,7 +2580,8 @@
                 const current = this.slides[this.currentSlide];
                 const isLight = current.classList.contains('slide--light') &&
                     !current.classList.contains('closing-slide') &&
-                    !current.classList.contains('chart-progress-slide');
+                    !current.classList.contains('chart-progress-slide') &&
+                    !current.classList.contains('roadmap-slide');
                 container.classList.toggle('dots-light', isLight);
             }
 
