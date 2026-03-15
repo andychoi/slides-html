@@ -133,6 +133,11 @@
             .bar-fill { width: var(--bar-width) !important; transition: none !important; }
             .progress-fill { stroke-dashoffset: var(--target-offset, 0) !important; transition: none !important; }
             .funnel-stage { opacity: 1 !important; transform: none !important; transition: none !important; }
+            .cycle-step, .cycle-arrow { transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+            .converge-input, .converge-output, .converge-path { transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+            .roadmap-road, .roadmap-centerline { transition: none !important; stroke-dashoffset: 0 !important; }
+            .roadmap-milestone { transition: none !important; opacity: 1 !important; transform: none !important; }
+            .gantt-bar { transition: none !important; transform: scaleX(1) !important; }
         }
 
         /* ===========================================
@@ -925,6 +930,190 @@
             z-index: 100;
             transition: width 0.3s ease;
         }
+
+        /* ===========================================
+           DIAGRAM: CIRCULAR PROCESS FLOW
+           =========================================== */
+        .cycle-chart { max-width: min(80%, 400px); margin: 0 auto; }
+        .cycle-chart svg { width: 100%; height: auto; }
+        .cycle-step {
+            opacity: 0; transform: scale(0.5);
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+        .slide.visible .cycle-step { opacity: 1; transform: scale(1); }
+        .slide.visible .cycle-step:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .cycle-step:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .cycle-step:nth-child(4) { transition-delay: 0.3s; }
+        .slide.visible .cycle-step:nth-child(5) { transition-delay: 0.4s; }
+        .slide.visible .cycle-step:nth-child(6) { transition-delay: 0.5s; }
+        .cycle-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.5rem, 1vw, 0.75rem);
+            font-weight: 900;
+            fill: currentColor;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .cycle-arrow {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 0.6s var(--ease-out-expo);
+        }
+        .slide.visible .cycle-arrow { stroke-dashoffset: 0; }
+        .slide.visible .cycle-arrow:nth-of-type(1) { transition-delay: 0.5s; }
+        .slide.visible .cycle-arrow:nth-of-type(2) { transition-delay: 0.6s; }
+        .slide.visible .cycle-arrow:nth-of-type(3) { transition-delay: 0.7s; }
+        .slide.visible .cycle-arrow:nth-of-type(4) { transition-delay: 0.8s; }
+        .slide.visible .cycle-arrow:nth-of-type(5) { transition-delay: 0.9s; }
+        .slide.visible .cycle-arrow:nth-of-type(6) { transition-delay: 1.0s; }
+
+        /* ===========================================
+           DIAGRAM: CONVERGE / DIVERGE
+           =========================================== */
+        .converge-chart { max-width: min(90%, 500px); margin: 0 auto; }
+        .converge-chart svg { width: 100%; height: auto; }
+        .converge-path {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            transition: stroke-dashoffset 0.8s var(--ease-out-expo);
+        }
+        .slide.visible .converge-path { stroke-dashoffset: 0; }
+        .slide.visible .converge-path:nth-of-type(2) { transition-delay: 0.15s; }
+        .slide.visible .converge-path:nth-of-type(3) { transition-delay: 0.3s; }
+        .slide.visible .converge-path:nth-of-type(4) { transition-delay: 0.45s; }
+        .slide.visible .converge-path:nth-of-type(5) { transition-delay: 0.6s; }
+        .converge-input, .converge-output {
+            opacity: 0; transform: scale(0.7);
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+        .slide.visible .converge-input,
+        .slide.visible .converge-output { opacity: 1; transform: scale(1); }
+        .slide.visible .converge-input:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .converge-input:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .converge-input:nth-child(4) { transition-delay: 0.3s; }
+        .slide.visible .converge-input:nth-child(5) { transition-delay: 0.4s; }
+        .slide.visible .converge-output { transition-delay: 0.6s; }
+        .converge-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.5rem, 1.1vw, 0.8rem);
+            font-weight: 900;
+            fill: currentColor;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===========================================
+           DIAGRAM: WINDING ROAD TIMELINE
+           =========================================== */
+        .roadmap-slide { background: var(--bg-primary); }
+        .roadmap-chart { max-width: min(90%, 550px); margin: 0 auto; }
+        .roadmap-chart svg { width: 100%; height: auto; }
+        .roadmap-road {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1.5s var(--ease-out-expo);
+        }
+        .slide.visible .roadmap-road { stroke-dashoffset: 0; }
+        .roadmap-centerline {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1.5s var(--ease-out-expo) 0.2s;
+        }
+        .slide.visible .roadmap-centerline { stroke-dashoffset: 0; }
+        .roadmap-milestone {
+            opacity: 0; transform: scale(0.5);
+            transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+        }
+        .slide.visible .roadmap-milestone { opacity: 1; transform: scale(1); }
+        .slide.visible .roadmap-milestone:nth-child(3) { transition-delay: 0.6s; }
+        .slide.visible .roadmap-milestone:nth-child(4) { transition-delay: 0.8s; }
+        .slide.visible .roadmap-milestone:nth-child(5) { transition-delay: 1.0s; }
+        .slide.visible .roadmap-milestone:nth-child(6) { transition-delay: 1.2s; }
+        .slide.visible .roadmap-milestone:nth-child(7) { transition-delay: 1.4s; }
+        .slide.visible .roadmap-milestone:nth-child(8) { transition-delay: 1.6s; }
+        .roadmap-marker.active { r: 14; }
+        .roadmap-date {
+            font-family: var(--font-display);
+            font-size: clamp(0.5rem, 1vw, 0.7rem);
+            font-weight: 900;
+            fill: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .roadmap-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.45rem, 0.9vw, 0.65rem);
+            fill: rgba(255,255,255,0.7);
+        }
+
+        /* ===========================================
+           DIAGRAM: GANTT CHART
+           =========================================== */
+        .gantt-chart {
+            display: grid;
+            grid-template-columns: clamp(60px, 12vw, 120px) repeat(var(--gantt-cols, 10), 1fr);
+            gap: clamp(4px, 0.5vw, 8px);
+            width: 100%;
+            align-items: center;
+        }
+        .gantt-row { display: contents; }
+        .gantt-label {
+            font-size: var(--body-size);
+            font-weight: 600;
+            text-align: right;
+            padding-right: clamp(4px, 0.5vw, 8px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-primary);
+        }
+        .gantt-bar {
+            height: clamp(20px, 3vw, 32px);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(4px, 0.5vw, 8px);
+            font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+            color: #fff;
+            font-weight: 600;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease-out-expo);
+            grid-column: calc(var(--gantt-start) + 1) / calc(var(--gantt-end) + 1);
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.3);
+            stroke-width: 2px;
+        }
+        .slide.visible .gantt-bar { transform: scaleX(1); }
+        .gantt-row:nth-child(2) .gantt-bar { transition-delay: 0.1s; }
+        .gantt-row:nth-child(3) .gantt-bar { transition-delay: 0.2s; }
+        .gantt-row:nth-child(4) .gantt-bar { transition-delay: 0.3s; }
+        .gantt-row:nth-child(5) .gantt-bar { transition-delay: 0.4s; }
+        .gantt-row:nth-child(6) .gantt-bar { transition-delay: 0.5s; }
+        .gantt-row:nth-child(7) .gantt-bar { transition-delay: 0.6s; }
+        .gantt-axis {
+            grid-column: 2 / -1;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: clamp(4px, 0.5vw, 8px);
+        }
+        .gantt-tick {
+            font-size: clamp(0.5rem, 0.8vw, 0.65rem);
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Bold Signal diagram overrides - all on dark bg */
+        .cycle-label { fill: var(--text-primary); }
+        .converge-label { fill: var(--text-primary); }
+        .roadmap-slide { background: var(--bg-primary); }
+        .roadmap-date { fill: var(--text-primary); }
+        .roadmap-title { fill: rgba(255,255,255,0.7); }
+        .gantt-label { color: var(--text-primary); }
+        .gantt-tick { color: rgba(255,255,255,0.5); }
+        .gantt-axis { border-color: rgba(255,255,255,0.15); }
 
         /* ===========================================
            RESPONSIVE OVERRIDES
