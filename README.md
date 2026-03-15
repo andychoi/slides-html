@@ -207,6 +207,47 @@ Every preset includes all 14 layout types:
 13. **Process / Flow** — Sequential steps with arrows
 14. **Closing / Q&A** — Thank you, contact info, questions
 
+## Development & Testing
+
+To test changes to the slides skill locally without modifying the installed plugin:
+
+### Setup
+
+A local test command (`/slides-test`) is available at `.claude/commands/slides-test.md`. It mirrors the plugin's `SKILL.md` but lives in the project so you can iterate safely.
+
+### Workflow
+
+```bash
+# 1. Sync supporting files from the plugin into .claude/commands/
+./dev.sh
+
+# 2. Edit the local skill
+#    .claude/commands/slides-test.md
+
+# 3. Start a new Claude Code conversation and run:
+#    /slides-test
+
+# 4. Compare output with /slides (original plugin)
+
+# 5. When satisfied, copy changes back to the plugin:
+#    cp .claude/commands/slides-test.md ~/.claude/skills/slides/SKILL.md
+```
+
+### File Layout
+
+```
+slides-html/
+  dev.sh                          # Syncs plugin supporting files → .claude/commands/
+  .claude/commands/
+    slides-test.md                 # Local test version of the skill (tracked in git)
+    STYLE_PRESETS.md               # ← synced from plugin (gitignored)
+    CONTENT_TYPES.md               # ← synced from plugin (gitignored)
+    reference/                     # ← synced from plugin (gitignored)
+    scripts/                       # ← synced from plugin (gitignored)
+```
+
+> **Note:** Run `./dev.sh` after modifying any supporting files in `~/.claude/skills/slides/` to keep the local copies in sync. The synced files are gitignored — only `slides-test.md` and `dev.sh` are tracked.
+
 ## Installation
 
 Clone to your Claude Code skills directory:
