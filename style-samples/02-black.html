@@ -231,10 +231,12 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Section title — top-right */
+        /* Section title — top-right, ABOVE the slide-header border.
+           Uses smaller top than --slide-padding to avoid overlapping
+           the 3px border-top of .slide-header. */
         .section-title {
             position: absolute;
-            top: var(--slide-padding);
+            top: clamp(0.4rem, 1.2vw, 0.75rem);
             right: var(--slide-padding);
             font-family: var(--font-body);
             font-size: var(--label-size);

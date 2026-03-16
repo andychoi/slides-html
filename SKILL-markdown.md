@@ -84,20 +84,22 @@ Never exceed these per slide — split into continuation slides if needed:
 
 | Slide Type | Maximum Content |
 |---|---|
+Reference viewport: **1920×1080** — density limits calibrated for Full HD minimum.
+
 | Title | 1 heading + 1 subtitle + optional tagline |
-| Content | 1 heading + 4-6 bullets OR 1 heading + 2 paragraphs |
-| Feature Grid | 1 heading + 6 cards max (each: bold title + 1 sentence) |
-| Code | 1 heading + 8-10 lines of code |
-| Quote | 1 quote (max 3 lines) + attribution |
+| Content | 1 heading + 6-8 bullets OR 1 heading + 3 paragraphs |
+| Feature Grid | 1 heading + 8 cards max (each: bold title + 1 sentence) |
+| Code | 1 heading + 12-15 lines of code |
+| Quote | 1 quote (max 4 lines) + attribution |
 | Image | 1 heading + 1 image reference + optional caption |
 | Section Divider | 1 title + optional subtitle |
-| Agenda | 1 heading + 4-6 numbered items |
-| Timeline | 1 heading + 3-5 milestones |
-| Comparison | 1 heading + 2 columns x 3-5 items each |
-| Table | 1 heading + max 5 rows x 4 columns |
-| Stats | 1-3 large numbers with labels |
-| Process | 1 heading + 3-5 steps |
-| Closing | 1 heading + 1 subtitle + 2-3 contact items |
+| Agenda | 1 heading + 6-8 numbered items |
+| Timeline | 1 heading + 4-6 milestones |
+| Comparison | 1 heading + 2 columns x 4-6 items each |
+| Table | 1 heading + max 7 rows x 5 columns |
+| Stats | 1-4 large numbers with labels |
+| Process | 1 heading + 4-6 steps |
+| Closing | 1 heading + 1 subtitle + 3-4 contact items |
 
 ### Layout Selection Logic
 

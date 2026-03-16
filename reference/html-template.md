@@ -29,16 +29,21 @@ Reference architecture for generating slide presentations. Every presentation fo
             --accent: #00ffcc;
             --accent-glow: rgba(0, 255, 204, 0.3);
 
-            /* Typography — MUST use clamp() */
+            /* Typography — define clamp() ONLY here in :root.
+               Component classes MUST use var(--body-size) etc., never hardcoded clamp().
+               ONLY these 3 text-size vars exist. Do NOT invent new ones. */
             --font-display: 'Clash Display', sans-serif;
             --font-body: 'Satoshi', sans-serif;
-            --title-size: clamp(2rem, 6vw, 5rem);
-            --subtitle-size: clamp(0.875rem, 2vw, 1.25rem);
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
             --body-size: clamp(0.875rem, 1.5vw, 1.5rem);
+            --small-size: clamp(0.75rem, 1.2vw, 1.125rem);
+            --label-size: clamp(0.6rem, 1vw, 0.8rem);
 
             /* Spacing — MUST use clamp() */
-            --slide-padding: clamp(1.5rem, 4vw, 4rem);
-            --content-gap: clamp(1rem, 2vw, 2rem);
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
 
             /* Animation */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

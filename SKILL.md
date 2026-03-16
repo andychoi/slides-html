@@ -37,33 +37,49 @@ Interpret creatively and make unexpected choices that feel genuinely designed fo
 These invariants apply to EVERY slide in EVERY presentation:
 
 - Every `.slide` must have `height: 100vh; height: 100dvh; overflow: hidden;`
-- ALL font sizes and spacing must use `clamp(min, preferred, max)` — never fixed px/rem
+- ALL spacing must use `clamp(min, preferred, max)` — never fixed px/rem
 - Content containers need `max-height` constraints
 - Images: `max-height: min(50vh, 400px)`
 - Breakpoints required for heights: 700px, 600px, 500px
 - Include `prefers-reduced-motion` support
 - Never negate CSS functions directly (`-clamp()`, `-min()`, `-max()` are silently ignored) — use `calc(-1 * clamp(...))` instead
 
+**Font-Size Discipline (CRITICAL — most common generation error):**
+- Only THREE text-size variables exist: `--body-size`, `--small-size`, `--label-size`. **Do NOT invent new ones** (e.g., `--xsmall-size`, `--tiny-size`, `--micro-size`). Every custom variable you invent shrinks text further.
+- `clamp()` may ONLY appear in `:root` definitions. Component classes must reference `var(--body-size)` etc.
+- **Use `--body-size` for ALL readable content:** table cells, list items, bullet text, descriptions, paragraphs, callout text, process step descriptions. This is the workhorse size — don't downgrade it.
+- **Use `--small-size` for secondary text only:** subtitles, captions, timeline dates, attribution lines.
+- **Use `--label-size` for UI chrome only:** section labels, footer text, nav elements, overlines.
+- Common mistake: using `--small-size` or smaller for content that should be `--body-size`. When in doubt, use `--body-size`.
+
+**Vertical Space Usage:**
+- `.slide-content` includes `gap: var(--content-gap)` — this spaces children to fill the viewport height. Don't fight it with tight margins.
+- Do NOT add `max-width` constraints to `.slide-content` — the viewport-base.css already handles this.
+- For centered layouts (quote, stat, closing): add `justify-content: center` to `.slide-content`.
+- Content should fill 85-100% of the slide height. If content clusters in the top half, spacing values are too small.
+
 **When generating, read `reference/viewport-base.css` and include its full contents in every presentation.**
 
 ### Content Density Limits Per Slide
 
+Reference viewport: **1920×1080** — density limits calibrated for Full HD minimum.
+
 | Slide Type | Maximum Content |
 |------------|-----------------|
 | Title slide | 1 heading + 1 subtitle + optional tagline |
-| Content slide | 1 heading + 4-6 bullet points OR 1 heading + 2 paragraphs |
-| Feature grid | 1 heading + 6 cards maximum (2x3 or 3x2) |
-| Code slide | 1 heading + 8-10 lines of code |
-| Quote slide | 1 quote (max 3 lines) + attribution |
+| Content slide | 1 heading + 6-8 bullet points OR 1 heading + 3 paragraphs |
+| Feature grid | 1 heading + 8 cards maximum (2x4 or 4x2) |
+| Code slide | 1 heading + 12-15 lines of code |
+| Quote slide | 1 quote (max 4 lines) + attribution |
 | Image slide | 1 heading + 1 image (max 60vh height) |
 | Section divider | 1 section number + 1 title + optional subtitle |
-| Agenda slide | 1 heading + 4-6 agenda items |
-| Timeline slide | 1 heading + 3-5 milestones |
-| Comparison slide | 1 heading + 2 columns × 3-5 items each |
-| Table slide | 1 heading + table with max 5 rows × 4 columns |
-| Stat slide | 1-3 large numbers with labels |
-| Process slide | 1 heading + 3-5 sequential steps |
-| Closing slide | 1 heading + 1 subtitle + 2-3 contact items |
+| Agenda slide | 1 heading + 6-8 agenda items |
+| Timeline slide | 1 heading + 4-6 milestones |
+| Comparison slide | 1 heading + 2 columns × 4-6 items each |
+| Table slide | 1 heading + table with max 7 rows × 5 columns |
+| Stat slide | 1-4 large numbers with labels |
+| Process slide | 1 heading + 4-6 sequential steps |
+| Closing slide | 1 heading + 1 subtitle + 3-4 contact items |
 
 **Content exceeds limits? Split into multiple slides. Never cram, never scroll.**
 
@@ -83,8 +99,8 @@ When enhancing existing presentations, viewport fitting is the biggest risk:
 
 1. **Before adding content:** Count existing elements, check against density limits
 2. **Adding images:** Must have `max-height: min(50vh, 400px)`. If slide already has max content, split into two slides
-3. **Adding text:** Max 4-6 bullets per slide. Exceeds limits? Split into continuation slides
-4. **After ANY modification, verify:** `.slide` has `overflow: hidden`, new elements use `clamp()`, images have viewport-relative max-height, content fits at 1280x720
+3. **Adding text:** Max 6-8 bullets per slide. Exceeds limits? Split into continuation slides
+4. **After ANY modification, verify:** `.slide` has `overflow: hidden`, new elements use `clamp()`, images have viewport-relative max-height, content fits at 1920x1080
 5. **Proactively reorganize:** If modifications will cause overflow, automatically split content and inform the user. Don't wait to be asked
 
 **When adding images to existing slides:** Move image to new slide or reduce other content first. Never add images without checking if existing content already fills the viewport.

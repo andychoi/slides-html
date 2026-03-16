@@ -98,6 +98,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
 - Callout blocks with left border (`.callout`)
 - Title slide has overline text + tag pills
 
+**Additional variables (extend viewport-base.css):**
+```css
+:root {
+    --subtitle-size: clamp(0.85rem, 1.8vw, 1.3rem);
+    --dur: 0.55s;
+}
+```
+
 **Key CSS patterns:**
 ```css
 .slide--dark { background: var(--black); color: var(--white); }
@@ -108,7 +116,31 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
         linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
     background-size: 64px 64px;
 }
-.slide-header { border-top: 3px solid currentColor; padding-top: 10px; }
+.slide-header { border-top: 3px solid currentColor; padding-top: clamp(0.4rem, 1vh, 0.75rem); margin-bottom: clamp(0.75rem, 2vh, 1.25rem); }
+/* Bottom rule is position: absolute at slide bottom */
+.bottom-rule {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: clamp(32px, 5vh, 40px);
+    border-top: 1px solid rgba(255,255,255,0.14);
+    background: rgba(0,0,0,0.35);
+}
+.slide--light .bottom-rule {
+    border-top-color: rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.8);
+}
+/* Section title — sits ABOVE slide-header border.
+   Uses smaller top than --slide-padding so it doesn't overlap the 3px border-top.
+   CRITICAL: do NOT use top: var(--slide-padding) — that overlaps the header. */
+.section-title {
+    position: absolute;
+    top: clamp(0.4rem, 1.2vw, 0.75rem);
+    right: var(--slide-padding);
+    font-size: var(--label-size);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0; transition: opacity 0.3s ease 0.15s;
+}
+.slide.visible .section-title { opacity: 1; }
+.slide--light .section-title { color: rgba(0,0,0,0.3); }
 ```
 
 ---

@@ -241,7 +241,7 @@
         /* Section title — top-right */
         .section-title {
             position: absolute;
-            top: var(--slide-padding);
+            top: clamp(0.4rem, 1.2vw, 0.75rem); /* Sits ABOVE slide-header border — do NOT use var(--slide-padding) */
             right: var(--slide-padding);
             font-family: var(--font-body);
             font-size: var(--label-size);

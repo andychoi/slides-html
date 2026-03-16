@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red - All Layouts</title>
+    <title>Black - All Layouts</title>
 
-    <!-- Google Fonts: Archivo (display) + Nunito (body) -->
+    <!-- Google Fonts: Archivo Black (display) + Nunito (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;800&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* ===========================================
@@ -36,7 +36,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             max-height: 100%;
             overflow: hidden;
             padding: var(--slide-padding);
@@ -118,98 +118,158 @@
         }
 
         /* ===========================================
-           DEFAULT: THEME
-           Based on Swiss Modern with top-aligned content
+           BLACK: THEME
+           Dark-first, alternating light/dark slides
            =========================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-primary: #ffffff;
-            --accent: #ff3300;
-            --text-primary: #000000;
-            --text-secondary: rgba(0, 0, 0, 0.5);
-            --grid-color: rgba(0, 0, 0, 0.06);
-            --border-color: rgba(0, 0, 0, 0.12);
+            --black: #0a0a0a;
+            --white: #f8f8f8;
+            --gray-light: #ececec;
+            --gray-mid: #c0c0c0;
+            --gray-dark: #4a4a4a;
+            --text-primary: var(--white);
+            --text-secondary: rgba(255, 255, 255, 0.55);
+            --bg-primary: var(--black);
+            --border-color: rgba(255, 255, 255, 0.1);
 
-            --font-display: 'Archivo', sans-serif;
+            --font-display: 'Archivo Black', sans-serif;
             --font-body: 'Nunito', sans-serif;
 
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur: 0.55s;
             --label-size: clamp(0.6rem, 1vw, 0.8rem);
             --subtitle-size: clamp(0.85rem, 1.8vw, 1.3rem);
             --code-size: clamp(0.65rem, 1.2vw, 0.95rem);
 
             /* Chart palette */
-            --chart-1: #ff3300;
-            --chart-2: #264653;
-            --chart-3: #e76f51;
-            --chart-4: #2a9d8f;
-            --chart-5: #e9c46a;
-            --chart-6: #606060;
+            --chart-1: #3b82f6;
+            --chart-2: #ef4444;
+            --chart-3: #22c55e;
+            --chart-4: #f59e0b;
+            --chart-5: #8b5cf6;
+            --chart-6: #06b6d4;
             --chart-track: rgba(128, 128, 128, 0.15);
         }
 
         body {
             font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--black);
+            color: var(--white);
             -webkit-font-smoothing: antialiased;
         }
 
         /* ===========================================
-           SHARED: GRID BACKGROUND
+           GRID BACKGROUNDS
            =========================================== */
-        .swiss-grid {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
+        .grid-bg-dark {
+            background-color: var(--black);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px);
         }
-        .swiss-grid-line {
-            position: absolute;
-            background: var(--grid-color);
+        .grid-bg-light {
+            background-color: var(--white);
+            background-image:
+                linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px);
         }
-        .swiss-grid-line.v { width: 1px; top: 0; bottom: 0; }
-        .swiss-grid-line.h { height: 1px; left: 0; right: 0; }
-        .swiss-grid-line:nth-child(1) { left: 16.666%; }
-        .swiss-grid-line:nth-child(2) { left: 33.333%; }
-        .swiss-grid-line:nth-child(3) { left: 50%; }
-        .swiss-grid-line:nth-child(4) { left: 66.666%; }
-        .swiss-grid-line:nth-child(5) { left: 83.333%; }
-        .swiss-grid-line:nth-child(6) { top: 25%; }
-        .swiss-grid-line:nth-child(7) { top: 50%; }
-        .swiss-grid-line:nth-child(8) { top: 75%; }
+
+        /* Dark and light slide variants */
+        .slide--dark { background: var(--black); color: var(--white); }
+        .slide--light { background: var(--white); color: var(--black); }
 
         /* ===========================================
-           SHARED: REVEAL ANIMATIONS
+           REVEAL ANIMATIONS
            =========================================== */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s var(--ease-out-expo),
-                        transform 0.3s var(--ease-out-expo);
+            transform: translateY(18px);
+            transition: opacity var(--dur) var(--ease-out-expo),
+                        transform var(--dur) var(--ease-out-expo);
         }
         .slide.visible .reveal {
             opacity: 1;
             transform: translateY(0);
         }
         .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
-        .slide.visible .reveal:nth-child(2) { transition-delay: 0.1s; }
-        .slide.visible .reveal:nth-child(3) { transition-delay: 0.15s; }
-        .slide.visible .reveal:nth-child(4) { transition-delay: 0.2s; }
-        .slide.visible .reveal:nth-child(5) { transition-delay: 0.25s; }
-        .slide.visible .reveal:nth-child(6) { transition-delay: 0.3s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.13s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.21s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.29s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.37s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.45s; }
 
-        /* Shared bottom rule */
+        /* ===========================================
+           SLIDE HEADER — top border + title
+           =========================================== */
+        .slide-header {
+            border-top: 3px solid currentColor;
+            padding-top: clamp(0.4rem, 1vh, 0.75rem);
+            margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+        }
+        .slide-header h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            line-height: 1.1;
+        }
+        .slide-header .slide-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 1.3vw, 1.1rem);
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.45);
+            line-height: 1.4;
+            margin-top: clamp(0.2rem, 0.5vh, 0.4rem);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .slide--dark .slide-header .slide-subtitle {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Section title — top-right */
+        .section-title {
+            position: absolute;
+            top: var(--slide-padding);
+            right: var(--slide-padding);
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease 0.15s;
+        }
+        .slide.visible .section-title { opacity: 1; }
+        .slide--light .section-title { color: rgba(0, 0, 0, 0.3); }
+
+        /* Slide number — bottom footer */
+        .slide-num-label {
+            font-size: var(--label-size);
+            opacity: 0.3;
+            letter-spacing: 0.15em;
+            font-family: var(--font-display);
+        }
+
+        /* ===========================================
+           BOTTOM RULE — footer bar
+           =========================================== */
         .bottom-rule {
             position: absolute;
-            bottom: var(--slide-padding);
-            left: var(--slide-padding);
-            right: var(--slide-padding);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: clamp(32px, 5vh, 40px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-top: 2px solid var(--text-primary);
-            padding-top: clamp(0.3rem, 0.8vw, 0.6rem);
+            padding: 0 var(--slide-padding);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(0, 0, 0, 0.35);
             opacity: 0;
             transition: opacity 0.3s ease 0.25s;
         }
@@ -217,454 +277,301 @@
         .bottom-rule span {
             font-family: var(--font-body);
             font-size: var(--label-size);
-            letter-spacing: 0.15em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.55);
         }
-
-
-        /* Section title — top-right breadcrumb label */
-        .section-title {
-            position: absolute;
-            top: clamp(0.4rem, 1.2vw, 0.75rem); /* Sits ABOVE slide-header border — do NOT use var(--slide-padding) */
-            right: var(--slide-padding);
-            font-family: var(--font-body);
-            font-size: var(--label-size);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transition: opacity 0.3s ease 0.15s;
+        /* Light slide footer */
+        .slide--light .bottom-rule {
+            border-top-color: rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.8);
         }
-        .slide.visible .section-title { opacity: 1; }
-        /* Invert on dark slides */
-        .quote-slide .section-title { color: rgba(255, 255, 255, 0.25); }
-
-        /* Slide number in bottom-rule — accent color */
-        .bottom-rule .slide-num {
-            font-family: var(--font-display);
-            font-weight: 800;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-        }
-
-        /* Slide title — top-left header on content slides, single line + red bar */
-        .slide-title {
-            position: absolute;
-            top: var(--slide-padding);
-            left: var(--slide-padding);
-            font-family: var(--font-display);
-            font-size: var(--h2-size);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            white-space: nowrap;
-            color: var(--text-primary);
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.3s var(--ease-out-expo) 0.05s,
-                        transform 0.3s var(--ease-out-expo) 0.05s;
-        }
-        .slide.visible .slide-title {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Red bar under slide title */
-        .slide-title::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 4px;
-            background: var(--accent);
-            margin-top: clamp(0.3rem, 0.8vw, 0.5rem);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s var(--ease-out-expo) 0.15s;
-        }
-        .slide.visible .slide-title::after { transform: scaleX(1); }
-
-        /* Slide subtitle — below title, body font, muted */
-        .slide-subtitle {
-            position: absolute;
-            top: calc(var(--slide-padding) + var(--h2-size) + clamp(1.2rem, 2.5vh, 2rem));
-            left: var(--slide-padding);
-            font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.3vw, 1.1rem);
-            font-weight: 400;
-            color: rgba(0, 0, 0, 0.45);
-            letter-spacing: 0.02em;
-            line-height: 1.4;
-            max-width: 50%;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s var(--ease-out-expo) 0.12s,
-                        transform 0.3s var(--ease-out-expo) 0.12s;
-        }
-        .slide.visible .slide-subtitle {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .slide--light .bottom-rule span { color: rgba(0, 0, 0, 0.5); }
 
         /* ===========================================
-           1. TITLE SLIDE
-           Content title top-left, subtitle below with barline
+           CALLOUT — left-bordered quote block
+           =========================================== */
+        .callout {
+            border-left: 4px solid currentColor;
+            padding: clamp(0.5rem, 1.2vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+            margin-top: clamp(0.5rem, 1.5vh, 1rem);
+            opacity: 0.85;
+        }
+        .callout p {
+            font-size: var(--body-size);
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .callout--faint { border-left-color: rgba(255, 255, 255, 0.35); }
+
+        /* ===========================================
+           1. TITLE SLIDE — dark, dramatic
            =========================================== */
         .slide.title-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
+            background: var(--black);
+            color: var(--white);
         }
 
         .title-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding-bottom: clamp(3rem, 8vh, 6rem);
+            justify-content: flex-start;
+            padding-top: clamp(4rem, 12vh, 6rem);
         }
 
-        /* Large red circle */
-        .geo-circle {
-            position: absolute;
-            top: clamp(2rem, 8vh, 6rem);
-            right: clamp(2rem, 10vw, 8rem);
-            width: clamp(120px, 22vw, 300px);
-            height: clamp(120px, 22vw, 300px);
-            border-radius: 50%;
-            background: var(--accent);
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 0.3s var(--ease-out-expo) 0.12s,
-                        opacity 0.25s ease 0.12s;
-        }
-        .slide.visible .geo-circle {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        /* Black rectangle */
-        .geo-rect {
-            position: absolute;
-            bottom: clamp(5rem, 20vh, 14rem);
-            right: clamp(1.5rem, 5vw, 4rem);
-            width: clamp(25px, 4vw, 50px);
-            height: clamp(50px, 9vw, 100px);
-            background: var(--text-primary);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            opacity: 0;
-            transition: transform 0.3s var(--ease-out-expo) 0.2s,
-                        opacity 0.2s ease 0.2s;
-        }
-        .slide.visible .geo-rect {
-            transform: scaleY(1);
-            opacity: 1;
+        .title-overline {
+            font-size: var(--small-size);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
         }
 
         .title-slide h1 {
             font-family: var(--font-display);
             font-size: var(--title-size);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            text-transform: uppercase;
-            max-width: 60%;
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
         }
 
-        /* Slim barline below title with equal left/right margin */
-        .title-barline {
-            width: calc(100% - clamp(1rem, 3vw, 3rem));
-            height: 2px;
-            background: var(--border-color);
-            margin: clamp(0.4rem, 1vw, 0.75rem) auto;
-            margin-left: clamp(0.5rem, 1.5vw, 1.5rem);
-            margin-right: clamp(0.5rem, 1.5vw, 1.5rem);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s var(--ease-out-expo) 0.15s;
-        }
-        .slide.visible .title-barline { transform: scaleX(1); }
-
-        .title-slide .subtitle {
-            font-family: var(--font-body);
+        .title-sub {
             font-size: var(--subtitle-size);
-            color: var(--text-secondary);
-            letter-spacing: 0.04em;
-        }
-
-        /* ===========================================
-           2. CONTENT SLIDE
-           Title top-left, body top-aligned
-           =========================================== */
-        .slide.content-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .content-slide .slide-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(2rem, 5vw, 5rem);
-            align-items: start;
-            justify-content: start;
-            /* Extra top padding to clear the absolute-positioned slide-title */
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .content-left .lead-text {
-            font-size: var(--body-size);
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 35ch;
-        }
-
-        .content-right {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(0.5rem, 1.2vh, 1rem);
-        }
-
-        .content-right .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            gap: clamp(0.5rem, 1.2vw, 1rem);
-            font-size: var(--body-size);
+            opacity: 0.55;
+            font-weight: 300;
+            max-width: 58%;
             line-height: 1.5;
         }
 
-        .bullet-marker {
-            flex-shrink: 0;
-            width: clamp(16px, 2vw, 24px);
-            height: clamp(16px, 2vw, 24px);
-            border: 2px solid var(--text-primary);
-            margin-top: 2px;
+        .title-tags {
+            display: flex;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+            margin-top: clamp(1rem, 3vh, 2rem);
+            flex-wrap: wrap;
         }
-        .bullet-marker.circle { border-radius: 50%; }
-        .bullet-marker.filled { background: var(--accent); border-color: var(--accent); }
-
-        .bullet-item strong {
-            font-weight: 600;
-            display: block;
-            font-family: var(--font-display);
-            font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .bullet-item .desc {
-            color: var(--text-secondary);
+        .title-tag {
             font-size: var(--small-size);
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: clamp(3px, 0.5vw, 5px) clamp(8px, 1vw, 12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        @media (max-width: 600px) {
-            .content-slide .slide-content {
-                grid-template-columns: 1fr;
-                gap: var(--content-gap);
-            }
+        /* Title decorative lines */
+        .title-vline {
+            position: absolute;
+            top: 0;
+            right: clamp(6rem, 12vw, 10rem);
+            width: 1px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .title-hline {
+            position: absolute;
+            top: clamp(2.5rem, 8vh, 4rem);
+            left: 0;
+            width: 38%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .title-year {
+            position: absolute;
+            top: var(--slide-padding);
+            right: var(--slide-padding);
+            font-family: var(--font-display);
+            font-size: var(--label-size);
+            letter-spacing: 0.3em;
+            opacity: 0.28;
         }
 
         /* ===========================================
-           3. FEATURE GRID SLIDE
-           Title top-left, grid top-aligned
+           2. CONTENT SLIDE — light variant with table
+           =========================================== */
+        .slide.content-slide {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .content-slide .slide-content {
+            gap: var(--content-gap);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+        }
+
+        /* Feature table — two-column key/value rows */
+        .ftable {
+            display: flex;
+            flex-direction: column;
+        }
+        .frow {
+            display: grid;
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            padding: clamp(0.4rem, 1vh, 0.6rem) clamp(0.5rem, 1.2vw, 0.9rem);
+            border-bottom: 1px solid var(--gray-light);
+            align-items: start;
+        }
+        .slide--dark .frow { border-bottom-color: rgba(255, 255, 255, 0.1); }
+        .frow:last-child { border-bottom: none; }
+        .frow.two { grid-template-columns: 1fr 2fr; }
+        .frow.hdr { border-bottom: 2px solid currentColor; padding-bottom: clamp(3px, 0.5vh, 6px); }
+        .fkey {
+            font-family: var(--font-display);
+            font-size: var(--body-size);
+            line-height: 1.35;
+        }
+        .fval {
+            font-size: var(--body-size);
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+        .fhdr {
+            font-size: var(--small-size);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        /* ===========================================
+           3. FEATURE GRID SLIDE — 2-column property grid
            =========================================== */
         .slide.grid-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
         }
 
         .grid-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
             gap: var(--content-gap);
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
         }
 
-        .swiss-feature-grid {
+        .prop-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            border: 2px solid var(--text-primary);
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.4rem, 1vh, 0.65rem);
+            margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
         }
-
-        .swiss-feature-cell {
-            padding: clamp(0.75rem, 2vw, 1.5rem);
-            border-right: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
+        .prop-item {
+            padding: clamp(0.6rem, 1.5vh, 1rem) clamp(0.75rem, 1.5vw, 1rem);
+            border: 1px solid var(--gray-light);
         }
-        .swiss-feature-cell:nth-child(3n) { border-right: none; }
-        .swiss-feature-cell:nth-child(n+4) { border-bottom: none; }
-
-        .cell-number {
+        .slide--dark .prop-item { border-color: rgba(255, 255, 255, 0.1); }
+        .prop-item.full { grid-column: 1 / -1; }
+        .prop-name {
             font-family: var(--font-display);
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1;
-            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+            font-size: var(--body-size);
+            margin-bottom: clamp(2px, 0.3vh, 4px);
         }
-
-        .swiss-feature-cell h3 {
-            font-family: var(--font-display);
-            font-size: clamp(0.65rem, 1.1vw, 0.85rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: clamp(0.15rem, 0.4vw, 0.3rem);
-        }
-
-        .swiss-feature-cell p {
+        .prop-desc {
             font-size: var(--small-size);
-            color: var(--text-secondary);
+            opacity: 0.62;
             line-height: 1.4;
         }
 
         @media (max-width: 600px) {
-            .swiss-feature-grid { grid-template-columns: repeat(2, 1fr); }
-            .swiss-feature-cell:nth-child(3n) { border-right: 1px solid var(--border-color); }
-            .swiss-feature-cell:nth-child(2n) { border-right: none; }
-            .swiss-feature-cell:nth-child(n+4) { border-bottom: 1px solid var(--border-color); }
-            .swiss-feature-cell:nth-child(n+5) { border-bottom: none; }
+            .prop-grid { grid-template-columns: 1fr; }
         }
 
         /* ===========================================
-           4. CODE SLIDE
+           4. CODE SLIDE — dark with bordered container
            =========================================== */
         .slide.code-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
+            background: var(--black);
+            color: var(--white);
         }
 
         .code-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
             gap: var(--content-gap);
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
         }
 
         .code-container {
-            border: 2px solid var(--text-primary);
-            background: #fafafa;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .code-tab-bar {
             display: flex;
-            border-bottom: 2px solid var(--text-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .code-tab {
             padding: clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.75rem, 2vw, 1.5rem);
             font-family: var(--font-display);
             font-size: var(--small-size);
-            font-weight: 800;
-            text-transform: uppercase;
             letter-spacing: 0.1em;
-            border-right: 1px solid var(--border-color);
+            text-transform: uppercase;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.45);
         }
         .code-tab.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--white);
         }
 
         .code-container pre {
             padding: clamp(0.75rem, 2vw, 1.5rem);
-            font-family: 'Courier New', monospace;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
             font-size: var(--code-size);
             line-height: 1.7;
             overflow-x: auto;
+            color: rgba(255, 255, 255, 0.85);
         }
 
-        .code-container .kw { color: var(--accent); font-weight: 600; }
-        .code-container .str { color: #2e7d32; }
-        .code-container .fn { color: #1565c0; }
-        .code-container .cm { color: rgba(0,0,0,0.35); font-style: italic; }
-        .code-container .num { color: #e65100; }
+        .code-container .kw { color: #93c5fd; font-weight: 600; }
+        .code-container .str { color: #86efac; }
+        .code-container .fn { color: #c4b5fd; }
+        .code-container .cm { color: rgba(255,255,255,0.3); font-style: italic; }
+        .code-container .num { color: #fbbf24; }
 
         /* ===========================================
-           5. QUOTE SLIDE
+           5. QUOTE SLIDE — dark, centered
            =========================================== */
         .slide.quote-slide {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            padding: var(--slide-padding);
+            background: var(--black);
+            color: var(--white);
         }
 
         .quote-slide .slide-content {
-            display: flex;
-            flex-direction: column;
             justify-content: center;
             padding-left: clamp(3rem, 10vw, 10rem);
             padding-right: clamp(3rem, 10vw, 10rem);
         }
 
-        .quote-slide .red-bar-h {
-            width: clamp(60px, 8vw, 120px);
-            height: 4px;
-            background: var(--accent);
-            margin-bottom: clamp(1rem, 3vw, 2rem);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s var(--ease-out-expo) 0.1s;
-        }
-        .slide.visible .quote-slide .red-bar-h,
-        .quote-slide.visible .red-bar-h { transform: scaleX(1); }
-
         .quote-slide blockquote {
             font-family: var(--font-display);
             font-size: clamp(1.25rem, 3.5vw, 2.75rem);
-            font-weight: 800;
             line-height: 1.2;
             letter-spacing: -0.02em;
-            text-transform: uppercase;
-            max-width: 18ch;
+            max-width: 20ch;
         }
 
         .quote-slide .attribution {
             font-family: var(--font-body);
             font-size: var(--body-size);
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.35);
             margin-top: clamp(1rem, 2.5vw, 2rem);
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
-        .quote-slide .bottom-rule { border-color: rgba(255,255,255,0.2); }
-        .quote-slide .bottom-rule span { color: rgba(255,255,255,0.3); }
-        .quote-slide .slide-num { color: var(--accent); }
-
-        /* Large outline circle on quote slide */
-        .quote-circle {
+        /* Quote decorative line */
+        .quote-vline {
             position: absolute;
-            right: clamp(2rem, 8vw, 6rem);
-            top: 50%;
-            transform: translateY(-50%) scale(0);
-            width: clamp(150px, 28vw, 350px);
-            height: clamp(150px, 28vw, 350px);
-            border: 3px solid rgba(255, 255, 255, 0.06);
-            border-radius: 50%;
-            opacity: 0;
-            transition: transform 0.4s var(--ease-out-expo) 0.15s,
-                        opacity 0.3s ease 0.15s;
-        }
-        .quote-slide.visible .quote-circle {
-            transform: translateY(-50%) scale(1);
-            opacity: 1;
+            top: 0;
+            right: clamp(5rem, 15vw, 12rem);
+            width: 1px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.06);
         }
 
         /* ===========================================
-           6. IMAGE SLIDE
+           6. IMAGE SLIDE — light variant
            =========================================== */
         .slide.image-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
+            background: var(--white);
+            color: var(--black);
         }
 
         .image-slide .slide-content {
@@ -672,13 +579,13 @@
             grid-template-columns: 1fr 1fr;
             gap: clamp(2rem, 5vw, 5rem);
             align-items: start;
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
         }
 
         .image-slide .image-desc {
             font-size: var(--body-size);
-            color: var(--text-secondary);
+            color: var(--gray-dark);
             line-height: 1.6;
             margin-top: clamp(0.5rem, 1.5vw, 1rem);
         }
@@ -686,34 +593,21 @@
         .image-placeholder {
             aspect-ratio: 4/3;
             max-height: min(50vh, 400px);
-            border: 2px solid var(--text-primary);
+            border: 1px solid var(--gray-mid);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: clamp(0.3rem, 1vw, 0.75rem);
-            position: relative;
-        }
-
-        /* Red corner accent on image */
-        .image-placeholder::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            width: clamp(30px, 5vw, 60px);
-            height: clamp(30px, 5vw, 60px);
-            border-top: 4px solid var(--accent);
-            border-right: 4px solid var(--accent);
         }
 
         .image-placeholder .ph-icon {
             font-size: clamp(2rem, 4vw, 3.5rem);
-            color: var(--border-color);
+            color: var(--gray-mid);
         }
         .image-placeholder .ph-text {
             font-size: var(--small-size);
-            color: var(--text-secondary);
+            color: var(--gray-dark);
             letter-spacing: 0.15em;
             text-transform: uppercase;
         }
@@ -726,589 +620,32 @@
         }
 
         /* ===========================================
-           7. SECTION DIVIDER
+           STEP LIST — numbered steps (dark slides)
            =========================================== */
-        .slide.section-divider {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .section-divider .slide-content {
+        .step-list {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding-left: clamp(3rem, 10vw, 10rem);
+            gap: clamp(0.3rem, 0.8vh, 0.5rem);
         }
-
-        .section-divider .section-number {
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            padding: clamp(0.4rem, 1vh, 0.65rem) clamp(0.5rem, 1.2vw, 0.9rem);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .slide--light .step-item { border-color: var(--gray-light); }
+        .step-num {
             font-family: var(--font-display);
-            font-size: clamp(5rem, 15vw, 14rem);
-            font-weight: 800;
-            color: var(--accent);
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            opacity: 0.2;
             line-height: 1;
-            opacity: 0.15;
-            position: absolute;
-            top: 50%;
-            right: clamp(2rem, 8vw, 8rem);
-            transform: translateY(-50%);
-        }
-
-        .section-divider .section-divider-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.75rem, 5vw, 4rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-
-        .section-divider .section-divider-subtitle {
-            font-family: var(--font-body);
-            font-size: var(--body-size);
-            color: var(--text-secondary);
-            margin-top: clamp(0.5rem, 1.5vw, 1rem);
-            max-width: 35ch;
-            line-height: 1.5;
-        }
-
-        /* Red geometric accent — triangle */
-        .section-divider .geo-accent {
-            position: absolute;
-            bottom: clamp(4rem, 12vh, 8rem);
-            right: clamp(3rem, 10vw, 8rem);
-            width: 0;
-            height: 0;
-            border-left: clamp(20px, 3vw, 40px) solid transparent;
-            border-right: clamp(20px, 3vw, 40px) solid transparent;
-            border-bottom: clamp(35px, 5vw, 70px) solid var(--accent);
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 0.3s var(--ease-out-expo) 0.2s,
-                        opacity 0.2s ease 0.2s;
-        }
-        .section-divider.visible .geo-accent {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        @media (max-width: 600px) {
-            .section-divider .section-number {
-                font-size: clamp(4rem, 25vw, 8rem);
-                right: clamp(1rem, 4vw, 3rem);
-            }
-            .section-divider .slide-content {
-                padding-left: var(--slide-padding);
-            }
-        }
-
-        /* ===========================================
-           8. AGENDA / TOC SLIDE
-           =========================================== */
-        .slide.agenda-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .agenda-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 0;
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .agenda-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            list-style: none;
-        }
-
-        .agenda-item {
-            display: flex;
-            align-items: flex-start;
-            gap: clamp(0.75rem, 2vw, 1.5rem);
-            padding: clamp(0.6rem, 1.5vw, 1rem) clamp(0.75rem, 2vw, 1.25rem);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .agenda-item:first-child {
-            border-top: 1px solid var(--border-color);
-        }
-
-        .agenda-item.active {
-            background: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-        .agenda-item.active + .agenda-item {
-            border-top-color: var(--accent);
-        }
-
-        .agenda-item .agenda-num {
-            font-family: var(--font-display);
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1.2;
             flex-shrink: 0;
-            min-width: clamp(1.5rem, 3vw, 2.5rem);
+            min-width: clamp(24px, 3vw, 32px);
         }
-        .agenda-item.active .agenda-num {
-            color: #ffffff;
-        }
-
-        .agenda-item .agenda-text h3 {
-            font-family: var(--font-display);
-            font-size: clamp(0.75rem, 1.3vw, 1rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            line-height: 1.3;
-        }
-        .agenda-item.active .agenda-text h3 {
-            color: #ffffff;
-        }
-
-        .agenda-item .agenda-text p {
-            font-family: var(--font-body);
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-            line-height: 1.4;
-            margin-top: clamp(0.1rem, 0.3vw, 0.25rem);
-        }
-        .agenda-item.active .agenda-text p {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        @media (max-width: 600px) {
-            .agenda-item { gap: clamp(0.5rem, 3vw, 1rem); }
-        }
-
-        /* ===========================================
-           9. TIMELINE / ROADMAP SLIDE
-           =========================================== */
-        .slide.timeline-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .timeline-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: var(--content-gap);
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .timeline-container {
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding-top: clamp(2.5rem, 5vh, 4rem);
-        }
-
-        /* Horizontal connecting line */
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            top: calc(clamp(2.5rem, 5vh, 4rem) + clamp(6px, 0.8vw, 10px));
-            left: clamp(6px, 0.8vw, 10px);
-            right: clamp(6px, 0.8vw, 10px);
-            height: 2px;
-            background: var(--text-primary);
-        }
-
-        .timeline-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-            position: relative;
-            text-align: center;
-        }
-
-        .timeline-item .timeline-date {
-            position: absolute;
-            top: clamp(-2.2rem, -4vh, -3rem);
-            font-family: var(--font-display);
-            font-size: var(--small-size);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-
-        .timeline-item .timeline-marker {
-            width: clamp(12px, 1.6vw, 20px);
-            height: clamp(12px, 1.6vw, 20px);
-            border: 2px solid var(--text-primary);
-            background: var(--bg-primary);
-            flex-shrink: 0;
-            z-index: 1;
-        }
-        .timeline-item.active .timeline-marker {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .timeline-item .timeline-label {
-            margin-top: clamp(0.5rem, 1.2vw, 0.75rem);
-        }
-
-        .timeline-item .timeline-label h4 {
-            font-family: var(--font-display);
-            font-size: clamp(0.65rem, 1.1vw, 0.85rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            line-height: 1.3;
-        }
-
-        .timeline-item .timeline-label p {
-            font-family: var(--font-body);
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-            line-height: 1.4;
-            margin-top: clamp(0.1rem, 0.3vw, 0.2rem);
-            max-width: 14ch;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        @media (max-width: 600px) {
-            .timeline-container {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: clamp(1rem, 3vw, 1.5rem);
-                padding-top: 0;
-                padding-left: clamp(2rem, 6vw, 3rem);
-            }
-            .timeline-container::before {
-                top: 0;
-                bottom: 0;
-                left: clamp(5px, 0.8vw, 9px);
-                right: auto;
-                width: 2px;
-                height: auto;
-            }
-            .timeline-item {
-                flex-direction: row;
-                align-items: flex-start;
-                gap: clamp(0.5rem, 2vw, 1rem);
-                text-align: left;
-            }
-            .timeline-item .timeline-date {
-                position: static;
-                margin-bottom: 0;
-            }
-            .timeline-item .timeline-marker {
-                position: absolute;
-                left: calc(-1 * clamp(2rem, 6vw, 3rem) + clamp(-1px, -0.1vw, 0px));
-            }
-            .timeline-item .timeline-label {
-                margin-top: 0;
-            }
-            .timeline-item .timeline-label p {
-                max-width: none;
-            }
-        }
-
-        /* ===========================================
-           10. COMPARISON SLIDE
-           =========================================== */
-        .slide.comparison-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .comparison-slide .slide-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(2rem, 5vw, 5rem);
-            align-items: start;
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .comparison-col {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(0.5rem, 1.2vh, 1rem);
-        }
-
-        .comparison-col .col-header {
-            font-family: var(--font-display);
-            font-size: clamp(0.75rem, 1.3vw, 1rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
-            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
-        }
-        .comparison-col.col-left .col-header {
-            border-bottom: 4px solid var(--accent);
-        }
-        .comparison-col.col-right .col-header {
-            border-bottom: 2px solid var(--text-primary);
-        }
-
-        .comparison-col .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            gap: clamp(0.5rem, 1.2vw, 1rem);
+        .step-text {
             font-size: var(--body-size);
             line-height: 1.5;
-        }
-
-        @media (max-width: 600px) {
-            .comparison-slide .slide-content {
-                grid-template-columns: 1fr;
-                gap: var(--content-gap);
-            }
-        }
-
-        /* ===========================================
-           11. TABLE / MATRIX SLIDE
-           =========================================== */
-        .slide.table-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .table-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: var(--content-gap);
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .swiss-table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 2px solid var(--text-primary);
-        }
-
-        .swiss-table thead th {
-            background: rgba(0, 0, 0, 0.04);
-            font-family: var(--font-display);
-            font-size: clamp(0.6rem, 1vw, 0.8rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.5rem, 1.2vw, 1rem);
-            text-align: left;
-            border-bottom: 2px solid var(--text-primary);
-        }
-
-        .swiss-table tbody td {
-            font-family: var(--font-body);
-            font-size: var(--small-size);
-            padding: clamp(0.35rem, 0.9vw, 0.6rem) clamp(0.5rem, 1.2vw, 1rem);
-            border-bottom: 1px solid var(--border-color);
-            line-height: 1.4;
-        }
-
-        .swiss-table tbody td:first-child {
-            background: rgba(0, 0, 0, 0.02);
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: clamp(0.6rem, 1vw, 0.8rem);
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .swiss-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .swiss-table th + th,
-        .swiss-table td + td {
-            border-left: 1px solid var(--border-color);
-        }
-
-        @media (max-width: 600px) {
-            .swiss-table {
-                font-size: clamp(0.65rem, 2.5vw, 0.85rem);
-            }
-            .swiss-table thead th,
-            .swiss-table tbody td {
-                padding: clamp(0.25rem, 1vw, 0.4rem) clamp(0.3rem, 1vw, 0.5rem);
-            }
-        }
-
-        /* ===========================================
-           12. STAT HIGHLIGHT SLIDE
-           =========================================== */
-        .slide.stat-slide {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .stat-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(1.5rem, 4vw, 3rem);
-        }
-
-        .stat-slide .red-bar-h {
-            width: clamp(60px, 8vw, 120px);
-            height: 4px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s var(--ease-out-expo) 0.1s;
-        }
-        .stat-slide.visible .red-bar-h { transform: scaleX(1); }
-
-        .stat-row {
-            display: flex;
-            justify-content: center;
-            gap: clamp(2rem, 6vw, 6rem);
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .stat-item .stat-number {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 7vw, 6rem);
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1;
-            letter-spacing: -0.03em;
-        }
-
-        .stat-item .stat-label {
-            font-family: var(--font-body);
-            font-size: var(--small-size);
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
-        }
-
-        .stat-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
-        .stat-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
-        .stat-slide .bottom-rule .slide-num { color: var(--accent); }
-        .stat-slide .section-title { color: rgba(255, 255, 255, 0.25); }
-
-        @media (max-width: 600px) {
-            .stat-row {
-                flex-direction: column;
-                gap: clamp(1.5rem, 4vw, 2rem);
-            }
-        }
-
-        /* ===========================================
-           13. PROCESS / FLOW SLIDE
-           =========================================== */
-        .slide.process-slide {
-            background: var(--bg-primary);
-            padding: var(--slide-padding);
-        }
-
-        .process-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: var(--content-gap);
-            padding-top: clamp(5rem, 12vh, 9rem);
-            padding-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        .process-flow {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-        }
-
-        .process-step {
-            flex: 1;
-            border: 2px solid var(--text-primary);
-            padding: clamp(0.6rem, 1.5vw, 1.25rem);
-            display: flex;
-            flex-direction: column;
-            gap: clamp(0.2rem, 0.5vw, 0.4rem);
-            position: relative;
-        }
-
-        .process-step.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-
-        .process-step .step-number {
-            font-family: var(--font-display);
-            font-size: clamp(1.2rem, 2.5vw, 2rem);
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1;
-        }
-
-        .process-step .step-title {
-            font-family: var(--font-display);
-            font-size: clamp(0.65rem, 1.1vw, 0.85rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            line-height: 1.3;
-        }
-
-        .process-step .step-desc {
-            font-family: var(--font-body);
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-        .process-step.active .step-desc {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Arrow between steps */
-        .process-arrow {
-            display: flex;
-            align-items: center;
-            padding: 0 clamp(0.2rem, 0.5vw, 0.4rem);
-            flex-shrink: 0;
-        }
-
-        .process-arrow::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 0;
-            border-top: clamp(6px, 0.8vw, 10px) solid transparent;
-            border-bottom: clamp(6px, 0.8vw, 10px) solid transparent;
-            border-left: clamp(8px, 1.2vw, 14px) solid var(--text-primary);
-        }
-
-        @media (max-width: 600px) {
-            .process-flow {
-                flex-direction: column;
-            }
-            .process-arrow {
-                justify-content: center;
-                padding: clamp(0.2rem, 0.5vw, 0.3rem) 0;
-            }
-            .process-arrow::after {
-                border-top: clamp(8px, 1.2vw, 14px) solid var(--text-primary);
-                border-bottom: none;
-                border-left: clamp(6px, 0.8vw, 10px) solid transparent;
-                border-right: clamp(6px, 0.8vw, 10px) solid transparent;
-            }
         }
 
         /* ===========================================
@@ -1321,120 +658,475 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: clamp(6px, 0.8vh, 10px);
+            gap: clamp(5px, 0.6vh, 7px);
             z-index: 100;
         }
         .nav-dot {
-            width: clamp(8px, 0.8vw, 10px);
-            height: clamp(8px, 0.8vw, 10px);
-            border: 2px solid var(--text-primary);
-            background: transparent;
+            width: clamp(5px, 0.6vw, 6px);
+            height: clamp(5px, 0.6vw, 6px);
+            background: var(--gray-mid);
+            border: none;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: all 0.25s;
             padding: 0;
         }
         .nav-dot.active {
-            background: var(--accent);
-            border-color: var(--accent);
+            background: var(--white);
+            transform: scale(1.6);
         }
-        /* Invert dots on dark slides */
-        .dots-inverted .nav-dot { border-color: #fff; }
-        .dots-inverted .nav-dot.active { background: var(--accent); border-color: var(--accent); }
+        .dots-light .nav-dot { background: rgba(0, 0, 0, 0.2); }
+        .dots-light .nav-dot.active { background: var(--black); }
 
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
-            background: var(--accent);
+            background: rgba(255, 255, 255, 0.6);
             z-index: 100;
             transition: width 0.3s ease;
         }
 
         /* ===========================================
-           14. CLOSING / Q&A SLIDE
+           7. SECTION DIVIDER — dark, dramatic
            =========================================== */
-        .slide.closing-slide {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            padding: var(--slide-padding);
+        .slide.section-divider {
+            background: var(--black);
+            color: var(--white);
         }
-
-        .closing-slide .slide-content {
-            display: flex;
-            flex-direction: column;
+        .section-divider .slide-content {
             justify-content: center;
-            align-items: center;
-            gap: clamp(1rem, 2.5vw, 2rem);
+            align-items: flex-start;
+            padding-left: clamp(3rem, 8vw, 8rem);
         }
-
-        .closing-slide .red-bar-h {
-            width: clamp(60px, 8vw, 120px);
-            height: 4px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s var(--ease-out-expo) 0.1s;
-        }
-        .closing-slide.visible .red-bar-h { transform: scaleX(1); }
-
-        .closing-slide .closing-heading {
+        .section-divider .divider-number {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 6vw, 5rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
+            font-size: clamp(5rem, 15vw, 14rem);
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.06);
+            position: absolute;
+            right: clamp(2rem, 6vw, 6rem);
+            top: 50%;
+            transform: translateY(-50%);
+            user-select: none;
+        }
+        .section-divider .divider-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 5vw, 4rem);
             line-height: 1.1;
-            text-align: center;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
         }
-
-        .closing-slide .closing-subtitle {
+        .section-divider .divider-subtitle {
             font-family: var(--font-body);
-            font-size: var(--body-size);
+            font-size: var(--subtitle-size);
+            font-weight: 300;
             color: rgba(255, 255, 255, 0.4);
-            text-align: center;
-            letter-spacing: 0.04em;
+            margin-top: clamp(0.5rem, 1.5vh, 1rem);
+            max-width: 50%;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
         }
 
-        .closing-contact {
+        /* ===========================================
+           8. AGENDA / TOC — light
+           =========================================== */
+        .slide.agenda-slide {
+            background: var(--white);
+            color: var(--black);
+        }
+        .agenda-slide .slide-content {
+            gap: var(--content-gap);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+        }
+        .agenda-list {
             display: flex;
-            gap: clamp(1.5rem, 4vw, 4rem);
-            margin-top: clamp(1rem, 3vw, 2.5rem);
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.7vh, 0.5rem);
         }
+        .agenda-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 2vw, 1.25rem);
+            padding: clamp(0.6rem, 1.2vh, 0.85rem) clamp(0.75rem, 1.5vw, 1rem);
+            border: 1px solid var(--gray-light);
+            transition: background 0.25s, color 0.25s;
+        }
+        .agenda-item.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        .agenda-num {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            opacity: 0.2;
+            flex-shrink: 0;
+            min-width: clamp(28px, 3vw, 36px);
+        }
+        .agenda-item.active .agenda-num { opacity: 0.5; }
+        .agenda-label {
+            font-family: var(--font-display);
+            font-size: var(--body-size);
+        }
+        .agenda-desc {
+            font-size: var(--small-size);
+            opacity: 0.55;
+            margin-left: auto;
+            text-align: right;
+            max-width: 40%;
+            line-height: 1.4;
+        }
+        .agenda-item.active .agenda-desc { opacity: 0.6; }
 
-        .closing-contact .contact-item {
+        /* ===========================================
+           9. TIMELINE / ROADMAP — light
+           =========================================== */
+        .slide.timeline-slide {
+            background: var(--white);
+            color: var(--black);
+        }
+        .timeline-slide .slide-content {
+            gap: var(--content-gap);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+        }
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            position: relative;
+            margin-top: clamp(1rem, 3vh, 2rem);
+        }
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            top: clamp(10px, 1.5vw, 14px);
+            left: clamp(10px, 1.5vw, 14px);
+            right: clamp(10px, 1.5vw, 14px);
+            height: 2px;
+            background: var(--gray-light);
+        }
+        .timeline-item {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: clamp(0.2rem, 0.5vw, 0.4rem);
+            text-align: center;
+            position: relative;
+            padding: 0 clamp(0.25rem, 0.5vw, 0.5rem);
         }
-
-        .closing-contact .contact-label {
+        .timeline-dot {
+            width: clamp(10px, 1.5vw, 14px);
+            height: clamp(10px, 1.5vw, 14px);
+            border: 2px solid var(--gray-mid);
+            background: var(--white);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .timeline-item.active .timeline-dot {
+            background: var(--black);
+            border-color: var(--black);
+        }
+        .timeline-date {
             font-family: var(--font-display);
             font-size: var(--label-size);
-            font-weight: 800;
-            text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: clamp(0.5rem, 1vh, 0.75rem);
+            opacity: 0.45;
         }
-
-        .closing-contact .contact-value {
-            font-family: var(--font-body);
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: var(--body-size);
+            margin-top: clamp(0.3rem, 0.6vh, 0.5rem);
+        }
+        .timeline-desc {
             font-size: var(--small-size);
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.02em;
+            opacity: 0.55;
+            line-height: 1.4;
+            margin-top: clamp(0.2rem, 0.4vh, 0.35rem);
         }
-
-        .closing-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
-        .closing-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
-        .closing-slide .bottom-rule .slide-num { color: var(--accent); }
-        .closing-slide .section-title { color: rgba(255, 255, 255, 0.25); }
+        .timeline-item.active .timeline-date { opacity: 0.7; }
+        .timeline-item.active .timeline-title { color: var(--black); }
 
         @media (max-width: 600px) {
-            .closing-contact {
-                flex-direction: column;
-                gap: clamp(1rem, 3vw, 1.5rem);
-            }
+            .timeline-track { flex-direction: column; gap: clamp(0.5rem, 1vh, 0.75rem); }
+            .timeline-track::before { display: none; }
+            .timeline-item { flex-direction: row; text-align: left; gap: clamp(0.5rem, 1vw, 0.75rem); }
+        }
+
+        /* ===========================================
+           10. COMPARISON — light, two columns
+           =========================================== */
+        .slide.comparison-slide {
+            background: var(--white);
+            color: var(--black);
+        }
+        .comparison-slide .slide-content {
+            gap: var(--content-gap);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2.5vw, 2rem);
+        }
+        .comparison-col {}
+        .comparison-col-header {
+            font-family: var(--font-display);
+            font-size: var(--body-size);
+            padding: clamp(0.5rem, 1vh, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+            margin-bottom: clamp(0.4rem, 0.8vh, 0.6rem);
+        }
+        .comparison-col:first-child .comparison-col-header {
+            background: var(--black);
+            color: var(--white);
+        }
+        .comparison-col:last-child .comparison-col-header {
+            border: 1px solid var(--black);
+        }
+        .comparison-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.5vh, 0.35rem);
+        }
+        .comparison-list li {
+            font-size: var(--body-size);
+            line-height: 1.5;
+            padding: clamp(0.35rem, 0.8vh, 0.5rem) clamp(0.75rem, 1.5vw, 1rem);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        .comparison-list li:last-child { border-bottom: none; }
+
+        @media (max-width: 600px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===========================================
+           11. TABLE / MATRIX — light
+           =========================================== */
+        .slide.table-slide {
+            background: var(--white);
+            color: var(--black);
+        }
+        .table-slide .slide-content {
+            gap: var(--content-gap);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th,
+        .data-table td {
+            padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.5rem, 1.2vw, 0.9rem);
+            text-align: left;
+            border: 1px solid var(--gray-light);
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+        .data-table thead th {
+            background: rgba(0, 0, 0, 0.06);
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+        .data-table tbody td:first-child {
+            background: rgba(0, 0, 0, 0.04);
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+        /* Dark variant overrides */
+        .slide--dark .data-table th,
+        .slide--dark .data-table td {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .slide--dark .data-table thead th {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .slide--dark .data-table tbody td:first-child {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===========================================
+           12. STAT HIGHLIGHT — dark, dramatic
+           =========================================== */
+        .slide.stat-slide {
+            background: var(--black);
+            color: var(--white);
+        }
+        .stat-slide .slide-content {
+            justify-content: center;
+            align-items: center;
+        }
+        .stat-row {
+            display: flex;
+            gap: clamp(2rem, 6vw, 6rem);
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        .stat-label {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: clamp(0.3rem, 0.8vh, 0.6rem);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .stat-context {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: clamp(1.5rem, 3vh, 2.5rem);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .stat-row { flex-direction: column; align-items: center; gap: clamp(1.5rem, 4vh, 2.5rem); }
+        }
+
+        /* ===========================================
+           13. PROCESS / FLOW — light
+           =========================================== */
+        .slide.process-slide {
+            background: var(--white);
+            color: var(--black);
+        }
+        .process-slide .slide-content {
+            gap: var(--content-gap);
+            padding-top: clamp(2rem, 4vh, 3rem);
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+        }
+        .process-track {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin-top: clamp(0.5rem, 1.5vh, 1rem);
+        }
+        .process-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: clamp(0.6rem, 1.2vh, 0.9rem) clamp(0.6rem, 1.2vw, 0.9rem);
+            border: 1px solid var(--gray-light);
+            position: relative;
+        }
+        .process-step + .process-step { border-left: none; }
+        .process-step.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        .process-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--gray-mid);
+            flex-shrink: 0;
+            width: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .process-step-num {
+            font-family: var(--font-display);
+            font-size: var(--label-size);
+            opacity: 0.25;
+            letter-spacing: 0.15em;
+            margin-bottom: clamp(0.2rem, 0.4vh, 0.35rem);
+        }
+        .process-step.active .process-step-num { opacity: 0.5; }
+        .process-step-title {
+            font-family: var(--font-display);
+            font-size: var(--body-size);
+            margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);
+        }
+        .process-step-desc {
+            font-size: var(--small-size);
+            opacity: 0.55;
+            line-height: 1.4;
+        }
+        .process-step.active .process-step-desc { opacity: 0.65; }
+
+        @media (max-width: 600px) {
+            .process-track { flex-direction: column; }
+            .process-step + .process-step { border-left: 1px solid var(--gray-light); border-top: none; }
+            .process-arrow { transform: rotate(90deg); width: auto; height: clamp(1.5rem, 3vw, 2rem); }
+        }
+
+        /* ===========================================
+           14. CLOSING / Q&A — dark, centered
+           =========================================== */
+        .slide.closing-slide {
+            background: var(--black);
+            color: var(--white);
+        }
+        .closing-slide .slide-content {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .closing-slide .closing-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .closing-slide .closing-subtitle {
+            font-family: var(--font-body);
+            font-size: var(--subtitle-size);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: clamp(0.5rem, 1.5vh, 1rem);
+            line-height: 1.5;
+        }
+        .closing-contact {
+            display: flex;
+            gap: clamp(1rem, 3vw, 2.5rem);
+            margin-top: clamp(2rem, 5vh, 3.5rem);
+        }
+        .closing-contact-item {
+            padding: clamp(0.5rem, 1vh, 0.75rem) clamp(1rem, 2vw, 1.5rem);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.15rem, 0.4vh, 0.3rem);
+        }
+        .closing-contact-label {
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+        }
+        .closing-contact-value {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        @media (max-width: 600px) {
+            .closing-contact { flex-direction: column; gap: clamp(0.5rem, 1.5vh, 1rem); }
         }
 
         /* ===========================================
@@ -1546,14 +1238,7 @@
         /* ===========================================
            CHART: PROGRESS RINGS
            =========================================== */
-        .chart-progress-slide {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-        .chart-progress-slide .section-title { color: rgba(255, 255, 255, 0.25); }
-        .chart-progress-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
-        .chart-progress-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
-        .chart-progress-slide .bottom-rule .slide-num { color: var(--accent); }
+        .chart-progress-slide.slide--dark { background: var(--black); color: var(--white); }
         .progress-rings {
             display: flex;
             justify-content: center;
@@ -1587,7 +1272,7 @@
             font-family: var(--font-display);
             font-size: 2.2rem;
             font-weight: 800;
-            fill: var(--bg-primary);
+            fill: var(--white);
             transform: rotate(90deg);
             transform-origin: center;
         }
@@ -1598,6 +1283,8 @@
             opacity: 0.6;
             text-align: center;
         }
+        .chart-progress-slide.slide--dark .progress-value { fill: var(--white); }
+        .chart-progress-slide.slide--dark .progress-label { color: var(--gray-mid); }
 
         /* ===========================================
            CHART: FUNNEL
@@ -1715,13 +1402,7 @@
         /* ===========================================
            DIAGRAM: WINDING ROAD TIMELINE
            =========================================== */
-        .roadmap-slide { background: var(--text-primary); color: var(--bg-primary); }
-        .roadmap-slide .section-title { color: rgba(255, 255, 255, 0.25); }
-        .roadmap-slide .bottom-rule { border-color: rgba(255, 255, 255, 0.2); }
-        .roadmap-slide .bottom-rule span { color: rgba(255, 255, 255, 0.3); }
-        .roadmap-slide .bottom-rule .slide-num { color: var(--accent); }
-        .roadmap-slide .roadmap-date { fill: var(--bg-primary); }
-        .roadmap-slide .roadmap-title { fill: rgba(255, 255, 255, 0.7); }
+        .roadmap-slide.slide--dark { background: var(--black); color: var(--white); }
         .roadmap-chart { max-width: min(90%, 550px); margin: 0 auto; }
         .roadmap-chart svg { width: 100%; height: auto; }
         .roadmap-road {
@@ -1752,12 +1433,14 @@
             font-family: var(--font-display);
             font-size: clamp(0.5rem, 1vw, 0.7rem);
             font-weight: 900;
+            fill: var(--white);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .roadmap-title {
             font-family: var(--font-body);
             font-size: clamp(0.45rem, 0.9vw, 0.65rem);
+            fill: var(--gray-mid);
         }
 
         /* ===========================================
@@ -1813,7 +1496,7 @@
         }
         .gantt-tick {
             font-size: clamp(0.5rem, 0.8vw, 0.65rem);
-            color: var(--text-secondary);
+            color: var(--gray-dark);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -1899,15 +1582,11 @@
            RESPONSIVE OVERRIDES
            =========================================== */
         @media (max-height: 600px) {
-            .geo-circle, .geo-rect, .swiss-grid, .quote-circle { display: none; }
+            .title-vline, .title-hline, .quote-vline { display: none; }
         }
         @media (max-width: 600px) {
-            .title-slide h1 { max-width: 100%; }
-            .geo-circle {
-                width: clamp(80px, 30vw, 160px);
-                height: clamp(80px, 30vw, 160px);
-            }
-            .geo-rect { display: none; }
+            .title-sub { max-width: 100%; }
+            .title-tags { gap: clamp(0.3rem, 1vw, 0.5rem); }
         }
     </style>
 </head>
@@ -1916,321 +1595,238 @@
     <div class="progress-bar" id="progressBar"></div>
     <nav class="nav-dots" id="navDots"></nav>
 
+
     <!-- ============================================
          SLIDE 1: TITLE SLIDE
-         Title top-left with barline + subtitle below
+         Dark with decorative lines, overline + tags
          ============================================ -->
-    <section class="slide title-slide" data-slide="1">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <div class="geo-circle decorative"></div>
-        <div class="geo-rect decorative"></div>
-        <div class="section-title">Title Slide</div>
+    <section class="slide title-slide slide--dark grid-bg-dark" data-slide="1">
+        <div class="title-hline decorative"></div>
+        <div class="title-vline decorative"></div>
+        <div class="title-year">BLACK PRESET</div>
         <div class="slide-content">
-            <h1 class="reveal">Red<br>Preset</h1>
-            <div class="title-barline reveal"></div>
-            <p class="subtitle reveal">Clean. Top-aligned. Structured.</p>
+            <p class="title-overline reveal">Presentation Template</p>
+            <h1 class="reveal">The Black<br>Preset</h1>
+            <p class="title-sub reveal">Dark-first design with alternating light and dark slides, strong typography, and structured data layouts</p>
+            <div class="title-tags reveal">
+                <span class="title-tag">Dark Theme</span>
+                <span class="title-tag">Data-Heavy</span>
+                <span class="title-tag">2026</span>
+            </div>
         </div>
         <div class="bottom-rule">
-            <span>Red Style</span>
-
-            <span class="slide-num">01 / 27</span>
+            <span>Black Preset</span>
+            <span class="slide-num-label">01 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 2: AGENDA / TOC
-         Numbered list with active highlight
+         SLIDE 2: AGENDA / TOC (light)
+         Numbered section list with active highlight
          ============================================ -->
-    <section class="slide agenda-slide" data-slide="2">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Agenda</h2>
-        <p class="slide-subtitle">What we will cover in this session</p>
+    <section class="slide agenda-slide slide--light grid-bg-light" data-slide="2">
         <div class="section-title">Overview</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Agenda</h2>
+                <p class="slide-subtitle">Session outline and key discussion topics</p>
+            </div>
+
             <div class="agenda-list reveal">
                 <div class="agenda-item">
                     <span class="agenda-num">01</span>
-                    <div class="agenda-text">
-                        <h3>Introduction</h3>
-                        <p>Project background and key objectives</p>
-                    </div>
+                    <span class="agenda-label">Introduction &amp; Context</span>
+                    <span class="agenda-desc">Background and project scope</span>
                 </div>
                 <div class="agenda-item active">
                     <span class="agenda-num">02</span>
-                    <div class="agenda-text">
-                        <h3>Design System</h3>
-                        <p>Core principles, typography, and color</p>
-                    </div>
+                    <span class="agenda-label">Market Analysis</span>
+                    <span class="agenda-desc">Competitive landscape review</span>
                 </div>
                 <div class="agenda-item">
                     <span class="agenda-num">03</span>
-                    <div class="agenda-text">
-                        <h3>Components</h3>
-                        <p>Reusable patterns and layout modules</p>
-                    </div>
+                    <span class="agenda-label">Product Strategy</span>
+                    <span class="agenda-desc">Roadmap and feature priorities</span>
                 </div>
                 <div class="agenda-item">
                     <span class="agenda-num">04</span>
-                    <div class="agenda-text">
-                        <h3>Implementation</h3>
-                        <p>Technical setup and build process</p>
-                    </div>
+                    <span class="agenda-label">Technical Architecture</span>
+                    <span class="agenda-desc">System design and infrastructure</span>
                 </div>
                 <div class="agenda-item">
                     <span class="agenda-num">05</span>
-                    <div class="agenda-text">
-                        <h3>Next Steps</h3>
-                        <p>Roadmap and open discussion</p>
-                    </div>
+                    <span class="agenda-label">Financial Projections</span>
+                    <span class="agenda-desc">Revenue model and growth targets</span>
                 </div>
             </div>
         </div>
         <div class="bottom-rule">
-            <span>Overview</span>
-
-            <span class="slide-num">02 / 27</span>
+            <span>Agenda</span>
+            <span class="slide-num-label">02 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 3: SECTION DIVIDER
-         Large section number, vertically centered
+         SLIDE 3: SECTION DIVIDER (dark)
+         Dramatic section break with large faded number
          ============================================ -->
-    <section class="slide section-divider" data-slide="3">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <div class="section-number reveal">02</div>
-        <div class="geo-accent decorative"></div>
+    <section class="slide section-divider slide--dark grid-bg-dark" data-slide="3">
         <div class="section-title">Section</div>
         <div class="slide-content">
-            <h2 class="section-divider-title reveal">Design<br>System</h2>
-            <p class="section-divider-subtitle reveal">Exploring the foundational elements that drive consistency across every layout.</p>
+            <div class="divider-number reveal">01</div>
+            <h2 class="divider-title reveal">Market<br>Analysis</h2>
+            <p class="divider-subtitle reveal">Understanding the competitive landscape and identifying opportunities for growth</p>
         </div>
         <div class="bottom-rule">
-            <span>Section</span>
-
-            <span class="slide-num">03 / 27</span>
+            <span>Section Divider</span>
+            <span class="slide-num-label">03 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 4: CONTENT SLIDE
-         Title + body top-aligned
+         SLIDE 4: CONTENT SLIDE (light)
+         Feature table with key/value rows
          ============================================ -->
-    <section class="slide content-slide" data-slide="4">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Design Principles</h2>
-        <p class="slide-subtitle">Top-aligned layout with structured reading flow</p>
-        <div class="section-title">Principles</div>
+    <section class="slide content-slide slide--light grid-bg-light" data-slide="4">
+        <div class="section-title">Design</div>
         <div class="slide-content">
-            <div class="content-left">
-                <p class="lead-text reveal">Content is top-aligned for a structured, document-like reading flow. No vertical centering — everything anchors to the top.</p>
+            <div class="slide-header reveal">
+                <h2>Design Principles</h2>
+                <p class="slide-subtitle">Dark-first design with alternating slide backgrounds</p>
             </div>
-            <div class="content-right">
-                <div class="bullet-item reveal">
-                    <div class="bullet-marker"></div>
-                    <div>
-                        <strong>Top alignment</strong>
-                        <span class="desc">Content starts at the top for natural reading flow.</span>
-                    </div>
+
+            <div class="ftable reveal">
+                <div class="frow two hdr">
+                    <div class="fhdr">Principle</div>
+                    <div class="fhdr">Description</div>
                 </div>
-                <div class="bullet-item reveal">
-                    <div class="bullet-marker circle"></div>
-                    <div>
-                        <strong>Title barline</strong>
-                        <span class="desc">Slim divider separates title from subtitle with equal margins.</span>
-                    </div>
+                <div class="frow two">
+                    <div class="fkey">Dark-first</div>
+                    <div class="fval">Black backgrounds dominate, with light slides for contrast and data density</div>
                 </div>
-                <div class="bullet-item reveal">
-                    <div class="bullet-marker filled"></div>
-                    <div>
-                        <strong>Swiss foundation</strong>
-                        <span class="desc">Built on Swiss Modern — grid, geometry, red accent.</span>
-                    </div>
+                <div class="frow two">
+                    <div class="fkey">Top-aligned</div>
+                    <div class="fval">Content anchors to the top — no vertical centering for structured reading flow</div>
                 </div>
-                <div class="bullet-item reveal">
-                    <div class="bullet-marker"></div>
-                    <div>
-                        <strong>Structured layout</strong>
-                        <span class="desc">Predictable content placement across all slide types.</span>
-                    </div>
+                <div class="frow two">
+                    <div class="fkey">Data layouts</div>
+                    <div class="fval">Feature tables, property grids, and step lists — designed for dense information</div>
                 </div>
+                <div class="frow two">
+                    <div class="fkey">Bold type</div>
+                    <div class="fval"><strong>Archivo Black</strong> display font creates confident, high-impact headlines</div>
+                </div>
+            </div>
+
+            <div class="callout reveal">
+                <p>The preset alternates between <strong>dark</strong> and <strong>light</strong> slides to create rhythm and visual contrast.</p>
             </div>
         </div>
         <div class="bottom-rule">
-            <span>Principles</span>
-
-            <span class="slide-num">04 / 27</span>
+            <span>Design Principles</span>
+            <span class="slide-num-label">04 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 5: FEATURE GRID SLIDE
+         SLIDE 5: FEATURE GRID SLIDE (light)
+         2-column property grid
          ============================================ -->
-    <section class="slide grid-slide" data-slide="5">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Capabilities</h2>
-        <p class="slide-subtitle">Six core design capabilities built into every slide</p>
+    <section class="slide grid-slide slide--light grid-bg-light" data-slide="5">
         <div class="section-title">Features</div>
         <div class="slide-content">
-            <div class="swiss-feature-grid reveal">
-                <div class="swiss-feature-cell">
-                    <div class="cell-number">01</div>
-                    <h3>Grid System</h3>
-                    <p>6-column precision layout with baseline alignment</p>
+            <div class="slide-header reveal">
+                <h2>Capabilities</h2>
+                <p class="slide-subtitle">Core layout components for data-heavy presentations</p>
+            </div>
+
+            <div class="prop-grid reveal">
+                <div class="prop-item">
+                    <div class="prop-name">Grid Backgrounds</div>
+                    <div class="prop-desc">Subtle CSS grid pattern on both dark and light slides</div>
                 </div>
-                <div class="swiss-feature-cell">
-                    <div class="cell-number">02</div>
-                    <h3>Type Scale</h3>
-                    <p>Fluid clamp-based sizing from mobile to 4K</p>
+                <div class="prop-item">
+                    <div class="prop-name">Feature Tables</div>
+                    <div class="prop-desc">Two-column key/value rows for structured data display</div>
                 </div>
-                <div class="swiss-feature-cell">
-                    <div class="cell-number">03</div>
-                    <h3>Motion</h3>
-                    <p>Fast, professional transitions under 300ms</p>
+                <div class="prop-item">
+                    <div class="prop-name">Property Grids</div>
+                    <div class="prop-desc">2-column card grids for listing features and properties</div>
                 </div>
-                <div class="swiss-feature-cell">
-                    <div class="cell-number">04</div>
-                    <h3>Geometry</h3>
-                    <p>Pure CSS shapes as compositional accents</p>
+                <div class="prop-item">
+                    <div class="prop-name">Step Lists</div>
+                    <div class="prop-desc">Numbered bordered rows for sequential processes</div>
                 </div>
-                <div class="swiss-feature-cell">
-                    <div class="cell-number">05</div>
-                    <h3>Color</h3>
-                    <p>Black, white, red — nothing more needed</p>
+                <div class="prop-item full">
+                    <div class="prop-name">Callout Blocks</div>
+                    <div class="prop-desc">Left-bordered emphasis blocks for key takeaways and quotable statements</div>
                 </div>
-                <div class="swiss-feature-cell">
-                    <div class="cell-number">06</div>
-                    <h3>Accessible</h3>
-                    <p>Keyboard nav, ARIA labels, reduced motion</p>
-                </div>
+            </div>
+
+            <div class="callout reveal">
+                <p><strong>Not just slides — data surfaces.</strong> Every layout is designed for information density without visual clutter.</p>
             </div>
         </div>
         <div class="bottom-rule">
-            <span>Features</span>
-
-            <span class="slide-num">05 / 27</span>
+            <span>Capabilities</span>
+            <span class="slide-num-label">05 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 6: COMPARISON
-         Two columns with headers and bullet items
+         SLIDE 6: COMPARISON (light)
+         Two-column comparison layout
          ============================================ -->
-    <section class="slide comparison-slide" data-slide="6">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Comparison</h2>
-        <p class="slide-subtitle">Evaluating two approaches side by side</p>
-        <div class="section-title">Analysis</div>
+    <section class="slide comparison-slide slide--light grid-bg-light" data-slide="6">
+        <div class="section-title">Compare</div>
         <div class="slide-content">
-            <div class="comparison-col col-left reveal">
-                <div class="col-header">Approach A</div>
-                <div class="bullet-item">
-                    <div class="bullet-marker filled"></div>
-                    <div>
-                        <strong>Performance</strong>
-                        <span class="desc">Sub-100ms render times across all viewports.</span>
-                    </div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-marker"></div>
-                    <div>
-                        <strong>Scalability</strong>
-                        <span class="desc">Modular architecture supports rapid iteration.</span>
-                    </div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-marker circle"></div>
-                    <div>
-                        <strong>Accessibility</strong>
-                        <span class="desc">Full WCAG 2.1 AA compliance built in.</span>
-                    </div>
-                </div>
+            <div class="slide-header reveal">
+                <h2>Build vs. Buy</h2>
+                <p class="slide-subtitle">Evaluating the trade-offs between custom development and third-party solutions</p>
             </div>
-            <div class="comparison-col col-right reveal">
-                <div class="col-header">Approach B</div>
-                <div class="bullet-item">
-                    <div class="bullet-marker"></div>
-                    <div>
-                        <strong>Flexibility</strong>
-                        <span class="desc">Runtime theming with CSS custom properties.</span>
-                    </div>
+
+            <div class="comparison-grid reveal">
+                <div class="comparison-col">
+                    <div class="comparison-col-header">Build In-House</div>
+                    <ul class="comparison-list">
+                        <li>Full control over architecture</li>
+                        <li>Custom-tailored to workflows</li>
+                        <li>Higher upfront investment</li>
+                        <li>Longer time to market</li>
+                        <li>Ongoing maintenance burden</li>
+                    </ul>
                 </div>
-                <div class="bullet-item">
-                    <div class="bullet-marker circle"></div>
-                    <div>
-                        <strong>Simplicity</strong>
-                        <span class="desc">Minimal markup with semantic defaults.</span>
-                    </div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-marker filled"></div>
-                    <div>
-                        <strong>Portability</strong>
-                        <span class="desc">Zero dependencies, single-file deployment.</span>
-                    </div>
+                <div class="comparison-col">
+                    <div class="comparison-col-header">Buy / License</div>
+                    <ul class="comparison-list">
+                        <li>Faster deployment timeline</li>
+                        <li>Proven and battle-tested</li>
+                        <li>Vendor dependency risk</li>
+                        <li>Limited customization depth</li>
+                        <li>Predictable subscription cost</li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="bottom-rule">
-            <span>Analysis</span>
-
-            <span class="slide-num">06 / 27</span>
+            <span>Comparison</span>
+            <span class="slide-num-label">06 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 7: TABLE / MATRIX
+         SLIDE 7: TABLE / MATRIX (light)
          Full data table with header and leading column
          ============================================ -->
-    <section class="slide table-slide" data-slide="7">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Feature Matrix</h2>
-        <p class="slide-subtitle">Capability breakdown across product tiers</p>
+    <section class="slide table-slide slide--light grid-bg-light" data-slide="7">
         <div class="section-title">Data</div>
         <div class="slide-content">
-            <table class="swiss-table reveal">
+            <div class="slide-header reveal">
+                <h2>Feature Matrix</h2>
+                <p class="slide-subtitle">Capability comparison across plan tiers</p>
+            </div>
+
+            <table class="data-table reveal">
                 <thead>
                     <tr>
                         <th>Feature</th>
@@ -2241,212 +1837,188 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Slide Layouts</td>
-                        <td>6 core</td>
-                        <td>13 layouts</td>
+                        <td>Users</td>
+                        <td>Up to 5</td>
+                        <td>Up to 50</td>
                         <td>Unlimited</td>
                     </tr>
                     <tr>
-                        <td>Custom Themes</td>
-                        <td>1 preset</td>
-                        <td>5 presets</td>
-                        <td>Full editor</td>
+                        <td>Storage</td>
+                        <td>10 GB</td>
+                        <td>100 GB</td>
+                        <td>1 TB+</td>
                     </tr>
                     <tr>
-                        <td>Animations</td>
-                        <td>Fade only</td>
-                        <td>Reveal system</td>
-                        <td>Custom easing</td>
-                    </tr>
-                    <tr>
-                        <td>Export</td>
-                        <td>HTML</td>
-                        <td>HTML + PDF</td>
-                        <td>All formats</td>
+                        <td>API Access</td>
+                        <td>Basic</td>
+                        <td>Full</td>
+                        <td>Full + Priority</td>
                     </tr>
                     <tr>
                         <td>Support</td>
-                        <td>Community</td>
                         <td>Email</td>
-                        <td>Dedicated</td>
+                        <td>Chat + Email</td>
+                        <td>Dedicated CSM</td>
+                    </tr>
+                    <tr>
+                        <td>Analytics</td>
+                        <td>Dashboard</td>
+                        <td>Advanced Reports</td>
+                        <td>Custom + Export</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="bottom-rule">
-            <span>Data</span>
-
-            <span class="slide-num">07 / 27</span>
+            <span>Feature Matrix</span>
+            <span class="slide-num-label">07 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 8: TIMELINE / ROADMAP
-         Horizontal milestones with connecting line
+         SLIDE 8: TIMELINE / ROADMAP (light)
+         Horizontal timeline with milestones
          ============================================ -->
-    <section class="slide timeline-slide" data-slide="8">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Roadmap</h2>
-        <p class="slide-subtitle">Key milestones from concept to launch</p>
-        <div class="section-title">Timeline</div>
+    <section class="slide timeline-slide slide--light grid-bg-light" data-slide="8">
+        <div class="section-title">Roadmap</div>
         <div class="slide-content">
-            <div class="timeline-container reveal">
+            <div class="slide-header reveal">
+                <h2>Product Roadmap</h2>
+                <p class="slide-subtitle">Key milestones and delivery timeline</p>
+            </div>
+
+            <div class="timeline-track reveal">
                 <div class="timeline-item">
-                    <span class="timeline-date">Q1 2025</span>
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-label">
-                        <h4>Research</h4>
-                        <p>User interviews and competitive analysis</p>
-                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Q1 2026</div>
+                    <div class="timeline-title">Discovery</div>
+                    <div class="timeline-desc">Research, interviews, and requirements gathering</div>
                 </div>
                 <div class="timeline-item active">
-                    <span class="timeline-date">Q2 2025</span>
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-label">
-                        <h4>Design</h4>
-                        <p>System foundations and prototyping</p>
-                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Q2 2026</div>
+                    <div class="timeline-title">Build</div>
+                    <div class="timeline-desc">Core platform development and integration</div>
                 </div>
                 <div class="timeline-item">
-                    <span class="timeline-date">Q3 2025</span>
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-label">
-                        <h4>Build</h4>
-                        <p>Component library and integration</p>
-                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Q3 2026</div>
+                    <div class="timeline-title">Beta Launch</div>
+                    <div class="timeline-desc">Closed beta with select partners</div>
                 </div>
                 <div class="timeline-item">
-                    <span class="timeline-date">Q4 2025</span>
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-label">
-                        <h4>Launch</h4>
-                        <p>Public release and documentation</p>
-                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Q4 2026</div>
+                    <div class="timeline-title">General Availability</div>
+                    <div class="timeline-desc">Public launch and scaling operations</div>
                 </div>
             </div>
         </div>
         <div class="bottom-rule">
-            <span>Timeline</span>
-
-            <span class="slide-num">08 / 27</span>
+            <span>Roadmap</span>
+            <span class="slide-num-label">08 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 9: PROCESS / FLOW
-         Horizontal steps with arrows
+         SLIDE 9: PROCESS / FLOW (light)
+         Horizontal process steps with arrows
          ============================================ -->
-    <section class="slide process-slide" data-slide="9">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Workflow</h2>
-        <p class="slide-subtitle">From concept to production in four steps</p>
+    <section class="slide process-slide slide--light grid-bg-light" data-slide="9">
         <div class="section-title">Process</div>
         <div class="slide-content">
-            <div class="process-flow reveal">
+            <div class="slide-header reveal">
+                <h2>Development Workflow</h2>
+                <p class="slide-subtitle">End-to-end delivery pipeline from ideation to deployment</p>
+            </div>
+
+            <div class="process-track reveal">
                 <div class="process-step">
-                    <span class="step-number">01</span>
-                    <span class="step-title">Define</span>
-                    <span class="step-desc">Establish goals, audience, and constraints</span>
+                    <div class="process-step-num">01</div>
+                    <div class="process-step-title">Ideate</div>
+                    <div class="process-step-desc">Define problem space and brainstorm solutions</div>
                 </div>
-                <div class="process-arrow"></div>
+                <div class="process-arrow">&rarr;</div>
+                <div class="process-step">
+                    <div class="process-step-num">02</div>
+                    <div class="process-step-title">Design</div>
+                    <div class="process-step-desc">Wireframes, prototypes, and user testing</div>
+                </div>
+                <div class="process-arrow">&rarr;</div>
                 <div class="process-step active">
-                    <span class="step-number">02</span>
-                    <span class="step-title">Design</span>
-                    <span class="step-desc">Create layouts, select typography and color</span>
+                    <div class="process-step-num">03</div>
+                    <div class="process-step-title">Develop</div>
+                    <div class="process-step-desc">Build, integrate, and write automated tests</div>
                 </div>
-                <div class="process-arrow"></div>
+                <div class="process-arrow">&rarr;</div>
                 <div class="process-step">
-                    <span class="step-number">03</span>
-                    <span class="step-title">Build</span>
-                    <span class="step-desc">Develop components and integrate content</span>
+                    <div class="process-step-num">04</div>
+                    <div class="process-step-title">Review</div>
+                    <div class="process-step-desc">Code review, QA, and stakeholder sign-off</div>
                 </div>
-                <div class="process-arrow"></div>
+                <div class="process-arrow">&rarr;</div>
                 <div class="process-step">
-                    <span class="step-number">04</span>
-                    <span class="step-title">Ship</span>
-                    <span class="step-desc">Test, optimize, and deploy to production</span>
+                    <div class="process-step-num">05</div>
+                    <div class="process-step-title">Deploy</div>
+                    <div class="process-step-desc">Ship to production and monitor performance</div>
                 </div>
             </div>
         </div>
         <div class="bottom-rule">
-            <span>Process</span>
-
-            <span class="slide-num">09 / 27</span>
+            <span>Workflow</span>
+            <span class="slide-num-label">09 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 10: CODE SLIDE
+         SLIDE 10: CODE SLIDE (dark)
          ============================================ -->
-    <section class="slide code-slide" data-slide="10">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Configuration</h2>
-        <p class="slide-subtitle">Theme variables and grid setup</p>
+    <section class="slide code-slide slide--dark grid-bg-dark" data-slide="10">
         <div class="section-title">Setup</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Configuration</h2>
+                <p class="slide-subtitle">Theme variables and grid pattern setup</p>
+            </div>
+
             <div class="code-container reveal">
                 <div class="code-tab-bar">
                     <div class="code-tab active">Theme.css</div>
                     <div class="code-tab">Layout</div>
                     <div class="code-tab">Grid</div>
                 </div>
-                <pre><span class="cm">/* Red — top-aligned Swiss Modern variant */</span>
+                <pre><span class="cm">/* Black — dark-first with alternating slides */</span>
 <span class="kw">:root</span> {
-    <span class="fn">--bg</span>:      <span class="str">#ffffff</span>;
-    <span class="fn">--text</span>:    <span class="str">#000000</span>;
-    <span class="fn">--accent</span>:  <span class="str">#ff3300</span>;
+    <span class="fn">--black</span>:  <span class="str">#0a0a0a</span>;
+    <span class="fn">--white</span>:  <span class="str">#f8f8f8</span>;
 
-    <span class="fn">--font-display</span>: <span class="str">'Archivo'</span>, sans-serif;
-    <span class="fn">--font-body</span>:    <span class="str">'Nunito'</span>, sans-serif;
+    <span class="fn">--font-display</span>: <span class="str">'Archivo Black'</span>;
+    <span class="fn">--font-body</span>:    <span class="str">'Nunito'</span>;
 
-    <span class="cm">/* Grid: 6 columns, strict alignment */</span>
-    <span class="fn">--cols</span>:    <span class="num">6</span>;
-    <span class="fn">--gutter</span>: <span class="kw">clamp</span>(<span class="num">0.5rem</span>, <span class="num">2vw</span>, <span class="num">2rem</span>);
+    <span class="cm">/* Grid: CSS background pattern */</span>
+    <span class="fn">--grid-size</span>:  <span class="num">64px</span>;
+    <span class="fn">--grid-alpha</span>: <span class="num">0.04</span>;
 }</pre>
             </div>
         </div>
         <div class="bottom-rule">
             <span>Setup</span>
-
-            <span class="slide-num">10 / 27</span>
+            <span class="slide-num-label">10 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 11: IMAGE SLIDE
+         SLIDE 11: IMAGE SLIDE (light)
          ============================================ -->
-    <section class="slide image-slide" data-slide="11">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Visual Reference</h2>
-        <p class="slide-subtitle">Precision-framed images with geometric accents</p>
+    <section class="slide image-slide slide--light grid-bg-light" data-slide="11">
         <div class="section-title">Media</div>
         <div class="slide-content">
             <div>
-                <p class="image-desc reveal">Images are framed with precision — bordered, aligned to the grid, and accented with geometric marks.</p>
+                <div class="slide-header reveal">
+                    <h2>Visual Reference</h2>
+                    <p class="slide-subtitle">Clean borders and structured alignment</p>
+                </div>
+                <p class="image-desc reveal">Images on light slides with clean borders and structured alignment. Data-first, decoration-minimal.</p>
             </div>
             <div class="image-placeholder reveal">
                 <div class="ph-icon">&#9633;</div>
@@ -2455,80 +2027,70 @@
         </div>
         <div class="bottom-rule">
             <span>Media</span>
-
-            <span class="slide-num">11 / 27</span>
+            <span class="slide-num-label">11 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 12: STAT HIGHLIGHT
-         Dark background, 3 large statistics
+         SLIDE 12: STAT HIGHLIGHT (dark)
+         Large stat numbers with labels
          ============================================ -->
-    <section class="slide stat-slide" data-slide="12">
+    <section class="slide stat-slide slide--dark grid-bg-dark" data-slide="12">
         <div class="section-title">Metrics</div>
         <div class="slide-content">
-            <div class="red-bar-h reveal"></div>
-            <div class="stat-row">
-                <div class="stat-item reveal">
-                    <span class="stat-number">98%</span>
-                    <span class="stat-label">Performance Score</span>
+            <div class="stat-row reveal">
+                <div class="stat-item">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">Retention Rate</div>
                 </div>
-                <div class="stat-item reveal">
-                    <span class="stat-number">13</span>
-                    <span class="stat-label">Slide Layouts</span>
+                <div class="stat-item">
+                    <div class="stat-number">2.4M</div>
+                    <div class="stat-label">Monthly Active Users</div>
                 </div>
-                <div class="stat-item reveal">
-                    <span class="stat-number">&lt;1s</span>
-                    <span class="stat-label">Load Time</span>
+                <div class="stat-item">
+                    <div class="stat-number">3.2x</div>
+                    <div class="stat-label">Revenue Growth YoY</div>
                 </div>
             </div>
+            <p class="stat-context reveal">Trailing twelve months ending Q4 2025 — all figures audited</p>
         </div>
         <div class="bottom-rule">
-            <span>Metrics</span>
-
-            <span class="slide-num">12 / 27</span>
+            <span>Key Metrics</span>
+            <span class="slide-num-label">12 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 13: QUOTE SLIDE
+         SLIDE 13: QUOTE SLIDE (dark)
          ============================================ -->
-    <section class="slide quote-slide" data-slide="13">
-        <div class="quote-circle decorative"></div>
+    <section class="slide quote-slide slide--dark" data-slide="13">
+        <div class="quote-vline decorative"></div>
         <div class="section-title">Inspiration</div>
         <div class="slide-content">
-            <div class="red-bar-h reveal"></div>
-            <blockquote class="reveal">
-                Less, but better.
-            </blockquote>
-            <p class="attribution reveal">— Dieter Rams</p>
+            <div class="callout callout--faint reveal" style="border-left-width: 3px; margin-bottom: 0;">
+                <blockquote class="reveal" style="font-family: var(--font-display); font-size: clamp(1.25rem, 3.5vw, 2.75rem); line-height: 1.2; letter-spacing: -0.02em;">
+                    The details are not the details. They make the design.
+                </blockquote>
+            </div>
+            <p class="attribution reveal">— Charles Eames</p>
         </div>
         <div class="bottom-rule">
             <span>Inspiration</span>
-
-            <span class="slide-num">13 / 27</span>
+            <span class="slide-num-label">13 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 14: CLOSING / Q&A
+         SLIDE 14: DONUT CHART (light)
+         Donut chart — market share breakdown
          ============================================ -->
-    <!-- ============================================
-         SLIDE 15: DONUT CHART
-         SVG donut with legend — parts of a whole
-         ============================================ -->
-    <section class="slide chart-donut-slide" data-slide="15">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Market Share</h2>
-        <p class="slide-subtitle">Regional distribution of active users</p>
+    <section class="slide chart-donut-slide slide--light grid-bg-light" data-slide="14">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Market Share</h2>
+                <p class="slide-subtitle">Regional distribution of active users</p>
+            </div>
             <div class="donut-chart reveal">
                 <div class="donut-svg">
                     <svg viewBox="0 0 200 200" role="img" aria-label="Donut chart showing market share by region">
@@ -2586,26 +2148,21 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num">15 / 27</span>
+            <span class="slide-num-label">14 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 16: BAR CHART
+         SLIDE 15: BAR CHART (light)
          Horizontal bars — comparative quantities
          ============================================ -->
-    <section class="slide chart-bar-slide" data-slide="16">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Revenue by Region</h2>
-        <p class="slide-subtitle">Annual revenue in millions (USD)</p>
+    <section class="slide chart-bar-slide slide--light grid-bg-light" data-slide="15">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Revenue by Region</h2>
+                <p class="slide-subtitle">Annual revenue in millions (USD)</p>
+            </div>
             <div class="bar-chart reveal" role="img" aria-label="Bar chart showing revenue by region">
                 <div class="bar-row">
                     <span class="bar-label">North America</span>
@@ -2646,19 +2203,21 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num">16 / 27</span>
+            <span class="slide-num-label">15 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 17: PROGRESS RINGS
-         Circular gauges — independent metrics (dark bg)
+         SLIDE 16: PROGRESS RINGS (dark)
+         Circular gauges — independent metrics
          ============================================ -->
-    <section class="slide chart-progress-slide" data-slide="17">
+    <section class="slide chart-progress-slide slide--dark grid-bg-dark" data-slide="16">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
-            <div class="red-bar-h reveal"></div>
-            <h2 class="slide-title" style="position: relative; color: var(--bg-primary)">Q4 Goals</h2>
+            <div class="slide-header reveal">
+                <h2>Q4 Goals</h2>
+                <p class="slide-subtitle">Tracking against quarterly targets</p>
+            </div>
             <div class="progress-rings reveal">
                 <div class="progress-ring-item">
                     <div class="progress-ring-svg">
@@ -2715,26 +2274,21 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num">17 / 27</span>
+            <span class="slide-num-label">16 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 18: FUNNEL
+         SLIDE 17: FUNNEL (light)
          SVG trapezoids — narrowing pipeline
          ============================================ -->
-    <section class="slide funnel-slide" data-slide="18">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Sales Pipeline</h2>
-        <p class="slide-subtitle">Conversion through the sales process</p>
+    <section class="slide funnel-slide slide--light grid-bg-light" data-slide="17">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Sales Pipeline</h2>
+                <p class="slide-subtitle">Conversion through the sales process</p>
+            </div>
             <div class="funnel-chart reveal">
                 <svg viewBox="0 0 400 300" role="img" aria-label="Sales funnel showing conversion stages">
                     <title>Sales Pipeline Funnel</title>
@@ -2767,31 +2321,29 @@
         </div>
         <div class="bottom-rule">
             <span>Data Viz</span>
-            <span class="slide-num">18 / 27</span>
+            <span class="slide-num-label">17 / 27</span>
         </div>
     </section>
 
+    <!-- =========================================
+         SLIDE 18: CLOSING / Q&A (dark)
+         ========================================= -->
     <!-- ============================================
-         SLIDE 20: CYCLE DIAGRAM
+         SLIDE 19: CIRCULAR PROCESS FLOW
          SVG steps around a circle with arrow arcs
          ============================================ -->
-    <section class="slide cycle-slide" data-slide="20">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Product Development</h2>
-        <p class="slide-subtitle">Continuous improvement loop</p>
+    <section class="slide cycle-slide slide--light grid-bg-light" data-slide="19">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Product Development</h2>
+                <p class="slide-subtitle">Continuous improvement loop</p>
+            </div>
             <div class="cycle-chart reveal">
                 <svg viewBox="0 0 300 300" role="img" aria-label="Circular process: Research, Design, Build, Test, Launch">
                     <title>Product Development Cycle</title>
                     <defs>
-                        <marker id="arrow-20" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                        <marker id="arrow-19" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
                             <polygon points="0,0 8,3 0,6" fill="currentColor"/>
                         </marker>
                     </defs>
@@ -2817,41 +2369,36 @@
                         <text class="cycle-label" x="20" y="80" text-anchor="end">Launch</text>
                     </g>
                     <!-- Arrow arcs between steps -->
-                    <path class="cycle-arrow" d="M 166,44 A 110,110 0 0,1 250,70" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#arrow-20)"/>
-                    <path class="cycle-arrow" d="M 262,100 A 110,110 0 0,1 224,224" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#arrow-20)"/>
-                    <path class="cycle-arrow" d="M 200,248 A 110,110 0 0,1 100,248" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#arrow-20)"/>
-                    <path class="cycle-arrow" d="M 76,224 A 110,110 0 0,1 38,100" fill="none" stroke="var(--chart-4)" stroke-width="2" marker-end="url(#arrow-20)"/>
-                    <path class="cycle-arrow" d="M 50,70 A 110,110 0 0,1 134,44" fill="none" stroke="var(--chart-5)" stroke-width="2" marker-end="url(#arrow-20)"/>
+                    <path class="cycle-arrow" d="M 166,44 A 110,110 0 0,1 250,70" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 262,100 A 110,110 0 0,1 224,224" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 200,248 A 110,110 0 0,1 100,248" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 76,224 A 110,110 0 0,1 38,100" fill="none" stroke="var(--chart-4)" stroke-width="2" marker-end="url(#arrow-19)"/>
+                    <path class="cycle-arrow" d="M 50,70 A 110,110 0 0,1 134,44" fill="none" stroke="var(--chart-5)" stroke-width="2" marker-end="url(#arrow-19)"/>
                 </svg>
             </div>
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num">20 / 27</span>
+            <span class="slide-num-label">19 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 21: CONVERGE DIAGRAM
+         SLIDE 20: CONVERGE
          SVG bezier paths merging to single output
          ============================================ -->
-    <section class="slide converge-slide" data-slide="21">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Platform Integration</h2>
-        <p class="slide-subtitle">Bringing services together into a unified system</p>
+    <section class="slide converge-slide slide--light grid-bg-light" data-slide="20">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Platform Integration</h2>
+                <p class="slide-subtitle">Bringing services together into a unified system</p>
+            </div>
             <div class="converge-chart reveal">
                 <svg viewBox="0 0 500 300" role="img" aria-label="Converging: API Gateway, Auth Service, Data Pipeline into Unified Platform">
                     <title>Platform Integration</title>
                     <defs>
-                        <marker id="conv-arrow-21" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                        <marker id="conv-arrow-20" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
                             <polygon points="0,0 8,3 0,6" fill="currentColor"/>
                         </marker>
                     </defs>
@@ -2871,27 +2418,29 @@
                         <circle class="converge-node" cx="440" cy="150" r="22" fill="var(--chart-1)"/>
                         <text class="converge-label" x="440" y="190" text-anchor="middle">Unified Platform</text>
                     </g>
-                    <path class="converge-path" d="M 75,60 C 195,60 320,150 418,150" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#conv-arrow-21)"/>
-                    <path class="converge-path" d="M 75,150 C 195,150 320,150 418,150" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#conv-arrow-21)"/>
-                    <path class="converge-path" d="M 75,240 C 195,240 320,150 418,150" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#conv-arrow-21)"/>
+                    <path class="converge-path" d="M 75,60 C 195,60 320,150 418,150" fill="none" stroke="var(--chart-1)" stroke-width="2" marker-end="url(#conv-arrow-20)"/>
+                    <path class="converge-path" d="M 75,150 C 195,150 320,150 418,150" fill="none" stroke="var(--chart-2)" stroke-width="2" marker-end="url(#conv-arrow-20)"/>
+                    <path class="converge-path" d="M 75,240 C 195,240 320,150 418,150" fill="none" stroke="var(--chart-3)" stroke-width="2" marker-end="url(#conv-arrow-20)"/>
                 </svg>
             </div>
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num">21 / 27</span>
+            <span class="slide-num-label">20 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 22: WINDING ROAD TIMELINE
+         SLIDE 21: WINDING ROAD TIMELINE
          SVG S-curve with milestone markers (dark bg)
          ============================================ -->
-    <section class="slide roadmap-slide" data-slide="22">
+    <section class="slide roadmap-slide slide--dark grid-bg-dark" data-slide="21">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
-            <div class="red-bar-h reveal"></div>
-            <h2 class="slide-title" style="position: relative; color: var(--bg-primary)">2026 Product Milestones</h2>
+            <div class="slide-header reveal">
+                <h2>2026 Product Milestones</h2>
+                <p class="slide-subtitle">Key delivery dates and strategic targets</p>
+            </div>
             <div class="roadmap-chart reveal">
                 <svg viewBox="0 0 600 280" role="img" aria-label="Roadmap: Q1 Research, Q2 Build, Q3 Beta, Q4 Launch">
                     <title>2026 Product Milestones</title>
@@ -2922,26 +2471,21 @@
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num">22 / 27</span>
+            <span class="slide-num-label">21 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 23: GANTT CHART
+         SLIDE 22: GANTT CHART
          CSS grid with overlapping phase bars
          ============================================ -->
-    <section class="slide gantt-slide" data-slide="23">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Project Timeline</h2>
-        <p class="slide-subtitle">Phase overlap and delivery schedule</p>
+    <section class="slide gantt-slide slide--light grid-bg-light" data-slide="22">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Project Timeline</h2>
+                <p class="slide-subtitle">Phase overlap and delivery schedule</p>
+            </div>
             <div class="gantt-chart reveal" style="--gantt-cols: 10" role="img" aria-label="Gantt chart: Research Jan-Mar, Design Feb-Apr, Development Apr-Aug, Testing Jul-Sep, Launch Sep-Oct">
                 <div class="gantt-row">
                     <span class="gantt-label">Research</span>
@@ -2989,38 +2533,49 @@
         </div>
         <div class="bottom-rule">
             <span>Diagrams</span>
-            <span class="slide-num">23 / 27</span>
+            <span class="slide-num-label">22 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 24: SPLIT COMPOSITE
+         SLIDE 23: SPLIT (light)
          Half & half — bullets left, table right
          ============================================ -->
-    <section class="slide split-slide" data-slide="24">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Revenue Overview</h2>
-        <p class="slide-subtitle">Key highlights alongside regional breakdown</p>
+    <section class="slide split-slide slide--light grid-bg-light" data-slide="23">
         <div class="section-title">Composites</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Revenue Overview</h2>
+                <p class="slide-subtitle">Key highlights alongside regional breakdown</p>
+            </div>
             <div class="composite-grid reveal">
                 <div class="zone zone-left" role="region" aria-label="Left column">
                     <h3 class="zone-title">Key Highlights</h3>
-                    <ul>
-                        <li><strong>Revenue</strong> — $2.4M (+18% YoY)</li>
-                        <li><strong>Customers</strong> — 1,200 active accounts</li>
-                        <li><strong>NPS Score</strong> — 72 (up from 64)</li>
-                    </ul>
+                    <div class="bullet-item">
+                        <div class="bullet-marker filled"></div>
+                        <div>
+                            <strong>Revenue</strong>
+                            <span class="desc">$2.4M (+18% YoY)</span>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-marker filled"></div>
+                        <div>
+                            <strong>Customers</strong>
+                            <span class="desc">1,200 active accounts</span>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-marker filled"></div>
+                        <div>
+                            <strong>NPS Score</strong>
+                            <span class="desc">72 (up from 64)</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="zone zone-right" role="region" aria-label="Right column">
                     <h3 class="zone-title">By Region</h3>
-                    <table class="swiss-table">
+                    <table class="data-table">
                         <thead>
                             <tr><th>Region</th><th>Revenue</th><th>Growth</th></tr>
                         </thead>
@@ -3035,26 +2590,21 @@
         </div>
         <div class="bottom-rule">
             <span>Composites</span>
-            <span class="slide-num">24 / 27</span>
+            <span class="slide-num-label">23 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 25: QUADRANT COMPOSITE
+         SLIDE 24: QUADRANT (light)
          2x2 dashboard — ring, donut, bullets, table
          ============================================ -->
-    <section class="slide quadrant-slide" data-slide="25">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Q4 Dashboard</h2>
-        <p class="slide-subtitle">Performance overview across key metrics</p>
+    <section class="slide quadrant-slide slide--light grid-bg-light" data-slide="24">
         <div class="section-title">Composites</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Q4 Dashboard</h2>
+                <p class="slide-subtitle">Performance overview across key metrics</p>
+            </div>
             <div class="composite-grid reveal">
                 <div class="zone zone-top-left" role="region" aria-label="Top left">
                     <h3 class="zone-title">Satisfaction</h3>
@@ -3118,7 +2668,7 @@
                 </div>
                 <div class="zone zone-bottom-right" role="region" aria-label="Bottom right">
                     <h3 class="zone-title">Metrics</h3>
-                    <table class="swiss-table">
+                    <table class="data-table">
                         <thead>
                             <tr><th>Metric</th><th>Target</th><th>Actual</th></tr>
                         </thead>
@@ -3133,26 +2683,21 @@
         </div>
         <div class="bottom-rule">
             <span>Composites</span>
-            <span class="slide-num">25 / 27</span>
+            <span class="slide-num-label">24 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 26: THIRD SPLIT COMPOSITE
+         SLIDE 25: THIRD SPLIT (light)
          1/3 progress ring + 2/3 bar chart
          ============================================ -->
-    <section class="slide third-slide" data-slide="26">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Market Analysis</h2>
-        <p class="slide-subtitle">Key metric with supporting data</p>
+    <section class="slide third-slide slide--light grid-bg-light" data-slide="25">
         <div class="section-title">Composites</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Market Analysis</h2>
+                <p class="slide-subtitle">Key metric with supporting data</p>
+            </div>
             <div class="composite-grid reveal">
                 <div class="zone zone-narrow" role="region" aria-label="Key metric">
                     <div class="progress-ring-item">
@@ -3201,26 +2746,21 @@
         </div>
         <div class="bottom-rule">
             <span>Composites</span>
-            <span class="slide-num">26 / 27</span>
+            <span class="slide-num-label">25 / 27</span>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 27: THREE COLUMN COMPOSITE
+         SLIDE 26: THREE COLUMN (light)
          3 equal columns with zone-titles
          ============================================ -->
-    <section class="slide three-col-slide" data-slide="27">
-        <div class="swiss-grid decorative">
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div><div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line v"></div>
-            <div class="swiss-grid-line h"></div><div class="swiss-grid-line h"></div>
-            <div class="swiss-grid-line h"></div>
-        </div>
-        <h2 class="slide-title">Team Structure</h2>
-        <p class="slide-subtitle">Organization across departments</p>
+    <section class="slide three-col-slide slide--light grid-bg-light" data-slide="26">
         <div class="section-title">Composites</div>
         <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Team Structure</h2>
+                <p class="slide-subtitle">Organization across departments</p>
+            </div>
             <div class="composite-grid reveal">
                 <div class="zone zone-col-1" role="region" aria-label="Column 1">
                     <h3 class="zone-title">Engineering</h3>
@@ -3250,34 +2790,33 @@
         </div>
         <div class="bottom-rule">
             <span>Composites</span>
-            <span class="slide-num">27 / 27</span>
+            <span class="slide-num-label">26 / 27</span>
         </div>
     </section>
 
-    <section class="slide closing-slide" data-slide="28">
+    <section class="slide closing-slide slide--dark grid-bg-dark" data-slide="27">
         <div class="section-title">Close</div>
         <div class="slide-content">
-            <div class="red-bar-h reveal"></div>
-            <h2 class="closing-heading reveal">Thank You</h2>
-            <p class="closing-subtitle reveal">Questions, feedback, and next steps</p>
+            <h2 class="closing-title reveal">Thank You</h2>
+            <p class="closing-subtitle reveal">Questions, feedback, and open discussion</p>
             <div class="closing-contact reveal">
-                <div class="contact-item">
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">hello@example.com</span>
+                <div class="closing-contact-item">
+                    <span class="closing-contact-label">Email</span>
+                    <span class="closing-contact-value">hello@example.com</span>
                 </div>
-                <div class="contact-item">
-                    <span class="contact-label">Website</span>
-                    <span class="contact-value">example.com</span>
+                <div class="closing-contact-item">
+                    <span class="closing-contact-label">Web</span>
+                    <span class="closing-contact-value">example.com</span>
                 </div>
-                <div class="contact-item">
-                    <span class="contact-label">Follow</span>
-                    <span class="contact-value">@example</span>
+                <div class="closing-contact-item">
+                    <span class="closing-contact-label">Social</span>
+                    <span class="closing-contact-value">@example</span>
                 </div>
             </div>
         </div>
         <div class="bottom-rule">
             <span>Close</span>
-            <span class="slide-num">27 / 27</span>
+            <span class="slide-num-label">27 / 27</span>
         </div>
     </section>
 
@@ -3369,12 +2908,16 @@
                 });
             }
 
-            /* Invert nav dot colors on dark slides */
+            /* Invert nav dot colors on light slides */
             updateDotColors() {
                 const container = document.getElementById('navDots');
                 if (!container) return;
                 const current = this.slides[this.currentSlide];
-                container.classList.toggle('dots-inverted', current.classList.contains('quote-slide') || current.classList.contains('stat-slide') || current.classList.contains('closing-slide') || current.classList.contains('chart-progress-slide') || current.classList.contains('roadmap-slide'));
+                const isLight = current.classList.contains('slide--light') &&
+                    !current.classList.contains('closing-slide') &&
+                    !current.classList.contains('chart-progress-slide') &&
+                    !current.classList.contains('roadmap-slide');
+                container.classList.toggle('dots-light', isLight);
             }
 
             goToSlide(idx) {
