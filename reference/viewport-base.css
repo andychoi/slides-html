@@ -50,6 +50,7 @@ html {
      --body-size    → body text, table cells, list items, descriptions
      --small-size   → secondary text, captions, subtitles
      --label-size   → UI chrome: section labels, footer text, nav elements
+     --code-size    → code blocks only (pre/code elements inside .code-container)
 */
 :root {
     /* Titles scale from mobile to desktop */
@@ -58,10 +59,11 @@ html {
     --h3-size: clamp(1rem, 2.5vw, 1.75rem);
 
     /* Body text — use for all readable content.
-       ONLY these three text-size variables exist. Do NOT invent others. */
+       ONLY these four text-size variables exist. Do NOT invent others. */
     --body-size: clamp(0.875rem, 1.5vw, 1.5rem);
     --small-size: clamp(0.75rem, 1.2vw, 1.125rem);
     --label-size: clamp(0.6rem, 1vw, 0.8rem);
+    --code-size: clamp(0.65rem, 1.2vw, 0.95rem); /* code blocks only */
 
     /* Spacing scales with viewport */
     --slide-padding: clamp(1rem, 4vw, 4rem);

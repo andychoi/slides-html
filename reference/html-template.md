@@ -31,7 +31,7 @@ Reference architecture for generating slide presentations. Every presentation fo
 
             /* Typography — define clamp() ONLY here in :root.
                Component classes MUST use var(--body-size) etc., never hardcoded clamp().
-               ONLY these 3 text-size vars exist. Do NOT invent new ones. */
+               ONLY these 4 text-size vars exist. Do NOT invent new ones. */
             --font-display: 'Clash Display', sans-serif;
             --font-body: 'Satoshi', sans-serif;
             --title-size: clamp(1.5rem, 5vw, 4rem);

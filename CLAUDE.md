@@ -54,10 +54,11 @@ Do NOT manually patch generated HTML files.
 
 ## Key Design Rules
 
-### Typography: Three sizes only
+### Typography: Four sizes only
 - `--body-size` — ALL readable content (tables, bullets, paragraphs, callouts)
 - `--small-size` — secondary text (subtitles, captions)
 - `--label-size` — UI chrome (section labels, footer, nav)
+- `--code-size` — code blocks only (`pre`/`code` inside `.code-container`)
 - **Never invent new size variables** (no `--xsmall-size`, `--tiny-size`)
 
 ### Vertical space

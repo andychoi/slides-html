@@ -45,11 +45,12 @@ These invariants apply to EVERY slide in EVERY presentation:
 - Never negate CSS functions directly (`-clamp()`, `-min()`, `-max()` are silently ignored) — use `calc(-1 * clamp(...))` instead
 
 **Font-Size Discipline (CRITICAL — most common generation error):**
-- Only THREE text-size variables exist: `--body-size`, `--small-size`, `--label-size`. **Do NOT invent new ones** (e.g., `--xsmall-size`, `--tiny-size`, `--micro-size`). Every custom variable you invent shrinks text further.
+- Only FOUR text-size variables exist: `--body-size`, `--small-size`, `--label-size`, `--code-size`. **Do NOT invent new ones** (e.g., `--xsmall-size`, `--tiny-size`, `--micro-size`). Every custom variable you invent shrinks text further.
 - `clamp()` may ONLY appear in `:root` definitions. Component classes must reference `var(--body-size)` etc.
 - **Use `--body-size` for ALL readable content:** table cells, list items, bullet text, descriptions, paragraphs, callout text, process step descriptions. This is the workhorse size — don't downgrade it.
 - **Use `--small-size` for secondary text only:** subtitles, captions, timeline dates, attribution lines.
 - **Use `--label-size` for UI chrome only:** section labels, footer text, nav elements, overlines.
+- **Use `--code-size` for code blocks only:** `font-size` on `pre`/`code` elements inside `.code-container`.
 - Common mistake: using `--small-size` or smaller for content that should be `--body-size`. When in doubt, use `--body-size`.
 
 **Vertical Space Usage:**
