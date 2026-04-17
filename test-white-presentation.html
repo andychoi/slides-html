@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation Template - White Preset</title>
+
+    <!-- Google Fonts: Archivo Black (display) + Nunito (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           Include this ENTIRE file in every presentation.
+           These styles ensure slides fit exactly in the viewport.
+           =========================================== */
+
+        /* 1. Lock html/body to viewport */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* 2. Each slide = exact viewport height */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
+            overflow: hidden; /* CRITICAL: Prevent ANY overflow */
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 3. Content container — fills viewport vertically */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            max-height: 100%;
+            overflow: hidden; /* Double-protection against overflow */
+            padding: var(--slide-padding);
+            gap: var(--content-gap); /* Space children to fill vertical viewport */
+        }
+
+        /* 4. Typography & spacing variables */
+        :root {
+            /* Titles scale from mobile to desktop */
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+
+            /* Body text — use for all readable content. */
+            --body-size: clamp(0.875rem, 1.5vw, 1.5rem);
+            --small-size: clamp(0.75rem, 1.2vw, 1.125rem);
+            --label-size: clamp(0.6rem, 1vw, 0.8rem);
+            --code-size: clamp(0.65rem, 1.2vw, 0.95rem);
+
+            /* Spacing scales with viewport */
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        /* 5. Cards/containers use viewport-relative max sizes */
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        /* 6. Lists auto-scale with viewport */
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        /* 7. Grids adapt to available space */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        /* 8. Images constrained to viewport */
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(55vh, 550px);
+            object-fit: contain;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.75rem);
+                --content-gap: clamp(0.4rem, 1.2vw, 0.75rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1.25rem);
+                --content-gap: clamp(0.3rem, 0.8vw, 0.6rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.8rem, 1.3vw, 1.125rem);
+            }
+            .nav-dots, .keyboard-hint, .decorative { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(1rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.75rem, 1.1vw, 1rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ===========================================
+           WHITE PRESET: Color Theme
+           Light-first with dark text (inverted semantics)
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #f8f8f8;        /* Light backgrounds */
+            --white: #0a0a0a;        /* Dark text */
+            --gray-light: #1a1a1a;
+            --gray-mid: #404040;
+            --gray-dark: #b5b5b5;
+
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Nunito', sans-serif;
+            --subtitle-size: clamp(0.85rem, 1.8vw, 1.3rem);
+            --dur: 0.55s;
+
+            /* Chart palette */
+            --chart-1: #3b82f6;
+            --chart-2: #ef4444;
+            --chart-3: #22c55e;
+            --chart-4: #f59e0b;
+            --chart-5: #8b5cf6;
+            --chart-6: #06b6d4;
+            --chart-track: rgba(128, 128, 128, 0.15);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           Trigger via .visible class (added by JS on scroll)
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--dur) cubic-bezier(0.16, 1, 0.3, 1),
+                        transform var(--dur) cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children for sequential reveal */
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.13s; }
+        .reveal:nth-child(3) { transition-delay: 0.21s; }
+        .reveal:nth-child(4) { transition-delay: 0.29s; }
+        .reveal:nth-child(5) { transition-delay: 0.37s; }
+        .reveal:nth-child(6) { transition-delay: 0.45s; }
+
+        /* ===========================================
+           SLIDE HEADER — top border + title
+           =========================================== */
+        .slide-header {
+            border-top: 3px solid currentColor;
+            padding-top: clamp(0.4rem, 1vh, 0.75rem);
+            margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+        }
+
+        .slide-header h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            line-height: 1.1;
+        }
+
+        .slide-header .slide-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 1.3vw, 1.1rem);
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.55);
+            line-height: 1.4;
+            margin-top: clamp(0.2rem, 0.5vh, 0.4rem);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Section title — top-right, ABOVE the slide-header border */
+        .section-title {
+            position: absolute;
+            top: clamp(0.4rem, 1.2vw, 0.75rem);
+            right: var(--slide-padding);
+            font-size: var(--label-size);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease 0.15s;
+        }
+
+        .slide.visible .section-title { opacity: 1; }
+
+        /* ===========================================
+           BOTTOM RULE — footer bar
+           =========================================== */
+        .bottom-rule {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: clamp(32px, 5vh, 40px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--slide-padding);
+            border-top: 1px solid rgba(0, 0, 0, 0.14);
+            background: rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transition: opacity 0.3s ease 0.25s;
+        }
+
+        .slide.visible .bottom-rule { opacity: 1; }
+
+        .bottom-rule span {
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===========================================
+           CONTENT STYLES
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            line-height: 1.1;
+            margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+        }
+
+        h2 { font-family: var(--font-display); font-size: var(--h2-size); line-height: 1.2; }
+        h3 { font-family: var(--font-display); font-size: var(--h3-size); line-height: 1.2; }
+        p { font-size: var(--body-size); line-height: 1.6; }
+
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+        }
+
+        .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.6;
+            padding-left: clamp(0.5rem, 1.5vw, 1rem);
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: rgba(0, 0, 0, 0.35);
+        }
+
+        /* Feature tables */
+        .ftable {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .frow {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: clamp(0.5rem, 1.5vh, 1rem) var(--element-gap);
+        }
+
+        .frow:last-child { border-bottom: none; }
+        .frow.hdr { background: rgba(0, 0, 0, 0.05); font-weight: 600; }
+
+        .fkey { font-weight: 600; }
+        .fval { color: rgba(0, 0, 0, 0.65); }
+
+        /* Callout blocks */
+        .callout {
+            border-left: 4px solid rgba(0, 0, 0, 0.3);
+            padding: clamp(0.5rem, 1.2vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+            background: rgba(0, 0, 0, 0.03);
+            font-style: italic;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--body-size);
+        }
+
+        table thead {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        table th, table td {
+            padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.5rem, 1vw, 0.75rem);
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        table th {
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        table td {
+            color: rgba(0, 0, 0, 0.65);
+        }
+
+        /* Code blocks */
+        .code-container {
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            overflow: auto;
+            padding: clamp(0.75rem, 1.5vh, 1rem);
+        }
+
+        pre {
+            font-family: 'Courier New', monospace;
+            font-size: var(--code-size);
+            line-height: 1.5;
+            margin: 0;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* ===========================================
+           SLIDE TYPES — WHITE PRESET
+           All slides use .slide--dark (white bg, dark text)
+           =========================================== */
+
+        .grid-bg-dark {
+            background-color: var(--black);
+            background-image:
+                linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px);
+        }
+
+        .slide--dark { background: var(--black); color: var(--white); }
+
+        /* Title slide */
+        .title-slide .slide-content {
+            justify-content: flex-start;
+            padding-top: clamp(4rem, 12vh, 6rem);
+        }
+
+        .title-overline {
+            font-size: var(--small-size);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
+        }
+
+        .title-slide h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+        }
+
+        .title-sub {
+            font-size: var(--subtitle-size);
+            opacity: 0.65;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .title-tags {
+            margin-top: clamp(1rem, 3vh, 2rem);
+            display: flex;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+            flex-wrap: wrap;
+        }
+
+        .title-tag {
+            font-size: var(--label-size);
+            padding: clamp(0.25rem, 0.5vh, 0.35rem) clamp(0.5rem, 1vw, 0.75rem);
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(0, 0, 0, 0.55);
+        }
+
+        /* Agenda slide */
+        .agenda-slide .slide-content {
+            gap: var(--content-gap);
+        }
+
+        .agenda-item {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: clamp(0.75rem, 1.5vh, 1rem);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .agenda-item.active {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .agenda-num {
+            font-size: var(--label-size);
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .agenda-title {
+            font-size: var(--body-size);
+            font-weight: 600;
+            margin-top: clamp(0.2rem, 0.3vh, 0.4rem);
+        }
+
+        .agenda-desc {
+            font-size: var(--small-size);
+            color: rgba(0, 0, 0, 0.55);
+            margin-top: clamp(0.2rem, 0.3vh, 0.4rem);
+        }
+
+        /* Timeline slide */
+        .timeline {
+            position: relative;
+            padding: clamp(1rem, 2vh, 1.5rem) 0;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: clamp(0.75rem, 1.5vw, 1rem);
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-left: clamp(3rem, 5vw, 4rem);
+            padding-bottom: clamp(1rem, 2vh, 1.5rem);
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: calc(-1 * clamp(2.25rem, 4.5vw, 3.25rem));
+            top: clamp(0.3rem, 0.6vh, 0.5rem);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--black);
+        }
+
+        .timeline-item.active::before {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .timeline-date {
+            font-size: var(--label-size);
+            color: rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .timeline-title {
+            font-size: var(--body-size);
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+
+        .timeline-desc {
+            font-size: var(--small-size);
+            color: rgba(0, 0, 0, 0.55);
+            margin-top: 0.2rem;
+        }
+
+        /* Progress rings / stat slide */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: clamp(1rem, 2vw, 2rem);
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-family: var(--font-display);
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-size: var(--label-size);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(0, 0, 0, 0.55);
+            margin-top: 0.5rem;
+        }
+
+        /* Process / step slide */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.5vh, 1rem);
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.75rem, 1.5vw, 1rem);
+        }
+
+        .process-num {
+            flex-shrink: 0;
+            font-size: var(--label-size);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(0, 0, 0, 0.4);
+            padding-top: 0.2rem;
+        }
+
+        .process-content {
+            flex: 1;
+        }
+
+        .process-title {
+            font-size: var(--body-size);
+            font-weight: 600;
+        }
+
+        .process-desc {
+            font-size: var(--small-size);
+            color: rgba(0, 0, 0, 0.55);
+            margin-top: 0.2rem;
+        }
+
+        /* Closing slide */
+        .closing-slide .slide-content {
+            justify-content: center;
+            align-items: flex-start;
+            text-align: center;
+        }
+
+        .closing-slide h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: clamp(1rem, 2vh, 1.5rem);
+        }
+
+        .closing-subtitle {
+            font-size: var(--subtitle-size);
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: clamp(2rem, 5vh, 3rem);
+        }
+
+        .closing-contact {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vh, 0.75rem);
+            align-items: center;
+        }
+
+        .closing-item {
+            font-size: var(--body-size);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar" style="position: fixed; top: 0; left: 0; height: 2px; background: rgba(0,0,0,0.2); width: 0; z-index: 1000;"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" style="position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100;"></nav>
+
+    <!-- Slide 1: Title -->
+    <section class="slide title-slide grid-bg-dark" data-slide="1">
+        <div class="section-title">Intro</div>
+        <div class="slide-content">
+            <p class="title-overline reveal">Template</p>
+            <h1 class="reveal">Presentation<br>Template</h1>
+            <p class="title-sub reveal">The Black Preset: Dark-first design with alternating light and dark slides, strong typography, and structured data layouts</p>
+            <div class="title-tags reveal">
+                <span class="title-tag">Dark Theme</span>
+                <span class="title-tag">Data-Heavy</span>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Introduction</span>
+            <span>01 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 2: Agenda -->
+    <section class="slide grid-bg-dark" data-slide="2">
+        <div class="section-title">Agenda</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Agenda</h2>
+                <p class="slide-subtitle">Session outline and key discussion topics</p>
+            </div>
+            <div class="agenda-item reveal active">
+                <div class="agenda-num">01.</div>
+                <div class="agenda-title">Introduction & Context</div>
+                <div class="agenda-desc">Background and project scope</div>
+            </div>
+            <div class="agenda-item reveal">
+                <div class="agenda-num">02.</div>
+                <div class="agenda-title">Market Analysis</div>
+                <div class="agenda-desc">Competitive landscape review</div>
+            </div>
+            <div class="agenda-item reveal">
+                <div class="agenda-num">03.</div>
+                <div class="agenda-title">Product Strategy</div>
+                <div class="agenda-desc">Roadmap and feature priorities</div>
+            </div>
+            <div class="agenda-item reveal">
+                <div class="agenda-num">04.</div>
+                <div class="agenda-title">Technical Architecture</div>
+                <div class="agenda-desc">System design and infrastructure</div>
+            </div>
+            <div class="agenda-item reveal">
+                <div class="agenda-num">05.</div>
+                <div class="agenda-title">Financial Projections</div>
+                <div class="agenda-desc">Revenue model and growth targets</div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Agenda</span>
+            <span>02 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 3: Section Divider -->
+    <section class="slide grid-bg-dark" data-slide="3" style="justify-content: center; align-items: center;">
+        <div class="section-title">Section</div>
+        <div class="slide-content" style="justify-content: center; text-align: center;">
+            <p class="title-overline reveal" style="color: rgba(0,0,0,0.25); margin: 0;">Section 01</p>
+            <h1 class="reveal" style="margin: clamp(0.5rem, 2vh, 1rem) 0;">Market Analysis</h1>
+            <p class="title-sub reveal">Understanding the competitive landscape and identifying opportunities for growth</p>
+        </div>
+    </section>
+
+    <!-- Slide 4: Design Principles -->
+    <section class="slide grid-bg-dark" data-slide="4">
+        <div class="section-title">Design</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Design Principles</h2>
+                <p class="slide-subtitle">Dark-first design with alternating slide backgrounds</p>
+            </div>
+            <ul class="bullet-list reveal">
+                <li><strong>Dark-first</strong> — Black backgrounds dominate, with light slides for contrast and data density</li>
+                <li><strong>Top-aligned</strong> — Content anchors to the top for structured reading flow</li>
+                <li><strong>Data layouts</strong> — Feature tables, property grids, and step lists for dense information</li>
+                <li><strong>Bold type</strong> — Archivo Black display font creates confident, high-impact headlines</li>
+            </ul>
+            <div class="callout reveal">
+                <p>The preset alternates between <strong>dark</strong> and <strong>light</strong> slides to create rhythm and visual contrast.</p>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Design Principles</span>
+            <span>04 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 5: Capabilities -->
+    <section class="slide grid-bg-dark" data-slide="5">
+        <div class="section-title">Features</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Capabilities</h2>
+                <p class="slide-subtitle">Core layout components for data-heavy presentations</p>
+            </div>
+            <ul class="bullet-list reveal">
+                <li><strong>Grid Backgrounds</strong> — Subtle CSS grid pattern on both dark and light slides</li>
+                <li><strong>Feature Tables</strong> — Two-column key/value rows for structured data display</li>
+                <li><strong>Property Grids</strong> — 2-column card grids for listing features and properties</li>
+                <li><strong>Step Lists</strong> — Numbered bordered rows for sequential processes</li>
+                <li><strong>Callout Blocks</strong> — Left-bordered emphasis blocks for key takeaways</li>
+            </ul>
+        </div>
+        <div class="bottom-rule">
+            <span>Capabilities</span>
+            <span>05 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 6: Comparison -->
+    <section class="slide grid-bg-dark" data-slide="6">
+        <div class="section-title">Strategy</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Build vs. Buy</h2>
+                <p class="slide-subtitle">Evaluating the trade-offs between custom development and third-party solutions</p>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--content-gap);">
+                <div class="reveal">
+                    <h3 style="color: var(--white); margin-bottom: 1rem;">Build In-House</h3>
+                    <ul class="bullet-list">
+                        <li>Full control over architecture</li>
+                        <li>Custom-tailored to workflows</li>
+                        <li>Higher upfront investment</li>
+                        <li>Longer time to market</li>
+                        <li>Ongoing maintenance burden</li>
+                    </ul>
+                </div>
+                <div class="reveal">
+                    <h3 style="color: var(--white); margin-bottom: 1rem;">Buy / License</h3>
+                    <ul class="bullet-list">
+                        <li>Faster deployment timeline</li>
+                        <li>Proven and battle-tested</li>
+                        <li>Vendor dependency risk</li>
+                        <li>Limited customization depth</li>
+                        <li>Predictable subscription cost</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Build vs. Buy</span>
+            <span>06 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 7: Pricing Table -->
+    <section class="slide grid-bg-dark" data-slide="7">
+        <div class="section-title">Pricing</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Pricing Tiers</h2>
+                <p class="slide-subtitle">Feature comparison across plan levels</p>
+            </div>
+            <table class="reveal">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter</th>
+                        <th>Professional</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Users</strong></td>
+                        <td>Up to 5</td>
+                        <td>Up to 50</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>10 GB</td>
+                        <td>100 GB</td>
+                        <td>1 TB+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API Access</strong></td>
+                        <td>Basic</td>
+                        <td>Full</td>
+                        <td>Full + Priority</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support</strong></td>
+                        <td>Email</td>
+                        <td>Chat + Email</td>
+                        <td>Dedicated CSM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analytics</strong></td>
+                        <td>Dashboard</td>
+                        <td>Advanced Reports</td>
+                        <td>Custom + Export</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bottom-rule">
+            <span>Pricing</span>
+            <span>07 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 8: Timeline -->
+    <section class="slide grid-bg-dark" data-slide="8">
+        <div class="section-title">Roadmap</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Product Roadmap</h2>
+                <p class="slide-subtitle">Key milestones and delivery timeline</p>
+            </div>
+            <div class="timeline reveal">
+                <div class="timeline-item active">
+                    <div class="timeline-date">Q1 2026</div>
+                    <div class="timeline-title">Discovery</div>
+                    <div class="timeline-desc">Research, interviews, and requirements gathering</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2026</div>
+                    <div class="timeline-title">Build</div>
+                    <div class="timeline-desc">Core platform development and integration</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q3 2026</div>
+                    <div class="timeline-title">Beta Launch</div>
+                    <div class="timeline-desc">Closed beta with select partners</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2026</div>
+                    <div class="timeline-title">General Availability</div>
+                    <div class="timeline-desc">Public launch and scaling operations</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Roadmap</span>
+            <span>08 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 9: Development Workflow -->
+    <section class="slide grid-bg-dark" data-slide="9">
+        <div class="section-title">Process</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Development Workflow</h2>
+                <p class="slide-subtitle">End-to-end delivery pipeline from ideation to deployment</p>
+            </div>
+            <div class="process-steps reveal">
+                <div class="process-step">
+                    <div class="process-num">1</div>
+                    <div class="process-content">
+                        <div class="process-title">Ideate</div>
+                        <div class="process-desc">Define problem space and brainstorm solutions</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">2</div>
+                    <div class="process-content">
+                        <div class="process-title">Design</div>
+                        <div class="process-desc">Wireframes, prototypes, and user testing</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">3</div>
+                    <div class="process-content">
+                        <div class="process-title">Develop</div>
+                        <div class="process-desc">Build, integrate, and write automated tests</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">4</div>
+                    <div class="process-content">
+                        <div class="process-title">Review</div>
+                        <div class="process-desc">Code review, QA, and stakeholder sign-off</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">5</div>
+                    <div class="process-content">
+                        <div class="process-title">Deploy</div>
+                        <div class="process-desc">Ship to production and monitor performance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Workflow</span>
+            <span>09 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 10: Code Slide -->
+    <section class="slide grid-bg-dark" data-slide="10">
+        <div class="section-title">Config</div>
+        <div class="slide-content">
+            <div class="slide-header reveal">
+                <h2>Configuration</h2>
+                <p class="slide-subtitle">White Preset CSS variables</p>
+            </div>
+            <div class="code-container reveal">
+                <pre>/* White Preset Configuration */
+:root {
+    --black:  #f8f8f8;      /* Light backgrounds */
+    --white:  #0a0a0a;      /* Dark text */
+
+    --font-display: 'Archivo Black';
+    --font-body:    'Nunito';
+
+    /* Grid background pattern */
+    --grid-size:  64px;
+    --grid-alpha: 0.04;
+}</pre>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Configuration</span>
+            <span>10 / 24</span>
+        </div>
+    </section>
+
+    <!-- Slide 11-24: Additional content slides (abbreviated for space) -->
+
+    <!-- Slide 24: Closing -->
+    <section class="slide closing-slide grid-bg-dark" data-slide="24">
+        <div class="section-title">End</div>
+        <div class="slide-content">
+            <h1 class="reveal">Thank You</h1>
+            <p class="closing-subtitle reveal">Questions, feedback, and open discussion</p>
+            <div class="closing-contact reveal">
+                <div class="closing-item"><strong>Email:</strong> hello@example.com</div>
+                <div class="closing-item"><strong>Web:</strong> example.com</div>
+                <div class="closing-item"><strong>Social:</strong> @example</div>
+            </div>
+        </div>
+        <div class="bottom-rule">
+            <span>Closing</span>
+            <span>24 / 24</span>
+        </div>
+    </section>
+
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            this.currentSlide = Array.from(this.slides).indexOf(entry.target);
+                            this.updateProgress();
+                            this.updateNavDots();
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === ' ') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    }
+                    if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        this.prevSlide();
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let touchStart = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStart = e.touches[0].clientY;
+                });
+                document.addEventListener('touchend', (e) => {
+                    const touchEnd = e.changedTouches[0].clientY;
+                    if (touchStart - touchEnd > 50) this.nextSlide();
+                    if (touchEnd - touchStart > 50) this.prevSlide();
+                });
+            }
+
+            setupProgressBar() {
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollPercent = docHeight ? (scrollTop / docHeight) * 100 : 0;
+                    document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+                });
+            }
+
+            setupNavDots() {
+                const nav = document.querySelector('.nav-dots');
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot';
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.style.cssText = `
+                        width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.3);
+                        background: transparent; cursor: pointer; margin: 0.5rem 0; transition: all 0.3s;
+                    `;
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    nav.appendChild(dot);
+                });
+                this.updateNavDots();
+            }
+
+            updateNavDots() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    if (i === this.currentSlide) {
+                        dot.style.background = 'rgba(0,0,0,0.5)';
+                        dot.style.borderColor = 'rgba(0,0,0,0.7)';
+                    } else {
+                        dot.style.background = 'transparent';
+                        dot.style.borderColor = 'rgba(0,0,0,0.3)';
+                    }
+                });
+            }
+
+            updateProgress() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                document.querySelector('.progress-bar').style.width = progress + '%';
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.slides.length - 1) {
+                    this.slides[this.currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.slides[this.currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+        });
+    </script>
+</body>
+</html>
