@@ -1,14 +1,18 @@
-# Sample Presentation
-A demonstration of all 14 slide layout types
+# Presentation Template
+The Black Preset: Dark-first design with alternating light and dark slides, strong typography, and structured data layouts
+
+Dark Theme, Data-Heavy
 
 ---
 
 ## Agenda
-1. Introduction & Context — Background and project scope
-2. Market Analysis — Competitive landscape review
-3. Product Strategy — Roadmap and feature priorities
-4. Technical Architecture — System design and infrastructure
-5. Financial Projections — Revenue model and growth targets
+Session outline and key discussion topics
+
+01. Introduction & Context — Background and project scope
+02. Market Analysis — Competitive landscape review
+03. Product Strategy — Roadmap and feature priorities
+04. Technical Architecture — System design and infrastructure
+05. Financial Projections — Revenue model and growth targets
 
 ---
 
@@ -40,7 +44,7 @@ Core layout components for data-heavy presentations
 
 ---
 
-## Comparison: Build vs Buy
+## Build vs. Buy
 Evaluating the trade-offs between custom development and third-party solutions
 
 ### Build In-House
@@ -69,7 +73,7 @@ Evaluating the trade-offs between custom development and third-party solutions
 
 ---
 
-## Timeline: Product Roadmap
+## Product Roadmap
 Key milestones and delivery timeline
 
 - Q1 2026: Discovery — Research, interviews, and requirements gathering
@@ -79,7 +83,7 @@ Key milestones and delivery timeline
 
 ---
 
-## Process: Development Workflow
+## Development Workflow
 End-to-end delivery pipeline from ideation to deployment
 
 1. Ideate — Define problem space and brainstorm solutions
@@ -91,15 +95,15 @@ End-to-end delivery pipeline from ideation to deployment
 ---
 
 ```css
-/* Black — dark-first with alternating slides */
+/* White Preset Configuration */
 :root {
-    --black:  #0a0a0a;
-    --white:  #f8f8f8;
-
+    --black:  #f8f8f8;      /* Light backgrounds */
+    --white:  #0a0a0a;      /* Dark text */
+    
     --font-display: 'Archivo Black';
     --font-body:    'Nunito';
-
-    /* Grid: CSS background pattern */
+    
+    /* Grid background pattern */
     --grid-size:  64px;
     --grid-alpha: 0.04;
 }
@@ -112,19 +116,7 @@ Images on light slides with clean borders and structured alignment. Data-first, 
 
 ---
 
-## Stats
-- 94% — Retention Rate
-- 2.4M — Monthly Active Users
-- 3.2x — Revenue Growth YoY
-
----
-
-> "The details are not the details. They make the design."
-> — Charles Eames
-
----
-
-## Chart: Market Share
+## Market Share
 Regional distribution of active users
 
 - North America: 40%
@@ -134,7 +126,7 @@ Regional distribution of active users
 
 ---
 
-## Bar Chart: Revenue by Region
+## Revenue by Region
 Annual revenue in millions (USD)
 
 - North America: 850
@@ -145,7 +137,7 @@ Annual revenue in millions (USD)
 
 ---
 
-## Progress: Q4 Goals
+## Q4 Goals
 Tracking against quarterly targets
 
 - Customer Satisfaction: 92%
@@ -154,7 +146,7 @@ Tracking against quarterly targets
 
 ---
 
-## Funnel: Sales Pipeline
+## Sales Pipeline
 Conversion through the sales process
 
 1. Leads — 10,000
@@ -164,7 +156,7 @@ Conversion through the sales process
 
 ---
 
-## Cycle: Product Development
+## Product Development
 Continuous improvement loop
 
 - Research
@@ -175,7 +167,7 @@ Continuous improvement loop
 
 ---
 
-## Converge: Platform Integration
+## Platform Integration
 Bringing services together into a unified system
 
 - API Gateway
@@ -185,7 +177,7 @@ Bringing services together into a unified system
 
 ---
 
-## Roadmap: 2026 Product Milestones
+## 2026 Product Milestones
 Key delivery dates and strategic targets
 
 - Q1 2026: Research & Discovery
@@ -195,7 +187,7 @@ Key delivery dates and strategic targets
 
 ---
 
-## Gantt: Project Timeline
+## Project Timeline
 Phase overlap and delivery schedule
 
 - Research: Jan — Mar
@@ -206,7 +198,7 @@ Phase overlap and delivery schedule
 
 ---
 
-## Split: Revenue Overview
+## Revenue Overview
 Key highlights alongside regional breakdown
 
 ### Left
@@ -223,7 +215,7 @@ Key highlights alongside regional breakdown
 
 ---
 
-## Quadrant: Q4 Dashboard
+## Q4 Dashboard
 Performance overview across key metrics
 
 ### Top-Left
@@ -249,7 +241,7 @@ Performance overview across key metrics
 
 ---
 
-## Third: Market Analysis
+## Market Analysis
 Key metric with supporting data
 
 ### Narrow
@@ -263,23 +255,20 @@ Revenue breakdown by segment
 
 ---
 
-## Three Columns: Team Structure
+## Team Structure
 Organization across departments
 
-### Col 1
-**Engineering**
+### Engineering
 - 24 engineers
 - 4 tech leads
 - 2 architects
 
-### Col 2
-**Design**
+### Design
 - 8 designers
 - 2 UX researchers
 - 1 design lead
 
-### Col 3
-**Product**
+### Product
 - 6 PMs
 - 2 analysts
 - 1 VP Product

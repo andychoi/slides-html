@@ -651,3 +651,15 @@ A well-structured 15-slide deck typically follows this pattern:
 | Composite grid | `.composite-grid` | Shared grid container for composite layouts |
 | Content zone | `.zone` | Individual content cell within composite grid |
 | Zone title | `.zone-title` | Optional `<h3>` heading within zone |
+---
+
+## White Preset
+
+The White preset uses 100% white backgrounds throughout all slides. No alternation — every layout type uses the same white background with dark text.
+
+**All layouts use:**
+- `.slide--dark` class (which displays as white background due to inverted variables `--black: #f8f8f8`)
+- `.grid-bg-dark` for subtle grid pattern (dark lines on white)
+- Dark text (`--white: #0a0a0a`) for optimal readability
+
+This creates a clean, consistent, distraction-free presentation environment suitable for content-heavy, professional presentations.

@@ -134,7 +134,7 @@ img, .image-container {
 /* Extremely short (landscape phones, < 500px height) */
 @media (max-height: 500px) {
     :root {
-        --slide-padding: clamp(0.4rem, 2vw, 1rem);
+        --slide-padding: clamp(1rem, 2vw, 1rem);
         --title-size: clamp(1rem, 3.5vw, 1.5rem);
         --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
         --body-size: clamp(0.75rem, 1.1vw, 1rem);

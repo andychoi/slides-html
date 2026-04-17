@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black - All Layouts</title>
+    <title>White - All Layouts</title>
 
     <!-- Google Fonts: Archivo Black (display) + Nunito (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,14 +87,16 @@
         }
         @media (max-height: 500px) {
             :root {
-                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --slide-padding: clamp(1rem, 2vw, 1rem);
                 --title-size: clamp(1rem, 3.5vw, 1.5rem);
                 --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
                 --body-size: clamp(0.75rem, 1.1vw, 1rem);
             }
         }
         @media (max-width: 600px) {
-            :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+            :root {
+                --title-size: clamp(1.25rem, 7vw, 2.5rem);
+            }
             .grid { grid-template-columns: 1fr; }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -124,15 +126,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --black: #0a0a0a;
-            --white: #f8f8f8;
-            --gray-light: #ececec;
-            --gray-mid: #c0c0c0;
-            --gray-dark: #4a4a4a;
+            --black: #f8f8f8;
+            --white: #0a0a0a;
+            --gray-light: #1a1a1a;
+            --gray-mid: #404040;
+            --gray-dark: #b5b5b5;
             --text-primary: var(--white);
-            --text-secondary: rgba(255, 255, 255, 0.55);
+            --text-secondary: rgba(0, 0, 0, 0.55);
             --bg-primary: var(--black);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(0, 0, 0, 0.1);
 
             --font-display: 'Archivo Black', sans-serif;
             --font-body: 'Nunito', sans-serif;
@@ -166,21 +168,13 @@
         .grid-bg-dark {
             background-color: var(--black);
             background-image:
-                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-            background-size: clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px);
-        }
-        .grid-bg-light {
-            background-color: var(--white);
-            background-image:
                 linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
             background-size: clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px);
         }
 
-        /* Dark and light slide variants */
+        /* Slide variants — White preset uses --dark (white bg) for all slides */
         .slide--dark { background: var(--black); color: var(--white); }
-        .slide--light { background: var(--white); color: var(--black); }
 
         /* ===========================================
            REVEAL ANIMATIONS
@@ -219,7 +213,7 @@
             font-family: var(--font-body);
             font-size: clamp(0.75rem, 1.3vw, 1.1rem);
             font-weight: 300;
-            color: rgba(0, 0, 0, 0.45);
+            color: rgba(0, 0, 0, 0.55);
             line-height: 1.4;
             margin-top: clamp(0.2rem, 0.5vh, 0.4rem);
             display: -webkit-box;
@@ -228,24 +222,26 @@
             overflow: hidden;
         }
         .slide--dark .slide-header .slide-subtitle {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(0, 0, 0, 0.55);
         }
 
-        /* Section title — top-right */
+        /* Section title — top-right, ABOVE the slide-header border.
+           Uses smaller top than --slide-padding to avoid overlapping
+           the 3px border-top of .slide-header. */
         .section-title {
             position: absolute;
-            top: var(--slide-padding);
+            top: clamp(0.4rem, 1.2vw, 0.75rem);
             right: var(--slide-padding);
             font-family: var(--font-body);
             font-size: var(--label-size);
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(0, 0, 0, 0.3);
             opacity: 0;
             transition: opacity 0.3s ease 0.15s;
         }
         .slide.visible .section-title { opacity: 1; }
-        .slide--light .section-title { color: rgba(0, 0, 0, 0.3); }
+        .slide--dark .section-title { color: rgba(0, 0, 0, 0.3); }
 
         /* Slide number — bottom footer */
         .slide-num-label {
@@ -268,8 +264,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 var(--slide-padding);
-            border-top: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(0, 0, 0, 0.35);
+            border-top: 1px solid rgba(0, 0, 0, 0.14);
+            background: rgba(0, 0, 0, 0.08);
             opacity: 0;
             transition: opacity 0.3s ease 0.25s;
         }
@@ -279,14 +275,14 @@
             font-size: var(--label-size);
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.55);
+            color: rgba(0, 0, 0, 0.55);
         }
-        /* Light slide footer */
-        .slide--light .bottom-rule {
-            border-top-color: rgba(0, 0, 0, 0.12);
-            background: rgba(255, 255, 255, 0.8);
+        /* White preset footer — light bg throughout */
+        .slide--dark .bottom-rule {
+            border-top-color: rgba(0, 0, 0, 0.14);
+            background: rgba(0, 0, 0, 0.08);
         }
-        .slide--light .bottom-rule span { color: rgba(0, 0, 0, 0.5); }
+        .slide--dark .bottom-rule span { color: rgba(0, 0, 0, 0.55); }
 
         /* ===========================================
            CALLOUT — left-bordered quote block
@@ -302,7 +298,7 @@
             font-style: italic;
             line-height: 1.5;
         }
-        .callout--faint { border-left-color: rgba(255, 255, 255, 0.35); }
+        .callout--faint { border-left-color: rgba(0, 0, 0, 0.35); }
 
         /* ===========================================
            1. TITLE SLIDE — dark, dramatic
@@ -354,8 +350,8 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             padding: clamp(3px, 0.5vw, 5px) clamp(8px, 1vw, 12px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.5);
         }
 
         /* Title decorative lines */
@@ -389,8 +385,8 @@
            2. CONTENT SLIDE — light variant with table
            =========================================== */
         .slide.content-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
 
         .content-slide .slide-content {
@@ -453,7 +449,7 @@
         }
         .prop-item {
             padding: clamp(0.6rem, 1.5vh, 1rem) clamp(0.75rem, 1.5vw, 1rem);
-            border: 1px solid var(--gray-light);
+            border: 1px solid var(--gray-mid);
         }
         .slide--dark .prop-item { border-color: rgba(255, 255, 255, 0.1); }
         .prop-item.full { grid-column: 1 / -1; }
@@ -487,13 +483,13 @@
         }
 
         .code-container {
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.03);
         }
 
         .code-tab-bar {
             display: flex;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
         }
 
         .code-tab {
@@ -503,10 +499,10 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.45);
+            color: rgba(0, 0, 0, 0.45);
         }
         .code-tab.active {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.08);
             color: var(--white);
         }
 
@@ -516,7 +512,7 @@
             font-size: var(--code-size);
             line-height: 1.7;
             overflow-x: auto;
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(0, 0, 0, 0.85);
         }
 
         .code-container .kw { color: #93c5fd; font-weight: 600; }
@@ -550,7 +546,7 @@
         .quote-slide .attribution {
             font-family: var(--font-body);
             font-size: var(--body-size);
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(0, 0, 0, 0.35);
             margin-top: clamp(1rem, 2.5vw, 2rem);
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -570,8 +566,8 @@
            6. IMAGE SLIDE — light variant
            =========================================== */
         .slide.image-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
 
         .image-slide .slide-content {
@@ -593,7 +589,7 @@
         .image-placeholder {
             aspect-ratio: 4/3;
             max-height: min(50vh, 400px);
-            border: 1px solid var(--gray-mid);
+            border: 1px solid var(--gray-light);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -634,7 +630,7 @@
             padding: clamp(0.4rem, 1vh, 0.65rem) clamp(0.5rem, 1.2vw, 0.9rem);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .slide--light .step-item { border-color: var(--gray-light); }
+        .slide--dark .step-item { border-color: var(--gray-light); }
         .step-num {
             font-family: var(--font-display);
             font-size: clamp(1.25rem, 2.5vw, 1.75rem);
@@ -734,8 +730,8 @@
            8. AGENDA / TOC — light
            =========================================== */
         .slide.agenda-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
         .agenda-slide .slide-content {
             gap: var(--content-gap);
@@ -752,13 +748,13 @@
             align-items: center;
             gap: clamp(0.75rem, 2vw, 1.25rem);
             padding: clamp(0.6rem, 1.2vh, 0.85rem) clamp(0.75rem, 1.5vw, 1rem);
-            border: 1px solid var(--gray-light);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             transition: background 0.25s, color 0.25s;
         }
         .agenda-item.active {
-            background: var(--black);
+            background: rgba(0, 0, 0, 0.04);
             color: var(--white);
-            border-color: var(--black);
+            border-color: rgba(0, 0, 0, 0.15);
         }
         .agenda-num {
             font-family: var(--font-display);
@@ -786,8 +782,8 @@
            9. TIMELINE / ROADMAP — light
            =========================================== */
         .slide.timeline-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
         .timeline-slide .slide-content {
             gap: var(--content-gap);
@@ -864,8 +860,8 @@
            10. COMPARISON — light, two columns
            =========================================== */
         .slide.comparison-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
         .comparison-slide .slide-content {
             gap: var(--content-gap);
@@ -913,8 +909,8 @@
            11. TABLE / MATRIX — light
            =========================================== */
         .slide.table-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
         .table-slide .slide-content {
             gap: var(--content-gap);
@@ -929,7 +925,7 @@
         .data-table td {
             padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.5rem, 1.2vw, 0.9rem);
             text-align: left;
-            border: 1px solid var(--gray-light);
+            border: 1px solid var(--gray-mid);
             font-size: var(--body-size);
             line-height: 1.4;
         }
@@ -939,7 +935,7 @@
             font-weight: normal;
         }
         .data-table tbody td:first-child {
-            background: rgba(0, 0, 0, 0.04);
+            background: rgba(255, 255, 255, 0.04);
             font-family: var(--font-display);
             font-weight: normal;
         }
@@ -949,7 +945,7 @@
             border-color: rgba(255, 255, 255, 0.1);
         }
         .slide--dark .data-table thead th {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.08);
         }
         .slide--dark .data-table tbody td:first-child {
             background: rgba(255, 255, 255, 0.05);
@@ -996,7 +992,7 @@
         .stat-context {
             font-family: var(--font-body);
             font-size: var(--small-size);
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(0, 0, 0, 0.3);
             margin-top: clamp(1.5rem, 3vh, 2.5rem);
             text-align: center;
             line-height: 1.5;
@@ -1010,8 +1006,8 @@
            13. PROCESS / FLOW — light
            =========================================== */
         .slide.process-slide {
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
         }
         .process-slide .slide-content {
             gap: var(--content-gap);
@@ -1029,7 +1025,7 @@
             display: flex;
             flex-direction: column;
             padding: clamp(0.6rem, 1.2vh, 0.9rem) clamp(0.6rem, 1.2vw, 0.9rem);
-            border: 1px solid var(--gray-light);
+            border: 1px solid var(--gray-mid);
             position: relative;
         }
         .process-step + .process-step { border-left: none; }
@@ -1117,7 +1113,7 @@
             font-size: var(--label-size);
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(0, 0, 0, 0.35);
         }
         .closing-contact-value {
             font-family: var(--font-body);
@@ -1324,7 +1320,7 @@
             font-size: clamp(0.55rem, 1vw, 0.75rem);
             fill: rgba(255, 255, 255, 0.95);
             paint-order: stroke;
-            stroke: rgba(0, 0, 0, 0.3);
+            stroke: rgba(255, 255, 255, 0.3);
             stroke-width: 2px;
         }
 
@@ -1477,7 +1473,7 @@
             transition: transform 0.6s var(--ease-out-expo);
             grid-column: calc(var(--gantt-start) + 1) / calc(var(--gantt-end) + 1);
             paint-order: stroke;
-            stroke: rgba(0, 0, 0, 0.3);
+            stroke: rgba(255, 255, 255, 0.3);
             stroke-width: 2px;
         }
         .slide.visible .gantt-bar { transform: scaleX(1); }
@@ -1624,7 +1620,7 @@
          SLIDE 2: AGENDA / TOC (light)
          Numbered section list with active highlight
          ============================================ -->
-    <section class="slide agenda-slide slide--light grid-bg-light" data-slide="2">
+    <section class="slide agenda-slide slide--dark grid-bg-dark" data-slide="2">
         <div class="section-title">Overview</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -1687,7 +1683,7 @@
          SLIDE 4: CONTENT SLIDE (light)
          Feature table with key/value rows
          ============================================ -->
-    <section class="slide content-slide slide--light grid-bg-light" data-slide="4">
+    <section class="slide content-slide slide--dark grid-bg-dark" data-slide="4">
         <div class="section-title">Design</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -1732,7 +1728,7 @@
          SLIDE 5: FEATURE GRID SLIDE (light)
          2-column property grid
          ============================================ -->
-    <section class="slide grid-slide slide--light grid-bg-light" data-slide="5">
+    <section class="slide grid-slide slide--dark grid-bg-dark" data-slide="5">
         <div class="section-title">Features</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -1777,7 +1773,7 @@
          SLIDE 6: COMPARISON (light)
          Two-column comparison layout
          ============================================ -->
-    <section class="slide comparison-slide slide--light grid-bg-light" data-slide="6">
+    <section class="slide comparison-slide slide--dark grid-bg-dark" data-slide="6">
         <div class="section-title">Compare</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -1818,7 +1814,7 @@
          SLIDE 7: TABLE / MATRIX (light)
          Full data table with header and leading column
          ============================================ -->
-    <section class="slide table-slide slide--light grid-bg-light" data-slide="7">
+    <section class="slide table-slide slide--dark grid-bg-dark" data-slide="7">
         <div class="section-title">Data</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -1879,7 +1875,7 @@
          SLIDE 8: TIMELINE / ROADMAP (light)
          Horizontal timeline with milestones
          ============================================ -->
-    <section class="slide timeline-slide slide--light grid-bg-light" data-slide="8">
+    <section class="slide timeline-slide slide--dark grid-bg-dark" data-slide="8">
         <div class="section-title">Roadmap</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -1924,7 +1920,7 @@
          SLIDE 9: PROCESS / FLOW (light)
          Horizontal process steps with arrows
          ============================================ -->
-    <section class="slide process-slide slide--light grid-bg-light" data-slide="9">
+    <section class="slide process-slide slide--dark grid-bg-dark" data-slide="9">
         <div class="section-title">Process</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2010,7 +2006,7 @@
     <!-- ============================================
          SLIDE 11: IMAGE SLIDE (light)
          ============================================ -->
-    <section class="slide image-slide slide--light grid-bg-light" data-slide="11">
+    <section class="slide image-slide slide--dark grid-bg-dark" data-slide="11">
         <div class="section-title">Media</div>
         <div class="slide-content">
             <div>
@@ -2084,7 +2080,7 @@
          SLIDE 14: DONUT CHART (light)
          Donut chart — market share breakdown
          ============================================ -->
-    <section class="slide chart-donut-slide slide--light grid-bg-light" data-slide="14">
+    <section class="slide chart-donut-slide slide--dark grid-bg-dark" data-slide="14">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2156,7 +2152,7 @@
          SLIDE 15: BAR CHART (light)
          Horizontal bars — comparative quantities
          ============================================ -->
-    <section class="slide chart-bar-slide slide--light grid-bg-light" data-slide="15">
+    <section class="slide chart-bar-slide slide--dark grid-bg-dark" data-slide="15">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2282,7 +2278,7 @@
          SLIDE 17: FUNNEL (light)
          SVG trapezoids — narrowing pipeline
          ============================================ -->
-    <section class="slide funnel-slide slide--light grid-bg-light" data-slide="17">
+    <section class="slide funnel-slide slide--dark grid-bg-dark" data-slide="17">
         <div class="section-title">Data Viz</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2332,7 +2328,7 @@
          SLIDE 19: CIRCULAR PROCESS FLOW
          SVG steps around a circle with arrow arcs
          ============================================ -->
-    <section class="slide cycle-slide slide--light grid-bg-light" data-slide="19">
+    <section class="slide cycle-slide slide--dark grid-bg-dark" data-slide="19">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2387,7 +2383,7 @@
          SLIDE 20: CONVERGE
          SVG bezier paths merging to single output
          ============================================ -->
-    <section class="slide converge-slide slide--light grid-bg-light" data-slide="20">
+    <section class="slide converge-slide slide--dark grid-bg-dark" data-slide="20">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2479,7 +2475,7 @@
          SLIDE 22: GANTT CHART
          CSS grid with overlapping phase bars
          ============================================ -->
-    <section class="slide gantt-slide slide--light grid-bg-light" data-slide="22">
+    <section class="slide gantt-slide slide--dark grid-bg-dark" data-slide="22">
         <div class="section-title">Diagrams</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2541,7 +2537,7 @@
          SLIDE 23: SPLIT (light)
          Half & half — bullets left, table right
          ============================================ -->
-    <section class="slide split-slide slide--light grid-bg-light" data-slide="23">
+    <section class="slide split-slide slide--dark grid-bg-dark" data-slide="23">
         <div class="section-title">Composites</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2598,7 +2594,7 @@
          SLIDE 24: QUADRANT (light)
          2x2 dashboard — ring, donut, bullets, table
          ============================================ -->
-    <section class="slide quadrant-slide slide--light grid-bg-light" data-slide="24">
+    <section class="slide quadrant-slide slide--dark grid-bg-dark" data-slide="24">
         <div class="section-title">Composites</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2691,7 +2687,7 @@
          SLIDE 25: THIRD SPLIT (light)
          1/3 progress ring + 2/3 bar chart
          ============================================ -->
-    <section class="slide third-slide slide--light grid-bg-light" data-slide="25">
+    <section class="slide third-slide slide--dark grid-bg-dark" data-slide="25">
         <div class="section-title">Composites</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2754,7 +2750,7 @@
          SLIDE 26: THREE COLUMN (light)
          3 equal columns with zone-titles
          ============================================ -->
-    <section class="slide three-col-slide slide--light grid-bg-light" data-slide="26">
+    <section class="slide three-col-slide slide--dark grid-bg-dark" data-slide="26">
         <div class="section-title">Composites</div>
         <div class="slide-content">
             <div class="slide-header reveal">
@@ -2913,7 +2909,7 @@
                 const container = document.getElementById('navDots');
                 if (!container) return;
                 const current = this.slides[this.currentSlide];
-                const isLight = current.classList.contains('slide--light') &&
+                const isLight = current.classList.contains('slide--dark') &&
                     !current.classList.contains('closing-slide') &&
                     !current.classList.contains('chart-progress-slide') &&
                     !current.classList.contains('roadmap-slide');

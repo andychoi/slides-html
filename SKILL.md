@@ -93,6 +93,7 @@ Determine what the user wants:
 - **Mode A: New Presentation** — Create from scratch. Go to Phase 1.
 - **Mode B: PPT Conversion** — Convert a .pptx file. Go to Phase 4.
 - **Mode C: Enhancement** — Improve an existing HTML presentation. Read it, understand it, enhance. **Follow Mode C modification rules below.**
+- **Mode D: Direct Generation** — Content file + style both specified upfront (e.g., `content.md using white style`). Parse preset name, validate against known presets (White, Black, Blue, Black Midnight), skip Phase 1 & Phase 2, go directly to Phase 3.
 
 ### Mode C: Modification Rules
 
@@ -174,13 +175,13 @@ Based on mood, generate 3 distinct single-slide HTML previews showing typography
 
 | Mood | Suggested Presets |
 |------|-------------------|
-| Corporate/Professional | Black, Blue |
+| Corporate/Professional | White, Black, Blue |
 | Impressed/Confident | Black Midnight, Blue |
-| Excited/Energized | Black Midnight, Bold Signal |
-| Calm/Focused | Black, Red |
-| Inspired/Moved | Black Midnight, Red |
+| Excited/Energized | Black Midnight |
+| Calm/Focused | White, Black |
+| Inspired/Moved | Black Midnight |
 
-**Preset priority order:** Black → Blue → Black Midnight → Red → Bold Signal
+**Preset priority order:** White → Black → Blue → Black Midnight
 
 Save previews to `.claude-design/slide-previews/` (style-a.html, style-b.html, style-c.html). Each should be self-contained, ~50-100 lines, showing one animated title slide.
 
@@ -206,9 +207,22 @@ If images were provided, the slide outline already incorporates them from Step 1
 - [reference/viewport-base.css](reference/viewport-base.css) — Mandatory CSS (include in full)
 - [reference/animation-patterns.md](reference/animation-patterns.md) — Animation reference for the chosen feeling
 
+### Preset-Specific CSS Rules
+
+**White preset:**
+- Color variables are INVERTED: `--black: #f8f8f8` (white), `--white: #0a0a0a` (dark text)
+- **ALL slides use `.slide--dark` class** (no alternation) → consistent white background with dark text
+- All slides include `.grid-bg-dark` for subtle grid pattern (dark lines on white)
+- 100% white backgrounds throughout for a clean, professional, distraction-free appearance
+- No layout-type-specific variants — all 26 layout types render identically (white bg, dark text)
+- **Component styling:** Light borders for lists (agenda, timeline), subtle active states — copy all preset-specific patterns from STYLE_PRESETS.md
+
+**All other presets** (Black, Blue, Black Midnight): Follow standard pattern where `--black` is dark, `--white` is light.
+
 **Key requirements:**
 - Single self-contained HTML file, all CSS/JS inline
 - Include the FULL contents of viewport-base.css in the `<style>` block
+- **Read STYLE_PRESETS.md in full** and extract all preset-specific CSS patterns (especially "Key CSS patterns" sections and component overrides)
 - Use fonts from Fontshare or Google Fonts — never system fonts
 - Add detailed comments explaining each section
 - Every section needs a clear `/* === SECTION NAME === */` comment block
@@ -242,8 +256,8 @@ When converting PowerPoint files:
 
 | File | Purpose | When to Read |
 |------|---------|-------------|
-| [CONTENT_TYPES.md](CONTENT_TYPES.md) | 14 layout types with CSS classes, structure, and selection guide | Phase 1 (content planning) + Phase 3 (generation) |
-| [STYLE_PRESETS.md](STYLE_PRESETS.md) | 5 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
+| [CONTENT_TYPES.md](CONTENT_TYPES.md) | 26 layout types with CSS classes, structure, and selection guide | Phase 1 (content planning) + Phase 3 (generation) |
+| [STYLE_PRESETS.md](STYLE_PRESETS.md) | 4 curated visual presets with colors, fonts, and signature elements | Phase 2 (style selection) |
 | [reference/viewport-base.css](reference/viewport-base.css) | Mandatory responsive CSS — copy into every presentation | Phase 3 (generation) |
 | [reference/html-template.md](reference/html-template.md) | HTML structure, JS features, code quality standards | Phase 3 (generation) |
 | [reference/animation-patterns.md](reference/animation-patterns.md) | CSS/JS animation snippets and effect-to-feeling guide | Phase 3 (generation) |

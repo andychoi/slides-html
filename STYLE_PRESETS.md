@@ -4,59 +4,129 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
 
 **Viewport CSS:** For mandatory base styles, see [reference/viewport-base.css](reference/viewport-base.css). Include in every presentation.
 
+## Quick View: Sample Presentations
+
+Each preset has a reference HTML file showing all 26 layout types in action:
+
+| Preset | Sample | File |
+|--------|--------|------|
+| White | [View →](style-samples/01-white.html) | `style-samples/01-white.html` |
+| Black | [View →](style-samples/02-black.html) | `style-samples/02-black.html` |
+| Blue | [View →](style-samples/03-blue.html) | `style-samples/03-blue.html` |
+| Black Midnight | [View →](style-samples/04-black-midnight.html) | `style-samples/04-black-midnight.html` |
+
 ---
 
-## Red
+## White
 
-**Vibe:** Clean, structured, top-aligned with bold red accent
+**Vibe:** Clean, bright, minimal — light-first with dark text
 
-**Layout:** Slide title (h2) positioned absolute top-left via `.slide-title`, section title top-right via `.section-title` in light grey. Body top-aligned (not vertically centered). Title slide has slim barline between title and subtitle rows.
+**Layout:** Slide header with 3px top border rule. Section title top-right. Footer bar at bottom. ALL slides use white backgrounds consistently — no alternation (unlike Black preset).
 
 **Typography:**
-- Display: `Archivo` (800)
-- Body: `Nunito` (400)
+- Display: `Archivo Black` (900)
+- Body: `Nunito` (300/400/600/700)
 
 **Colors:**
 ```css
 :root {
-    --bg-primary: #ffffff;
-    --accent: #ff3300;
-    --text-primary: #000000;
-    --text-secondary: rgba(0, 0, 0, 0.5);
-    --grid-color: rgba(0, 0, 0, 0.06);
-    --border-color: rgba(0, 0, 0, 0.12);
-    /* Chart palette */
-    --chart-1: #ff3300;
-    --chart-2: #264653;
-    --chart-3: #e76f51;
-    --chart-4: #2a9d8f;
-    --chart-5: #e9c46a;
-    --chart-6: #606060;
+    --black: #f8f8f8;        /* Light backgrounds */
+    --white: #0a0a0a;        /* Dark text */
+    --gray-light: #1a1a1a;   /* Dark grays */
+    --gray-mid: #404040;
+    --gray-dark: #b5b5b5;    /* Light grays */
+    /* Chart palette — same as Black */
+    --chart-1: #3b82f6;
+    --chart-2: #ef4444;
+    --chart-3: #22c55e;
+    --chart-4: #f59e0b;
+    --chart-5: #8b5cf6;
+    --chart-6: #06b6d4;
     --chart-track: rgba(128, 128, 128, 0.15);
 }
 ```
 
-**Signature Elements:**
-- Top-aligned content (not vertically centered)
-- Slide title absolute top-left (`.slide-title`) with red bar `::after`
-- Section title top-right (`.section-title`) in light grey
-- Visible 6-column grid background (`.swiss-grid`)
-- Red accent geometric shapes and markers
+**Additional variables (extend viewport-base.css):**
+```css
+:root {
+    --subtitle-size: clamp(0.85rem, 1.8vw, 1.3rem);
+    --label-size: clamp(0.6rem, 1vw, 0.8rem);
+    --code-size: clamp(0.65rem, 1.2vw, 0.95rem);
+    --dur: 0.55s;
+}
+```
 
 **Key CSS patterns:**
+All slides use inverted color semantics with consistent white backgrounds. `--black: #f8f8f8` (light/white) and `--white: #0a0a0a` (dark text). All slides use `.slide--dark` class to display white background with dark text.
+
 ```css
-.slide-title {
+.grid-bg-dark {
+    background-color: var(--black);   /* #f8f8f8 — white */
+    background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px);
+}
+.slide--dark { background: var(--black); color: var(--white); }   /* white bg, dark text */
+.slide--light { background: var(--white); color: var(--black); } /* reserved for future use */
+
+.section-title {
     position: absolute;
-    top: var(--slide-padding);
-    left: var(--slide-padding);
+    top: clamp(0.4rem, 1.2vw, 0.75rem);
+    right: var(--slide-padding);
+    font-size: var(--label-size);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.3);  /* dark text on white */
+    opacity: 0; transition: opacity 0.3s ease 0.15s;
 }
-.slide-title::after {
-    content: ''; display: block;
-    width: 100%; height: 4px;
-    background: var(--accent);
+.slide.visible .section-title { opacity: 1; }
+
+.bottom-rule {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: clamp(32px, 5vh, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--slide-padding);
+    border-top: 1px solid rgba(0,0,0,0.14);
+    background: rgba(0,0,0,0.08);  /* subtle dark on white */
+    opacity: 0;
+    transition: opacity 0.3s ease 0.25s;
 }
-.content-slide .slide-content { padding-top: clamp(5rem, 12vh, 9rem); }
+.bottom-rule span {
+    font-family: var(--font-body);
+    font-size: var(--label-size);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Agenda and timeline items — light borders, subtle active state */
+.agenda-item {
+    border: 1px solid rgba(0, 0, 0, 0.1);   /* light gray border */
+}
+.agenda-item.active {
+    background: rgba(0, 0, 0, 0.04);        /* very subtle gray highlight */
+    border-color: rgba(0, 0, 0, 0.15);      /* slightly darker for active */
+}
+.timeline-item {
+    border: 1px solid rgba(0, 0, 0, 0.1);   /* light gray border */
+}
+.timeline-item.active {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.15);
+}
 ```
+
+**Signature Elements:**
+- **All white backgrounds** — 100% consistent white throughout (no alternation)
+- CSS grid background pattern (64px squares, subtle dark lines on white)
+- Slide header with 3px top border rule (`.slide-header`)
+- Feature tables (`.ftable` / `.frow`) for key/value data
+- Property grids (`.prop-grid` / `.prop-item`) for 2-column feature cards
+- Callout blocks with left border (`.callout`)
+- Title slide has overline text + tag pills
+- Dark text on white ensures high readability
 
 ---
 
@@ -121,8 +191,21 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
 .bottom-rule {
     position: absolute; bottom: 0; left: 0; right: 0;
     height: clamp(32px, 5vh, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--slide-padding);
     border-top: 1px solid rgba(255,255,255,0.14);
     background: rgba(0,0,0,0.35);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.25s;
+}
+.bottom-rule span {
+    font-family: var(--font-body);
+    font-size: var(--label-size);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
 }
 .slide--light .bottom-rule {
     border-top-color: rgba(0,0,0,0.12);
@@ -223,52 +306,14 @@ Curated visual styles for HTML slide presentations. Each preset is inspired by r
 
 ---
 
-## Bold Signal
-
-**Vibe:** Confident, bold, modern, high-impact
-
-**Layout:** Colored card on dark gradient. Number bottom-right, navigation top-right, title bottom-left.
-
-**Typography:**
-- Display: `Archivo Black` (900)
-- Body: `Space Grotesk` (400/500)
-
-**Colors:**
-```css
-:root {
-    --bg-primary: #1a1a1a;
-    --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-    --card-bg: #FF5722;
-    --text-primary: #ffffff;
-    --text-on-card: #1a1a1a;
-    /* Chart palette */
-    --chart-1: #FF5722;
-    --chart-2: #29b6f6;
-    --chart-3: #66bb6a;
-    --chart-4: #ffa726;
-    --chart-5: #ab47bc;
-    --chart-6: #ec407a;
-    --chart-track: rgba(128, 128, 128, 0.15);
-}
-```
-
-**Signature Elements:**
-- Bold colored card as focal point (orange, coral, or vibrant accent)
-- Large section numbers (01, 02, etc.)
-- Navigation breadcrumbs with active/inactive opacity states
-- Grid-based layout for precise alignment
-
----
-
 ## Font Pairing Quick Reference
 
 | Preset | Display Font | Body Font | Source |
 |--------|--------------|-----------|--------|
-| Red | Archivo | Nunito | Google |
+| White | Archivo Black | Nunito | Google |
 | Black | Archivo Black | Nunito | Google |
 | Blue | Archivo Black | Nunito | Google |
 | Black Midnight | Archivo Black | Nunito | Google |
-| Bold Signal | Archivo Black | Space Grotesk | Google |
 
 ---
 
